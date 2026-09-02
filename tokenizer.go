@@ -1,26 +1,31 @@
 package bpe
 
 import (
+	"fmt"
 	"unicode/utf8"
 
+	"github.com/gosimd/bpe/internal/addedtoken"
 	internaltokenizer "github.com/gosimd/bpe/internal/tokenizer"
 )
 
 // TokenizerOptions configures the supported GPT-2 ByteLevel pre-tokenizer.
-//
-// AddPrefixSpace has the same meaning as Hugging Face ByteLevel's
-// add_prefix_space option. NewTokenizer uses true, matching the Hugging Face
-// ByteLevel default. NewTokenizerWithOptions permits an explicit false value.
 type TokenizerOptions struct {
+	// AddPrefixSpace has the same meaning as Hugging Face ByteLevel's
+	// add_prefix_space option. NewTokenizer uses true, matching the Hugging
+	// Face ByteLevel default. NewTokenizerWithOptions permits false.
 	AddPrefixSpace bool
+
+	// AddedTokens are immutable definitions matched before ByteLevel and BPE.
+	// The constructor validates and copies the slice.
+	AddedTokens []AddedToken
 }
 
-// Tokenizer tokenizes raw UTF-8 input with the GPT-2 ByteLevel pre-tokenizer
-// and an immutable BPE Model.
+// Tokenizer extracts configured AddedTokens, then tokenizes remaining raw
+// UTF-8 input with the GPT-2 ByteLevel pre-tokenizer and an immutable BPE Model.
 //
 // It is safe for concurrent use. This initial API intentionally does not load
-// tokenizer.json or implement normalizers, added tokens, post-processing,
-// padding, truncation, or decoding.
+// tokenizer.json or implement normalizers, post-processing, padding,
+// truncation, or decoding.
 type Tokenizer struct {
 	impl *internaltokenizer.Tokenizer
 }
@@ -37,7 +42,48 @@ func NewTokenizerWithOptions(model *Model, options TokenizerOptions) (*Tokenizer
 	if model == nil || model.impl == nil {
 		return nil, ErrNilModel
 	}
-	return &Tokenizer{impl: internaltokenizer.New(model.impl, options.AddPrefixSpace)}, nil
+	definitions, err := validateAddedTokens(model, options.AddedTokens)
+	if err != nil {
+		return nil, err
+	}
+	return &Tokenizer{impl: internaltokenizer.New(model.impl, options.AddPrefixSpace, definitions)}, nil
+}
+
+func validateAddedTokens(model *Model, tokens []AddedToken) ([]addedtoken.Definition, error) {
+	definitions := make([]addedtoken.Definition, len(tokens))
+	contents := make(map[string]int, len(tokens))
+	ids := make(map[uint32]int, len(tokens))
+	for index, token := range tokens {
+		if token.Content == "" {
+			return nil, fmt.Errorf("%w: token %d has empty content", ErrInvalidAddedToken, index)
+		}
+		if !utf8.ValidString(token.Content) {
+			return nil, fmt.Errorf("%w: token %d content is not valid UTF-8", ErrInvalidAddedToken, index)
+		}
+		if previous, ok := contents[token.Content]; ok {
+			return nil, fmt.Errorf("%w: tokens %d and %d have duplicate content %q", ErrInvalidAddedToken, previous, index, token.Content)
+		}
+		if previous, ok := ids[token.ID]; ok {
+			return nil, fmt.Errorf("%w: tokens %d and %d have duplicate ID %d", ErrInvalidAddedToken, previous, index, token.ID)
+		}
+		if id, ok := model.TokenToID(token.Content); ok && id != token.ID {
+			return nil, fmt.Errorf("%w: content %q has model ID %d, not %d", ErrInvalidAddedToken, token.Content, id, token.ID)
+		}
+		if content, ok := model.IDToToken(token.ID); ok && content != token.Content {
+			return nil, fmt.Errorf("%w: ID %d belongs to model token %q, not %q", ErrInvalidAddedToken, token.ID, content, token.Content)
+		}
+		contents[token.Content] = index
+		ids[token.ID] = index
+		definitions[index] = addedtoken.Definition{
+			ID:         token.ID,
+			Content:    token.Content,
+			SingleWord: token.SingleWord,
+			LStrip:     token.LStrip,
+			RStrip:     token.RStrip,
+			Normalized: token.Normalized,
+		}
+	}
+	return definitions, nil
 }
 
 // Encode tokenizes raw UTF-8 text and returns IDs with offsets in the original

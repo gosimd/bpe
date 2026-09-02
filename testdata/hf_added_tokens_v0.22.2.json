@@ -1,0 +1,136 @@
+{
+  "upstream": "huggingface/tokenizers",
+  "version": "0.22.2",
+  "generator": "scripts/generate_hf_added_token_fixtures.py",
+  "cases": [
+    {
+      "name": "basic-special",
+      "vocab": {
+        "a": 0,
+        "b": 1
+      },
+      "add_prefix_space": false,
+      "added_tokens": [
+        {
+          "id": 2,
+          "content": "<|end|>",
+          "special": true
+        }
+      ],
+      "input": "a<|end|>b",
+      "ids": [
+        0,
+        2,
+        1
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          8,
+          9
+        ]
+      ]
+    },
+    {
+      "name": "prefix-space-per-segment",
+      "vocab": {
+        "Ġa": 0,
+        "Ġb": 1
+      },
+      "add_prefix_space": true,
+      "added_tokens": [
+        {
+          "id": 2,
+          "content": "<x>",
+          "special": true
+        }
+      ],
+      "input": "a<x>b",
+      "ids": [
+        0,
+        2,
+        1
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "name": "single-word-and-strip",
+      "vocab": {},
+      "add_prefix_space": false,
+      "added_tokens": [
+        {
+          "id": 0,
+          "content": "<mask>",
+          "single_word": true,
+          "lstrip": true,
+          "rstrip": true
+        },
+        {
+          "id": 1,
+          "content": "<mask>long"
+        }
+      ],
+      "input": "A<mask>  <mask>\t <mask>long",
+      "ids": [
+        0,
+        1
+      ],
+      "offsets": [
+        [
+          7,
+          17
+        ],
+        [
+          17,
+          27
+        ]
+      ]
+    },
+    {
+      "name": "non-normalized-phase-first",
+      "vocab": {},
+      "add_prefix_space": false,
+      "added_tokens": [
+        {
+          "id": 0,
+          "content": "a"
+        },
+        {
+          "id": 1,
+          "content": "ab",
+          "normalized": true
+        }
+      ],
+      "input": "ab",
+      "ids": [
+        0
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ]
+      ]
+    }
+  ]
+}

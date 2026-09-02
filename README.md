@@ -65,8 +65,9 @@ The public API has two layers:
   before delegating each piece to `Model`. See
   [docs/Tokenizer.md](docs/Tokenizer.md).
 
-The configurable tokenizer facade will later add normalizers, model-specific
-pre-tokenization, added tokens, and post-processing.
+`TokenizerOptions.AddedTokens` configures immutable AddedToken matching before
+ByteLevel pre-tokenization. The configurable tokenizer facade will later add
+normalizers, model-specific pre-tokenization, and post-processing.
 
 ## Compatibility testing
 
@@ -93,11 +94,11 @@ work and must not present allocation differences as kernel speedups.
 
 ## Development status
 
-The scalar `Model` and GPT-2 ByteLevel `Tokenizer` are implemented and covered
-by unit, race, and parser fuzz tests. The next milestone is pinned differential
-fixtures from Hugging Face Tokenizers, then additional model-specific
-pre-tokenizers. SIMD work starts only after that compatibility suite and
-representative benchmarks exist.
+The scalar `Model`, AddedToken matcher, and GPT-2 ByteLevel `Tokenizer` are
+implemented and covered by unit, race, fuzz, and initial Hugging Face 0.22.2
+differential tests. The next milestone is broader pinned differential fixtures,
+then additional model-specific pre-tokenizers. SIMD work starts only after that
+compatibility suite and representative benchmarks exist.
 
 ## License
 
