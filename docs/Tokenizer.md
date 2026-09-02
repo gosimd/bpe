@@ -131,11 +131,25 @@ if err != nil {
 }
 ```
 
-All encode variants and `AppendIDs` require valid UTF-8. They return
-`bpe.ErrInvalidUTF8` for an invalid Go string; `AppendIDs` leaves its
-destination unchanged on that error. Without `TemplateProcessing`,
-`AppendIDs` avoids constructing offsets. With a template it materializes the
-configured layout internally so that inserted and reordered IDs remain exact.
+`AppendIDsWithOptions` provides the same `AddSpecialTokens` control as the
+full-encoding methods.
+
+All encode and ID-append variants require valid UTF-8. They return
+`bpe.ErrInvalidUTF8` for an invalid Go string; the append methods leave their
+destination unchanged on that error.
+
+`AppendIDs` is a separate ID-only pipeline. It does not construct offsets,
+token strings, type IDs, or the other parallel slices in `Encoding`. One
+borrowed scratch value is reused for AddedToken segments, ByteLevel pieces,
+byte mapping, BPE symbols, merge candidates, and any temporary template ID
+sequence. Scratch values belong to an internal concurrency-safe pool, so
+simultaneous calls never share mutable buffers. The Go runtime may discard a
+pooled value during garbage collection.
+
+The tokenizer never retains `dst` or `text`. Preallocate `dst` and pass
+`dst[:0]` on the next independent input to reuse its output capacity; pass the
+previous result unchanged when IDs from consecutive inputs should be
+concatenated.
 
 ## Post-processing
 

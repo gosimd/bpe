@@ -20,6 +20,7 @@ type Token struct {
 // Processor transforms one or two already tokenized input sequences.
 type Processor interface {
 	Process(first, second []Token, pair, addSpecialTokens bool) []Token
+	AppendIDs(dst, first, second []uint32, pair, addSpecialTokens bool) []uint32
 	AffectsIDs() bool
 }
 

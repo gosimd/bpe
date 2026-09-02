@@ -560,6 +560,13 @@ func TestTemplateProcessingAppendIDsCopiesConfigurationAndIsConcurrentSafe(t *te
 	if want := []uint32{7, 10, 1, 10}; !reflect.DeepEqual(got, want) {
 		t.Fatalf("AppendIDs() = %v, want %v", got, want)
 	}
+	got, err = tokenizer.AppendIDsWithOptions(got[:1], "a", bpe.EncodeOptions{AddSpecialTokens: false})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := []uint32{7, 1}; !reflect.DeepEqual(got, want) {
+		t.Fatalf("AppendIDsWithOptions() = %v, want %v", got, want)
+	}
 
 	const goroutines = 16
 	var group sync.WaitGroup

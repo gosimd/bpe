@@ -68,6 +68,22 @@ func TestSplitStripsUnicodeWhitespace(t *testing.T) {
 	assertSegments(t, got, want)
 }
 
+func TestSplitWithScratchMatchesSplit(t *testing.T) {
+	matcher := New([]Definition{
+		{ID: 1, Content: "<raw>", LStrip: true},
+		{ID: 2, Content: "é", Normalized: true},
+	})
+	const input = "a <raw>b é"
+	first := make([]Segment, 0, 8)
+	second := make([]Segment, 0, 8)
+	got, spare := matcher.SplitWithScratch(input, first, second)
+	want := matcher.Split(input)
+	assertSegments(t, got, want)
+
+	got, _ = matcher.SplitWithScratch(input, got, spare)
+	assertSegments(t, got, want)
+}
+
 func FuzzSplitCoversInput(f *testing.F) {
 	f.Add("a <x> b")
 	f.Add("é\t<x>\u2000")

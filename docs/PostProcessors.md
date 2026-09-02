@@ -52,7 +52,7 @@ pair, err := tokenizer.EncodePairWithOptions(
 This flag affects only tokens inserted by `TemplateProcessing`. It does not
 disable matching of `TokenizerOptions.AddedTokens` already present in input.
 `AppendIDs` follows `Encode` and therefore inserts configured template special
-tokens.
+tokens. `AppendIDsWithOptions` can disable those insertions.
 
 ### Template syntax
 

@@ -90,6 +90,27 @@ func NewTemplate(single, pair string, specialTokens []SpecialToken) (*Template, 
 
 func (*Template) AffectsIDs() bool { return true }
 
+func (p *Template) AppendIDs(dst, first, second []uint32, pair, addSpecialTokens bool) []uint32 {
+	template := p.single
+	if pair {
+		template = p.pair
+	}
+	for _, item := range template {
+		if item.sequence != nil {
+			if *item.sequence == sequenceA {
+				dst = append(dst, first...)
+			} else {
+				dst = append(dst, second...)
+			}
+			continue
+		}
+		if addSpecialTokens {
+			dst = append(dst, p.specials[item.special].IDs...)
+		}
+	}
+	return dst
+}
+
 func (p *Template) Process(first, second []Token, pair, addSpecialTokens bool) []Token {
 	template := p.single
 	if pair {

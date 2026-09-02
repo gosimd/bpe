@@ -1,8 +1,6 @@
 package model
 
 import (
-	"container/heap"
-	"fmt"
 	"unicode/utf8"
 )
 
@@ -31,26 +29,57 @@ type candidate struct {
 
 type candidateHeap []candidate
 
-func (h candidateHeap) Len() int { return len(h) }
+// Scratch owns temporary model-tokenization storage. It contains no model
+// references and can be reused sequentially with different models and pieces.
+// A Scratch must not be used concurrently.
+type Scratch struct {
+	symbols    []symbol
+	candidates candidateHeap
+}
 
-func (h candidateHeap) Less(i, j int) bool {
-	if h[i].rank != h[j].rank {
-		return h[i].rank < h[j].rank
+func candidateLess(left, right candidate) bool {
+	if left.rank != right.rank {
+		return left.rank < right.rank
 	}
-	return h[i].left < h[j].left
+	return left.left < right.left
 }
 
-func (h candidateHeap) Swap(i, j int) { h[i], h[j] = h[j], h[i] }
-
-func (h *candidateHeap) Push(value any) {
-	*h = append(*h, value.(candidate))
+func (h *candidateHeap) push(value candidate) {
+	*h = append(*h, value)
+	child := len(*h) - 1
+	for child > 0 {
+		parent := (child - 1) / 2
+		if !candidateLess((*h)[child], (*h)[parent]) {
+			break
+		}
+		(*h)[parent], (*h)[child] = (*h)[child], (*h)[parent]
+		child = parent
+	}
 }
 
-func (h *candidateHeap) Pop() any {
-	old := *h
-	last := len(old) - 1
-	value := old[last]
-	*h = old[:last]
+func (h *candidateHeap) pop() candidate {
+	last := len(*h) - 1
+	value := (*h)[0]
+	(*h)[0] = (*h)[last]
+	*h = (*h)[:last]
+
+	parent := 0
+	for {
+		left := parent*2 + 1
+		if left >= len(*h) {
+			break
+		}
+		child := left
+		right := left + 1
+		if right < len(*h) && candidateLess((*h)[right], (*h)[left]) {
+			child = right
+		}
+		if !candidateLess((*h)[child], (*h)[parent]) {
+			break
+		}
+		(*h)[parent], (*h)[child] = (*h)[child], (*h)[parent]
+		parent = child
+	}
 	return value
 }
 
@@ -65,11 +94,14 @@ func (m *Model) Tokenize(piece string) []Token {
 		}
 	}
 
-	symbols := m.initialSymbols(piece)
+	scratch := m.scratchPool.Get().(*Scratch)
+	symbols := m.initialSymbols(scratch.symbols[:0], piece)
+	scratch.symbols = symbols
 	if len(symbols) == 0 {
+		m.scratchPool.Put(scratch)
 		return nil
 	}
-	m.mergeAll(symbols)
+	m.mergeAll(symbols, &scratch.candidates)
 
 	result := make([]Token, 0, len(symbols))
 	offset := 0
@@ -78,19 +110,55 @@ func (m *Model) Tokenize(piece string) []Token {
 		result = append(result, Token{ID: s.id, Start: offset, End: offset + s.length})
 		offset += s.length
 	}
+	m.scratchPool.Put(scratch)
 	return result
 }
 
-// AppendIDs appends the IDs produced by Tokenize to dst.
+// AppendIDs appends IDs using scratch borrowed from the model's concurrent
+// pool. The returned slice never aliases scratch storage.
 func (m *Model) AppendIDs(dst []uint32, piece string) []uint32 {
-	for _, token := range m.Tokenize(piece) {
-		dst = append(dst, token.ID)
+	if piece == "" {
+		return dst
+	}
+	if m.options.IgnoreMerges {
+		if id, ok := m.vocab[piece]; ok {
+			return append(dst, id)
+		}
+	}
+	scratch := m.scratchPool.Get().(*Scratch)
+	dst = m.AppendIDsWithScratch(dst, piece, scratch)
+	m.scratchPool.Put(scratch)
+	return dst
+}
+
+// AppendIDsWithScratch appends IDs without constructing Token results. It is
+// used by the raw-text tokenizer to reuse one allocation across many pieces.
+func (m *Model) AppendIDsWithScratch(dst []uint32, piece string, scratch *Scratch) []uint32 {
+	if piece == "" {
+		return dst
+	}
+	if m.options.IgnoreMerges {
+		if id, ok := m.vocab[piece]; ok {
+			return append(dst, id)
+		}
+	}
+
+	symbols := m.initialSymbols(scratch.symbols[:0], piece)
+	scratch.symbols = symbols
+	if len(symbols) == 0 {
+		return dst
+	}
+	m.mergeAll(symbols, &scratch.candidates)
+	for index := 0; index >= 0; index = symbols[index].next {
+		dst = append(dst, symbols[index].id)
 	}
 	return dst
 }
 
-func (m *Model) initialSymbols(piece string) []symbol {
-	symbols := make([]symbol, 0, utf8.RuneCountInString(piece))
+func (m *Model) initialSymbols(symbols []symbol, piece string) []symbol {
+	if additional := utf8.RuneCountInString(piece) - cap(symbols); additional > 0 {
+		symbols = make([]symbol, 0, cap(symbols)+additional)
+	}
 	appendSymbol := func(id uint32, length int) {
 		previous := len(symbols) - 1
 		if previous >= 0 {
@@ -136,11 +204,17 @@ func (m *Model) initialSymbols(piece string) []symbol {
 			continue
 		}
 		if m.options.ByteFallback {
-			fallback, ok := m.byteFallbackIDs(value)
-			if ok {
+			fallback := true
+			for index := 0; index < len(value); index++ {
+				if !m.byteFallbackPresent[value[index]] {
+					fallback = false
+					break
+				}
+			}
+			if fallback {
 				// Upstream associates one byte of offset with each fallback token.
-				for _, id := range fallback {
-					appendSymbol(id, 1)
+				for index := 0; index < len(value); index++ {
+					appendSymbol(m.byteFallbackIDs[value[index]], 1)
 				}
 				continue
 			}
@@ -160,37 +234,25 @@ func (m *Model) initialSymbols(piece string) []symbol {
 	return symbols
 }
 
-func (m *Model) byteFallbackIDs(value string) ([]uint32, bool) {
-	ids := make([]uint32, 0, len(value))
-	for _, b := range []byte(value) {
-		fallback := fmt.Sprintf("<0x%02X>", b)
-		id, ok := m.vocab[fallback]
-		if !ok {
-			return nil, false
-		}
-		ids = append(ids, id)
+func (m *Model) mergeAll(symbols []symbol, queue *candidateHeap) {
+	*queue = (*queue)[:0]
+	if additional := len(symbols) - cap(*queue); additional > 0 {
+		*queue = make(candidateHeap, 0, cap(*queue)+additional)
 	}
-	return ids, true
-}
-
-func (m *Model) mergeAll(symbols []symbol) {
-	queue := make(candidateHeap, 0, len(symbols))
 	pushPair := func(left int) {
 		right := symbols[left].next
 		if right < 0 {
 			return
 		}
 		if rule, ok := m.merges[pair{left: symbols[left].id, right: symbols[right].id}]; ok {
-			heap.Push(&queue, candidate{rank: rule.rank, left: left, right: right, newID: rule.newID})
+			queue.push(candidate{rank: rule.rank, left: left, right: right, newID: rule.newID})
 		}
 	}
 	for index := range symbols {
 		pushPair(index)
 	}
-	heap.Init(&queue)
-
-	for queue.Len() > 0 {
-		candidate := heap.Pop(&queue).(candidate)
+	for len(*queue) > 0 {
+		candidate := queue.pop()
 		left := &symbols[candidate.left]
 		if !left.alive || left.next != candidate.right {
 			continue

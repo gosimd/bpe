@@ -18,9 +18,12 @@ piece with the deterministic scalar BPE oracle. `Tokenizer` adds immutable
 AddedToken matching, the standard GPT-2 ByteLevel pre-tokenizer, pair encoding,
 TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
 post-processor behavior have pinned Hugging Face 0.22.2 differential fixtures.
+`Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
+scratch pools; scratch-reuse tests and initial public allocation benchmarks
+cover short model and raw-text inputs.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, and benchmarks are not implemented yet.
+SIMD, and representative benchmark families are not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this

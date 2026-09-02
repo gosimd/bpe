@@ -66,6 +66,17 @@ if err != nil {
 }
 ```
 
+`AppendIDs` executes the merge algorithm directly into `ids`; it does not
+construct `Token` values or offsets. Temporary symbol and candidate buffers are
+borrowed from a model-owned, concurrency-safe pool. A later call can reuse
+their capacity, while simultaneous calls receive independent scratch storage.
+The Go runtime may discard pooled storage during garbage collection, so reuse
+is an optimization rather than a lifetime guarantee.
+
+The caller retains ownership of `ids`. Reuse it with `ids[:0]` for independent
+pieces, or pass the previous result unchanged to concatenate IDs from several
+pieces. The model never retains the destination or input string.
+
 `Tokenize` and `AppendIDs` accept valid UTF-8 only. An invalid Go string
 returns `bpe.ErrInvalidUTF8`; `AppendIDs` leaves its destination unchanged in
 that case.

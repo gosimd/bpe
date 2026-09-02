@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"sync"
 )
 
 var (
@@ -44,10 +45,13 @@ type merge struct {
 
 // Model owns immutable copies of its input vocabulary and merge rules.
 type Model struct {
-	vocab   map[string]uint32
-	reverse map[uint32]string
-	merges  map[pair]merge
-	options Options
+	vocab               map[string]uint32
+	reverse             map[uint32]string
+	merges              map[pair]merge
+	options             Options
+	byteFallbackIDs     [256]uint32
+	byteFallbackPresent [256]bool
+	scratchPool         sync.Pool
 }
 
 // New validates and compiles a model. It copies vocab and merges, so callers
@@ -96,12 +100,23 @@ func New(vocab map[string]uint32, merges []Merge, options Options) (*Model, erro
 		compiledMerges[key] = merge{rank: uint32(rank), newID: newID}
 	}
 
-	return &Model{
+	compiled := &Model{
 		vocab:   compiledVocab,
 		reverse: reverse,
 		merges:  compiledMerges,
 		options: options,
-	}, nil
+	}
+	if options.ByteFallback {
+		for value := range 256 {
+			token := fmt.Sprintf("<0x%02X>", value)
+			if id, ok := compiledVocab[token]; ok {
+				compiled.byteFallbackIDs[value] = id
+				compiled.byteFallbackPresent[value] = true
+			}
+		}
+	}
+	compiled.scratchPool.New = func() any { return new(Scratch) }
+	return compiled, nil
 }
 
 func mergedToken(left, right, prefix string) (string, error) {

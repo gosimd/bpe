@@ -50,6 +50,27 @@ func TestMapUsesGPT2ByteAlphabetAndPreservesBoundaries(t *testing.T) {
 	}
 }
 
+func TestAppendSplitAndMapReuseDestinations(t *testing.T) {
+	pieces := make([]Piece, 0, 4)
+	pieces = AppendSplit(pieces, "Hello, world!")
+	wantPieces := Split("Hello, world!")
+	if len(pieces) != len(wantPieces) {
+		t.Fatalf("AppendSplit() = %#v, want %#v", pieces, wantPieces)
+	}
+	for i := range pieces {
+		if pieces[i] != wantPieces[i] {
+			t.Fatalf("AppendSplit() = %#v, want %#v", pieces, wantPieces)
+		}
+	}
+
+	mapped := make([]byte, 1, 16)
+	mapped[0] = 'x'
+	mapped = AppendMap(mapped[:0], "\x00 \x7f")
+	if got, want := string(mapped), "ĀĠġ"; got != want {
+		t.Fatalf("AppendMap() = %q, want %q", got, want)
+	}
+}
+
 func FuzzSplitAndMap(f *testing.F) {
 	f.Add("Hello, world!")
 	f.Add("é\n  test")

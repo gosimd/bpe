@@ -19,6 +19,14 @@ func NewByteLevel(addPrefixSpace, trimOffsets bool) *ByteLevel {
 
 func (*ByteLevel) AffectsIDs() bool { return false }
 
+func (*ByteLevel) AppendIDs(dst, first, second []uint32, pair, _ bool) []uint32 {
+	dst = append(dst, first...)
+	if pair {
+		dst = append(dst, second...)
+	}
+	return dst
+}
+
 func (p *ByteLevel) Process(first, second []Token, pair, _ bool) []Token {
 	result := Merge(first, second, pair)
 	if !p.trimOffsets {

@@ -92,40 +92,44 @@ func newTrie(tokens []Definition) trie {
 // remaining segment. There is currently no normalizer, so the second phase sees
 // unchanged text while retaining Hugging Face's precedence rules.
 func (m *Matcher) Split(text string) []Segment {
-	segments := []Segment{{Start: 0, End: len(text)}}
-	segments = m.splitSegments(text, segments, &m.raw)
-	segments = m.splitSegments(text, segments, &m.normalized)
+	segments, _ := m.SplitWithScratch(text, nil, nil)
 	return segments
 }
 
-func (m *Matcher) splitSegments(text string, input []Segment, compiled *trie) []Segment {
+// SplitWithScratch is Split with two caller-owned alternating buffers. The
+// returned spare buffer may be reused as the second argument on the next call.
+func (m *Matcher) SplitWithScratch(text string, first, second []Segment) (segments, spare []Segment) {
+	first = append(first[:0], Segment{Start: 0, End: len(text)})
+	first, second = m.splitSegments(text, first, second[:0], &m.raw)
+	first, second = m.splitSegments(text, first, second[:0], &m.normalized)
+	return first, second
+}
+
+func (m *Matcher) splitSegments(text string, input, output []Segment, compiled *trie) (segments, spare []Segment) {
 	if len(compiled.tokens) == 0 {
-		return input
+		return input, output
 	}
-	output := make([]Segment, 0, len(input))
 	for _, segment := range input {
 		if segment.Added || segment.Start == segment.End {
 			output = append(output, segment)
 			continue
 		}
-		local := compiled.split(text[segment.Start:segment.End])
-		for _, part := range local {
-			part.Start += segment.Start
-			part.End += segment.Start
-			output = append(output, part)
-		}
+		output = compiled.appendSplit(output, text[segment.Start:segment.End], segment.Start)
 	}
-	return output
+	return output, input[:0]
 }
 
 func (t *trie) split(text string) []Segment {
+	return t.appendSplit(nil, text, 0)
+}
+
+func (t *trie) appendSplit(dst []Segment, text string, base int) []Segment {
 	if text == "" {
-		return []Segment{{}}
+		return append(dst, Segment{Start: base, End: base})
 	}
 
 	acceptedEnd := 0
 	searchFrom := 0
-	result := make([]Segment, 0, 4)
 	for searchFrom < len(text) {
 		start, end, tokenIndex := t.findLeftmostLongest(text, searchFrom)
 		if tokenIndex < 0 {
@@ -149,15 +153,15 @@ func (t *trie) split(text string) []Segment {
 			continue
 		}
 		if acceptedEnd < start {
-			result = append(result, Segment{Start: acceptedEnd, End: start})
+			dst = append(dst, Segment{Start: base + acceptedEnd, End: base + start})
 		}
-		result = append(result, Segment{Start: start, End: end, ID: token.ID, Added: true})
+		dst = append(dst, Segment{Start: base + start, End: base + end, ID: token.ID, Added: true})
 		acceptedEnd = end
 	}
 	if acceptedEnd < len(text) {
-		result = append(result, Segment{Start: acceptedEnd, End: len(text)})
+		dst = append(dst, Segment{Start: base + acceptedEnd, End: base + len(text)})
 	}
-	return result
+	return dst
 }
 
 func (t *trie) findLeftmostLongest(text string, from int) (start, end, tokenIndex int) {

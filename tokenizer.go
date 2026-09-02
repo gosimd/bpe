@@ -150,13 +150,18 @@ func (t *Tokenizer) encode(first, second string, pair, addSpecialTokens bool) (E
 
 // AppendIDs tokenizes raw UTF-8 text and appends its IDs to dst.
 //
-// Without TemplateProcessing it avoids constructing offsets.
-// TemplateProcessing must materialize its configured layout, but only IDs are
-// appended to dst. On invalid UTF-8 input, it returns dst unchanged together
-// with ErrInvalidUTF8.
+// It executes an ID-only pipeline and does not construct Encoding's parallel
+// metadata slices, including when TemplateProcessing is configured. On invalid
+// UTF-8 input, it returns dst unchanged together with ErrInvalidUTF8.
 func (t *Tokenizer) AppendIDs(dst []uint32, text string) ([]uint32, error) {
+	return t.AppendIDsWithOptions(dst, text, EncodeOptions{AddSpecialTokens: true})
+}
+
+// AppendIDsWithOptions is AppendIDs with explicit control over template
+// special-token insertion.
+func (t *Tokenizer) AppendIDsWithOptions(dst []uint32, text string, options EncodeOptions) ([]uint32, error) {
 	if !utf8.ValidString(text) {
 		return dst, ErrInvalidUTF8
 	}
-	return t.impl.AppendIDs(dst, text, true), nil
+	return t.impl.AppendIDs(dst, text, options.AddSpecialTokens), nil
 }

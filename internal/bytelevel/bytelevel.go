@@ -24,7 +24,13 @@ type Piece struct {
 // The scanner is purpose-built because Go's regexp package does not support
 // the negative lookahead in the penultimate alternative.
 func Split(input string) []Piece {
-	pieces := make([]Piece, 0, len(input)/4+1)
+	return AppendSplit(nil, input)
+}
+
+// AppendSplit appends GPT-2 regex pieces to dst. Callers may pass dst[:0] to
+// reuse its backing array across independent inputs.
+func AppendSplit(dst []Piece, input string) []Piece {
+	pieces := dst
 	for position := 0; position < len(input); {
 		end := contractionEnd(input, position)
 		if end > position {
@@ -69,6 +75,16 @@ func Split(input string) []Piece {
 		position = end
 	}
 	return pieces
+}
+
+// AppendMap appends the GPT-2 visible-Unicode representation of input to dst.
+// Unlike Map, it does not construct raw-offset boundaries and is intended for
+// ID-only tokenization.
+func AppendMap(dst []byte, input string) []byte {
+	for index := range len(input) {
+		dst = utf8.AppendRune(dst, byteToRune(input[index]))
+	}
+	return dst
 }
 
 func contractionEnd(input string, start int) int {
