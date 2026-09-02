@@ -8,33 +8,50 @@ import (
 	"github.com/gosimd/bpe/internal/addedtoken"
 	"github.com/gosimd/bpe/internal/bytelevel"
 	"github.com/gosimd/bpe/internal/model"
+	"github.com/gosimd/bpe/internal/postprocess"
 )
 
-// Token is a token with byte offsets in the original raw input.
-type Token struct {
-	ID    uint32
-	Start int
-	End   int
-}
+// Token is a post-processable token with byte offsets in the original input.
+type Token = postprocess.Token
 
 // Tokenizer is immutable and safe for concurrent use.
 type Tokenizer struct {
 	model          *model.Model
 	addPrefixSpace bool
 	addedTokens    *addedtoken.Matcher
+	addedValues    map[uint32]string
+	postProcessor  postprocess.Processor
 }
 
 // New constructs a ByteLevel tokenizer.
-func New(model *model.Model, addPrefixSpace bool, definitions []addedtoken.Definition) *Tokenizer {
+func New(model *model.Model, addPrefixSpace bool, definitions []addedtoken.Definition, processor postprocess.Processor) *Tokenizer {
+	addedValues := make(map[uint32]string, len(definitions))
+	for _, definition := range definitions {
+		addedValues[definition.ID] = definition.Content
+	}
 	return &Tokenizer{
 		model:          model,
 		addPrefixSpace: addPrefixSpace,
 		addedTokens:    addedtoken.New(definitions),
+		addedValues:    addedValues,
+		postProcessor:  processor,
 	}
 }
 
-// Encode tokenizes raw UTF-8 input.
-func (t *Tokenizer) Encode(text string) []Token {
+// Encode tokenizes and post-processes one or two raw UTF-8 inputs.
+func (t *Tokenizer) Encode(first, second string, pair, addSpecialTokens bool) []Token {
+	firstTokens := t.encodeSequence(first)
+	var secondTokens []Token
+	if pair {
+		secondTokens = t.encodeSequence(second)
+	}
+	if t.postProcessor == nil {
+		return postprocess.Merge(firstTokens, secondTokens, pair)
+	}
+	return t.postProcessor.Process(firstTokens, secondTokens, pair, addSpecialTokens)
+}
+
+func (t *Tokenizer) encodeSequence(text string) []Token {
 	if text == "" {
 		return nil
 	}
@@ -45,7 +62,7 @@ func (t *Tokenizer) Encode(text string) []Token {
 	result := make([]Token, 0, len(segments))
 	for _, segment := range segments {
 		if segment.Added {
-			result = append(result, Token{ID: segment.ID, Start: segment.Start, End: segment.End})
+			result = append(result, Token{ID: segment.ID, Value: t.addedValues[segment.ID], Start: segment.Start, End: segment.End})
 			continue
 		}
 		result = t.encodeOrdinary(result, text[segment.Start:segment.End], segment.Start)
@@ -54,7 +71,13 @@ func (t *Tokenizer) Encode(text string) []Token {
 }
 
 // AppendIDs appends IDs for raw UTF-8 input to dst.
-func (t *Tokenizer) AppendIDs(dst []uint32, text string) []uint32 {
+func (t *Tokenizer) AppendIDs(dst []uint32, text string, addSpecialTokens bool) []uint32 {
+	if t.postProcessor != nil && t.postProcessor.AffectsIDs() {
+		for _, token := range t.Encode(text, "", false, addSpecialTokens) {
+			dst = append(dst, token.ID)
+		}
+		return dst
+	}
 	if text == "" {
 		return dst
 	}
@@ -79,10 +102,13 @@ func (t *Tokenizer) encodeOrdinary(dst []Token, text string, base int) []Token {
 	for _, piece := range bytelevel.Split(working) {
 		mapped := bytelevel.Map(working[piece.Start:piece.End], piece.Start, rawAt)
 		for _, token := range t.model.Tokenize(mapped.Text) {
+			value, _ := t.model.IDToToken(token.ID)
 			dst = append(dst, Token{
-				ID:    token.ID,
-				Start: base + mapped.RawOffset(token.Start),
-				End:   base + mapped.RawOffset(token.End),
+				ID:         token.ID,
+				Value:      value,
+				Start:      base + mapped.RawOffset(token.Start),
+				End:        base + mapped.RawOffset(token.End),
+				SequenceID: postprocess.NoSequence,
 			})
 		}
 	}

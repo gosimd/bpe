@@ -393,3 +393,237 @@ func TestTokenizerValidation(t *testing.T) {
 		t.Fatalf("AppendIDs() = %v, want unchanged %v", got, dst)
 	}
 }
+
+type postProcessorFixtureEncoding struct {
+	IDs               []uint32 `json:"ids"`
+	TypeIDs           []uint32 `json:"type_ids"`
+	Tokens            []string `json:"tokens"`
+	Offsets           [][2]int `json:"offsets"`
+	SpecialTokensMask []uint32 `json:"special_tokens_mask"`
+	SequenceIDs       []int    `json:"sequence_ids"`
+}
+
+type postProcessorFixtureSpecial struct {
+	Identifier string   `json:"identifier"`
+	IDs        []uint32 `json:"ids"`
+	Tokens     []string `json:"tokens"`
+}
+
+func TestHFPostProcessorFixtures(t *testing.T) {
+	type templateCase struct {
+		Name             string                        `json:"name"`
+		Vocab            map[string]uint32             `json:"vocab"`
+		AddPrefixSpace   bool                          `json:"add_prefix_space"`
+		Single           string                        `json:"single"`
+		Pair             string                        `json:"pair"`
+		SpecialTokens    []postProcessorFixtureSpecial `json:"special_tokens"`
+		First            string                        `json:"first"`
+		Second           *string                       `json:"second"`
+		AddSpecialTokens bool                          `json:"add_special_tokens"`
+		Encoding         postProcessorFixtureEncoding  `json:"encoding"`
+	}
+	type byteLevelCase struct {
+		Name               string                       `json:"name"`
+		Vocab              map[string]uint32            `json:"vocab"`
+		PreAddPrefixSpace  bool                         `json:"pre_add_prefix_space"`
+		PostAddPrefixSpace bool                         `json:"post_add_prefix_space"`
+		TrimOffsets        bool                         `json:"trim_offsets"`
+		First              string                       `json:"first"`
+		Second             *string                      `json:"second"`
+		Encoding           postProcessorFixtureEncoding `json:"encoding"`
+	}
+	var fixture struct {
+		Upstream       string          `json:"upstream"`
+		Version        string          `json:"version"`
+		TemplateCases  []templateCase  `json:"template_cases"`
+		ByteLevelCases []byteLevelCase `json:"byte_level_cases"`
+	}
+	data, err := os.ReadFile("testdata/hf_post_processors_v0.22.2.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(data, &fixture); err != nil {
+		t.Fatal(err)
+	}
+	if fixture.Upstream != "huggingface/tokenizers" || fixture.Version != "0.22.2" {
+		t.Fatalf("unexpected fixture source %q %q", fixture.Upstream, fixture.Version)
+	}
+
+	for _, test := range fixture.TemplateCases {
+		t.Run("Template/"+test.Name, func(t *testing.T) {
+			model := mustModel(t, test.Vocab, nil, bpe.ModelOptions{IgnoreMerges: true})
+			specials := make([]bpe.TemplateSpecialToken, len(test.SpecialTokens))
+			for i, special := range test.SpecialTokens {
+				specials[i] = bpe.TemplateSpecialToken{
+					Identifier: special.Identifier,
+					IDs:        special.IDs,
+					Tokens:     special.Tokens,
+				}
+			}
+			tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
+				AddPrefixSpace: test.AddPrefixSpace,
+				PostProcessor: bpe.TemplateProcessing{
+					Single:        test.Single,
+					Pair:          test.Pair,
+					SpecialTokens: specials,
+				},
+			})
+			if err != nil {
+				t.Fatal(err)
+			}
+			options := bpe.EncodeOptions{AddSpecialTokens: test.AddSpecialTokens}
+			var got bpe.Encoding
+			if test.Second == nil {
+				got, err = tokenizer.EncodeWithOptions(test.First, options)
+			} else {
+				got, err = tokenizer.EncodePairWithOptions(test.First, *test.Second, options)
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			assertFixtureEncoding(t, got, test.Encoding)
+		})
+	}
+
+	for _, test := range fixture.ByteLevelCases {
+		t.Run("ByteLevel/"+test.Name, func(t *testing.T) {
+			model := mustModel(t, test.Vocab, nil, bpe.ModelOptions{IgnoreMerges: true})
+			tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
+				AddPrefixSpace: test.PreAddPrefixSpace,
+				PostProcessor: bpe.ByteLevelPostProcessor{
+					AddPrefixSpace: test.PostAddPrefixSpace,
+					TrimOffsets:    test.TrimOffsets,
+				},
+			})
+			if err != nil {
+				t.Fatal(err)
+			}
+			var got bpe.Encoding
+			if test.Second == nil {
+				got, err = tokenizer.Encode(test.First)
+			} else {
+				got, err = tokenizer.EncodePair(test.First, *test.Second)
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			assertFixtureEncoding(t, got, test.Encoding)
+		})
+	}
+}
+
+func assertFixtureEncoding(t *testing.T, got bpe.Encoding, want postProcessorFixtureEncoding) {
+	t.Helper()
+	wantOffsets := make([]bpe.Offset, len(want.Offsets))
+	for i, offset := range want.Offsets {
+		wantOffsets[i] = bpe.Offset{Start: offset[0], End: offset[1]}
+	}
+	if !reflect.DeepEqual(got.IDs, want.IDs) {
+		t.Errorf("IDs = %v, want %v", got.IDs, want.IDs)
+	}
+	if !reflect.DeepEqual(got.TypeIDs, want.TypeIDs) {
+		t.Errorf("TypeIDs = %v, want %v", got.TypeIDs, want.TypeIDs)
+	}
+	if !reflect.DeepEqual(got.Tokens, want.Tokens) {
+		t.Errorf("Tokens = %v, want %v", got.Tokens, want.Tokens)
+	}
+	if !reflect.DeepEqual(got.Offsets, wantOffsets) {
+		t.Errorf("Offsets = %#v, want %#v", got.Offsets, wantOffsets)
+	}
+	if !reflect.DeepEqual(got.SpecialTokensMask, want.SpecialTokensMask) {
+		t.Errorf("SpecialTokensMask = %v, want %v", got.SpecialTokensMask, want.SpecialTokensMask)
+	}
+	if !reflect.DeepEqual(got.SequenceIDs, want.SequenceIDs) {
+		t.Errorf("SequenceIDs = %v, want %v", got.SequenceIDs, want.SequenceIDs)
+	}
+}
+
+func TestTemplateProcessingAppendIDsCopiesConfigurationAndIsConcurrentSafe(t *testing.T) {
+	model := mustModel(t, map[string]uint32{"a": 1}, nil, bpe.ModelOptions{IgnoreMerges: true})
+	special := bpe.NewTemplateSpecialToken("[S]", 10)
+	configuration := bpe.TemplateProcessing{
+		Single:        "[S] $A [S]",
+		Pair:          "$A $B",
+		SpecialTokens: []bpe.TemplateSpecialToken{special},
+	}
+	tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{PostProcessor: configuration})
+	if err != nil {
+		t.Fatal(err)
+	}
+	configuration.SpecialTokens[0].IDs[0] = 99
+	configuration.SpecialTokens[0].Tokens[0] = "changed"
+
+	got, err := tokenizer.AppendIDs([]uint32{7}, "a")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := []uint32{7, 10, 1, 10}; !reflect.DeepEqual(got, want) {
+		t.Fatalf("AppendIDs() = %v, want %v", got, want)
+	}
+
+	const goroutines = 16
+	var group sync.WaitGroup
+	failures := make(chan []uint32, goroutines)
+	for range goroutines {
+		group.Add(1)
+		go func() {
+			defer group.Done()
+			encoding, encodeErr := tokenizer.Encode("a")
+			if encodeErr != nil || !reflect.DeepEqual(encoding.IDs, []uint32{10, 1, 10}) {
+				failures <- encoding.IDs
+			}
+		}()
+	}
+	group.Wait()
+	close(failures)
+	for ids := range failures {
+		t.Fatalf("concurrent Encode() IDs = %v, want [10 1 10]", ids)
+	}
+}
+
+func TestPostProcessorValidation(t *testing.T) {
+	model := mustModel(t, map[string]uint32{"a": 1}, nil, bpe.ModelOptions{})
+	tests := []struct {
+		name      string
+		processor bpe.PostProcessor
+		want      error
+	}{
+		{name: "nil byte level", processor: (*bpe.ByteLevelPostProcessor)(nil), want: bpe.ErrInvalidPostProcessor},
+		{name: "nil template", processor: (*bpe.TemplateProcessing)(nil), want: bpe.ErrInvalidPostProcessor},
+		{name: "missing special", processor: bpe.TemplateProcessing{Single: "[S] $A"}, want: bpe.ErrInvalidTemplate},
+		{name: "bad pair", processor: bpe.TemplateProcessing{Pair: "$A"}, want: bpe.ErrInvalidTemplate},
+		{name: "duplicate special", processor: bpe.TemplateProcessing{SpecialTokens: []bpe.TemplateSpecialToken{bpe.NewTemplateSpecialToken("X", 1), bpe.NewTemplateSpecialToken("X", 2)}}, want: bpe.ErrInvalidTemplate},
+		{name: "unequal special values", processor: bpe.TemplateProcessing{SpecialTokens: []bpe.TemplateSpecialToken{{Identifier: "X", IDs: []uint32{1}}}}, want: bpe.ErrInvalidTemplate},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			_, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{PostProcessor: test.processor})
+			if !errors.Is(err, test.want) {
+				t.Fatalf("error = %v, want %v", err, test.want)
+			}
+		})
+	}
+}
+
+func TestPostProcessorDefaults(t *testing.T) {
+	byteLevel := bpe.NewByteLevelPostProcessor()
+	if !byteLevel.AddPrefixSpace || !byteLevel.TrimOffsets {
+		t.Fatalf("NewByteLevelPostProcessor() = %#v", byteLevel)
+	}
+
+	model := mustModel(t, map[string]uint32{"a": 1, "b": 2}, nil, bpe.ModelOptions{IgnoreMerges: true})
+	tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{PostProcessor: bpe.TemplateProcessing{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	encoding, err := tokenizer.EncodePair("a", "b")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := []uint32{1, 2}; !reflect.DeepEqual(encoding.IDs, want) {
+		t.Fatalf("default template IDs = %v, want %v", encoding.IDs, want)
+	}
+	if want := []uint32{0, 1}; !reflect.DeepEqual(encoding.TypeIDs, want) {
+		t.Fatalf("default template type IDs = %v, want %v", encoding.TypeIDs, want)
+	}
+}

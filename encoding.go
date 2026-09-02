@@ -1,10 +1,19 @@
 package bpe
 
-// Encoding is the result of tokenizing one raw-text input.
+// Encoding is the result of tokenizing one or two raw-text inputs.
 //
-// IDs and Offsets have equal length. Every offset is a half-open byte range in
-// the original Go string passed to Tokenizer.Encode.
+// All slices have equal length. Every offset is a half-open byte range in the
+// corresponding input Go string. SequenceIDs contains 0 for the first input,
+// 1 for the pair input, and NoSequence for template-inserted special tokens.
 type Encoding struct {
-	IDs     []uint32
-	Offsets []Offset
+	IDs               []uint32
+	TypeIDs           []uint32
+	Tokens            []string
+	Offsets           []Offset
+	SpecialTokensMask []uint32
+	SequenceIDs       []int
 }
+
+// NoSequence is the SequenceIDs value used for a token inserted by a
+// post-processing template rather than originating in either input.
+const NoSequence = -1

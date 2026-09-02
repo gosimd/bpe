@@ -15,4 +15,6 @@ var (
 	ErrInvalidUTF8            = model.ErrInvalidUTF8
 	ErrNilModel               = errors.New("bpe: nil model")
 	ErrInvalidAddedToken      = errors.New("bpe: invalid added token")
+	ErrInvalidPostProcessor   = errors.New("bpe: invalid post-processor")
+	ErrInvalidTemplate        = errors.New("bpe: invalid post-processing template")
 )

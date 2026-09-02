@@ -5,8 +5,9 @@ with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 
 > [!IMPORTANT]
 > `Model` and the GPT-2 ByteLevel `Tokenizer` API are available for
-> deterministic inference. A complete arbitrary `tokenizer.json` pipeline is
-> not implemented yet.
+> deterministic inference, including AddedTokens, TemplateProcessing, and
+> ByteLevel offset post-processing. A complete arbitrary `tokenizer.json`
+> pipeline is not implemented yet.
 
 ## Goals
 
@@ -33,16 +34,18 @@ model, post-processing, and decoding are distinct stages. The initial scope is
 the **BPE model stage** plus a narrow raw-text facade for the standard GPT-2
 ByteLevel pre-tokenizer.
 
-The following are not initial goals:
+The following are not goals of the current implementation:
 
 - training a BPE vocabulary;
 - a complete `tokenizer.json` pipeline runtime;
-- normalizers, arbitrary pre-tokenizers, post-processors, or decoders;
+- normalizers, arbitrary pre-tokenizers or post-processors, processor
+  composition, or decoders;
 - network access or model downloads;
 - silently emulating unsupported Hugging Face options.
 
-Pipeline components may be added later as separate packages or integrations.
-They must not be folded into the BPE merge kernel.
+Additional pipeline components may be added later through explicit facade
+configuration or integrations. They must not be folded into the BPE merge
+kernel.
 
 ## Design
 
@@ -62,12 +65,15 @@ The public API has two layers:
 - `Model` loads or compiles `vocab.json` and `merges.txt`, then tokenizes one
   pre-tokenized piece. See [docs/Model.md](docs/Model.md).
 - `Tokenizer` performs standard GPT-2 ByteLevel splitting and byte mapping
-  before delegating each piece to `Model`. See
+  before delegating each piece to `Model`, then optionally applies
+  TemplateProcessing or ByteLevel offset trimming. See
   [docs/Tokenizer.md](docs/Tokenizer.md).
 
 `TokenizerOptions.AddedTokens` configures immutable AddedToken matching before
-ByteLevel pre-tokenization. The configurable tokenizer facade will later add
-normalizers, model-specific pre-tokenization, and post-processing.
+ByteLevel pre-tokenization. `TokenizerOptions.PostProcessor` selects one
+supported immutable post-processor; see
+[docs/PostProcessors.md](docs/PostProcessors.md). The configurable tokenizer
+facade may later add normalizers and model-specific pre-tokenization.
 
 ## Compatibility testing
 
@@ -94,11 +100,12 @@ work and must not present allocation differences as kernel speedups.
 
 ## Development status
 
-The scalar `Model`, AddedToken matcher, and GPT-2 ByteLevel `Tokenizer` are
-implemented and covered by unit, race, fuzz, and initial Hugging Face 0.22.2
-differential tests. The next milestone is broader pinned differential fixtures,
-then additional model-specific pre-tokenizers. SIMD work starts only after that
-compatibility suite and representative benchmarks exist.
+The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
+TemplateProcessing, and ByteLevel offset post-processing are implemented and
+covered by unit, race, fuzz, and pinned Hugging Face 0.22.2 differential tests.
+The next milestone is broader pipeline fixtures, then additional model-specific
+pre-tokenizers. SIMD work starts only after that compatibility suite and
+representative benchmarks exist.
 
 ## License
 

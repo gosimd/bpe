@@ -1,0 +1,534 @@
+{
+  "upstream": "huggingface/tokenizers",
+  "version": "0.22.2",
+  "generator": "scripts/generate_hf_post_processor_fixtures.py",
+  "template_cases": [
+    {
+      "name": "bert-single",
+      "vocab": {
+        "ĠHello": 0,
+        "Ġworld": 1
+      },
+      "add_prefix_space": true,
+      "single": "[CLS] $A [SEP]",
+      "pair": "[CLS] $A [SEP] $B:1 [SEP]:1",
+      "special_tokens": [
+        {
+          "identifier": "[CLS]",
+          "ids": [
+            101
+          ],
+          "tokens": [
+            "[CLS]"
+          ]
+        },
+        {
+          "identifier": "[SEP]",
+          "ids": [
+            102
+          ],
+          "tokens": [
+            "[SEP]"
+          ]
+        }
+      ],
+      "first": "Hello",
+      "second": null,
+      "add_special_tokens": true,
+      "encoding": {
+        "ids": [
+          101,
+          0,
+          102
+        ],
+        "type_ids": [
+          0,
+          0,
+          0
+        ],
+        "tokens": [
+          "[CLS]",
+          "ĠHello",
+          "[SEP]"
+        ],
+        "offsets": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "special_tokens_mask": [
+          1,
+          0,
+          1
+        ],
+        "sequence_ids": [
+          -1,
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "name": "bert-pair",
+      "vocab": {
+        "ĠHello": 0,
+        "Ġworld": 1
+      },
+      "add_prefix_space": true,
+      "single": "[CLS] $A [SEP]",
+      "pair": "[CLS] $A [SEP] $B:1 [SEP]:1",
+      "special_tokens": [
+        {
+          "identifier": "[CLS]",
+          "ids": [
+            101
+          ],
+          "tokens": [
+            "[CLS]"
+          ]
+        },
+        {
+          "identifier": "[SEP]",
+          "ids": [
+            102
+          ],
+          "tokens": [
+            "[SEP]"
+          ]
+        }
+      ],
+      "first": "Hello",
+      "second": "world",
+      "add_special_tokens": true,
+      "encoding": {
+        "ids": [
+          101,
+          0,
+          102,
+          1,
+          102
+        ],
+        "type_ids": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "tokens": [
+          "[CLS]",
+          "ĠHello",
+          "[SEP]",
+          "Ġworld",
+          "[SEP]"
+        ],
+        "offsets": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "special_tokens_mask": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "sequence_ids": [
+          -1,
+          0,
+          -1,
+          1,
+          -1
+        ]
+      }
+    },
+    {
+      "name": "bert-pair-without-specials",
+      "vocab": {
+        "ĠHello": 0,
+        "Ġworld": 1
+      },
+      "add_prefix_space": true,
+      "single": "[CLS] $A [SEP]",
+      "pair": "[CLS] $A [SEP] $B:1 [SEP]:1",
+      "special_tokens": [
+        {
+          "identifier": "[CLS]",
+          "ids": [
+            101
+          ],
+          "tokens": [
+            "[CLS]"
+          ]
+        },
+        {
+          "identifier": "[SEP]",
+          "ids": [
+            102
+          ],
+          "tokens": [
+            "[SEP]"
+          ]
+        }
+      ],
+      "first": "Hello",
+      "second": "world",
+      "add_special_tokens": false,
+      "encoding": {
+        "ids": [
+          0,
+          1
+        ],
+        "type_ids": [
+          0,
+          1
+        ],
+        "tokens": [
+          "ĠHello",
+          "Ġworld"
+        ],
+        "offsets": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ],
+        "special_tokens_mask": [
+          0,
+          0
+        ],
+        "sequence_ids": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "multi-token-special-and-type-ids",
+      "vocab": {
+        "a": 0
+      },
+      "add_prefix_space": false,
+      "single": "X:7 $A:3 X",
+      "pair": "X $A $B",
+      "special_tokens": [
+        {
+          "identifier": "X",
+          "ids": [
+            10,
+            11
+          ],
+          "tokens": [
+            "x",
+            "y"
+          ]
+        }
+      ],
+      "first": "a",
+      "second": null,
+      "add_special_tokens": true,
+      "encoding": {
+        "ids": [
+          10,
+          11,
+          0,
+          10,
+          11
+        ],
+        "type_ids": [
+          7,
+          7,
+          3,
+          0,
+          0
+        ],
+        "tokens": [
+          "x",
+          "y",
+          "a",
+          "x",
+          "y"
+        ],
+        "offsets": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "special_tokens_mask": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "sequence_ids": [
+          -1,
+          -1,
+          0,
+          -1,
+          -1
+        ]
+      }
+    }
+  ],
+  "byte_level_cases": [
+    {
+      "name": "preserve-synthetic-prefix",
+      "vocab": {
+        "ĠHello": 0
+      },
+      "pre_add_prefix_space": true,
+      "post_add_prefix_space": true,
+      "trim_offsets": true,
+      "first": "Hello",
+      "second": null,
+      "encoding": {
+        "ids": [
+          0
+        ],
+        "type_ids": [
+          0
+        ],
+        "tokens": [
+          "ĠHello"
+        ],
+        "offsets": [
+          [
+            0,
+            5
+          ]
+        ],
+        "special_tokens_mask": [
+          0
+        ],
+        "sequence_ids": [
+          0
+        ]
+      }
+    },
+    {
+      "name": "trim-synthetic-prefix",
+      "vocab": {
+        "ĠHello": 0
+      },
+      "pre_add_prefix_space": true,
+      "post_add_prefix_space": false,
+      "trim_offsets": true,
+      "first": "Hello",
+      "second": null,
+      "encoding": {
+        "ids": [
+          0
+        ],
+        "type_ids": [
+          0
+        ],
+        "tokens": [
+          "ĠHello"
+        ],
+        "offsets": [
+          [
+            1,
+            5
+          ]
+        ],
+        "special_tokens_mask": [
+          0
+        ],
+        "sequence_ids": [
+          0
+        ]
+      }
+    },
+    {
+      "name": "leading-and-trailing-whitespace",
+      "vocab": {
+        "ĠĠĠ": 0,
+        "ĠHello": 1,
+        "ĠĠ": 2
+      },
+      "pre_add_prefix_space": false,
+      "post_add_prefix_space": false,
+      "trim_offsets": true,
+      "first": "    Hello  ",
+      "second": null,
+      "encoding": {
+        "ids": [
+          0,
+          1,
+          2
+        ],
+        "type_ids": [
+          0,
+          0,
+          0
+        ],
+        "tokens": [
+          "ĠĠĠ",
+          "ĠHello",
+          "ĠĠ"
+        ],
+        "offsets": [
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            11,
+            11
+          ]
+        ],
+        "special_tokens_mask": [
+          0,
+          0,
+          0
+        ],
+        "sequence_ids": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "pair-sequences",
+      "vocab": {
+        "Ġone": 0,
+        "Ġtwo": 1
+      },
+      "pre_add_prefix_space": true,
+      "post_add_prefix_space": true,
+      "trim_offsets": true,
+      "first": "one",
+      "second": "two",
+      "encoding": {
+        "ids": [
+          0,
+          1
+        ],
+        "type_ids": [
+          0,
+          1
+        ],
+        "tokens": [
+          "Ġone",
+          "Ġtwo"
+        ],
+        "offsets": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "special_tokens_mask": [
+          0,
+          0
+        ],
+        "sequence_ids": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "trimming-disabled",
+      "vocab": {
+        "ĠHello": 0,
+        "ĠĠ": 1
+      },
+      "pre_add_prefix_space": false,
+      "post_add_prefix_space": false,
+      "trim_offsets": false,
+      "first": " Hello  ",
+      "second": null,
+      "encoding": {
+        "ids": [
+          0,
+          1
+        ],
+        "type_ids": [
+          0,
+          0
+        ],
+        "tokens": [
+          "ĠHello",
+          "ĠĠ"
+        ],
+        "offsets": [
+          [
+            0,
+            6
+          ],
+          [
+            6,
+            8
+          ]
+        ],
+        "special_tokens_mask": [
+          0,
+          0
+        ],
+        "sequence_ids": [
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}

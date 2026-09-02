@@ -1,8 +1,8 @@
 # Tokenizer
 
 `bpe.Tokenizer` is the raw-text inference facade over `bpe.Model`. It supports
-AddedToken matching, followed by the standard GPT-2 ByteLevel pre-tokenizer
-and the deterministic BPE model.
+AddedToken matching, followed by the standard GPT-2 ByteLevel pre-tokenizer,
+the deterministic BPE model, and an optional supported post-processor.
 
 It is intentionally a small, immutable inference API. It is not a general
 Hugging Face pipeline runtime and it does not load `tokenizer.json` yet.
@@ -30,6 +30,14 @@ default. Use `NewTokenizerWithOptions` to choose the behavior explicitly:
 ```go
 tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
 	AddPrefixSpace: false,
+	PostProcessor: bpe.TemplateProcessing{
+		Single: "[CLS] $A [SEP]",
+		Pair:   "[CLS] $A [SEP] $B:1 [SEP]:1",
+		SpecialTokens: []bpe.TemplateSpecialToken{
+			bpe.NewTemplateSpecialToken("[CLS]", 101),
+			bpe.NewTemplateSpecialToken("[SEP]", 102),
+		},
+	},
 })
 ```
 
@@ -98,10 +106,20 @@ if err != nil {
 	return err
 }
 
-// encoding.IDs contains token IDs.
-// encoding.Offsets contains equally sized [start, end) byte ranges in the
-// original Go string.
+// encoding.IDs contains token IDs. TypeIDs, Tokens, Offsets,
+// SpecialTokensMask, and SequenceIDs are parallel slices of equal length.
 ```
+
+Use `EncodePair` for two inputs. Pair offsets are relative to the input selected
+by each token's sequence ID:
+
+```go
+encoding, err := tokenizer.EncodePair("question", "answer")
+```
+
+`Encode` and `EncodePair` enable template special-token insertion. Their
+`EncodeWithOptions` and `EncodePairWithOptions` variants accept
+`EncodeOptions{AddSpecialTokens: false}` when those insertions are not wanted.
 
 For inference paths that need only IDs, reuse the caller-owned output slice:
 
@@ -113,8 +131,20 @@ if err != nil {
 }
 ```
 
-Both methods require valid UTF-8. They return `bpe.ErrInvalidUTF8` for an
-invalid Go string; `AppendIDs` leaves its destination unchanged on that error.
+All encode variants and `AppendIDs` require valid UTF-8. They return
+`bpe.ErrInvalidUTF8` for an invalid Go string; `AppendIDs` leaves its
+destination unchanged on that error. Without `TemplateProcessing`,
+`AppendIDs` avoids constructing offsets. With a template it materializes the
+configured layout internally so that inserted and reordered IDs remain exact.
+
+## Post-processing
+
+`TokenizerOptions.PostProcessor` accepts `TemplateProcessing` or
+`ByteLevelPostProcessor`. Template processing inserts special IDs, assigns
+type IDs, and supports single and pair layouts. ByteLevel post-processing
+trims whitespace from byte offsets without changing IDs. See
+[Post-processors](PostProcessors.md) for syntax, defaults, offset semantics,
+and validation.
 
 ## ByteLevel behavior
 
@@ -143,17 +173,17 @@ never moves offsets beyond the original input.
 ## Scope and compatibility
 
 The implementation follows AddedToken extraction, the deterministic BPE model,
-and the standard GPT-2 ByteLevel pre-tokenizer. AddedToken IDs and offsets are
-covered by a reproducible differential fixture generated with Hugging Face
-Tokenizers 0.22.2. Broader pinned fixtures are still required before making a
-release-level conformance claim. The following are deliberately not supported
-yet:
+the standard GPT-2 ByteLevel pre-tokenizer, TemplateProcessing, and ByteLevel
+post-processing. AddedToken and post-processor results are covered by
+reproducible differential fixtures generated with Hugging Face Tokenizers
+0.22.2. Broader pinned fixtures are still required before making a
+release-level conformance claim. The following are deliberately not supported:
 
 - `tokenizer.json` parsing;
 - configurable normalizers;
 - custom `Split` sequences, including Qwen's configured pre-tokenization
   regex;
-- post-processors, pairs, special-token templates, padding, and truncation;
+- arbitrary post-processors or processor composition, padding, and truncation;
 - decoders and BPE dropout.
 
 In particular, Qwen-style pre-tokenization must not be approximated with Go

@@ -2,7 +2,7 @@
 //
 // Model operates on one already pre-tokenized piece. Tokenizer adds AddedToken
 // matching plus standard GPT-2 ByteLevel splitting and byte mapping for raw
-// text; other tokenizer-pipeline stages will be provided separately. See
-// docs/Model.md and docs/Tokenizer.md for the public contracts and
-// compatibility scope.
+// text, then optionally applies TemplateProcessing or ByteLevel offset
+// post-processing. See docs/Model.md, docs/Tokenizer.md, and
+// docs/PostProcessors.md for the public contracts and compatibility scope.
 package bpe

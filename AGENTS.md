@@ -15,11 +15,12 @@ These instructions apply to the entire repository.
 The module is `github.com/gosimd/bpe` and declares Go 1.27. `Model` compiles or
 loads `vocab.json` and `merges.txt`, then tokenizes one pre-tokenized UTF-8
 piece with the deterministic scalar BPE oracle. `Tokenizer` adds immutable
-AddedToken matching and the standard GPT-2 ByteLevel pre-tokenizer. Initial
-AddedToken differential fixtures are pinned to Hugging Face Tokenizers 0.22.2.
+AddedToken matching, the standard GPT-2 ByteLevel pre-tokenizer, pair encoding,
+TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
+post-processor behavior have pinned Hugging Face 0.22.2 differential fixtures.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
-Qwen, post-processing, broader differential fixtures, caches, SIMD, and
-benchmarks are not implemented yet.
+Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
+SIMD, and benchmarks are not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
