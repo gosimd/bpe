@@ -12,10 +12,15 @@ These instructions apply to the entire repository.
 
 ## Repository state
 
-The project is currently being bootstrapped. Do not invent a stable API,
-supported Go version, build tag, benchmark result, or compatibility claim that
-has not been implemented and verified. When adding the module and its first
-source files, update this section and the README in the same change.
+The module is `github.com/gosimd/bpe` and declares Go 1.27. `Model` is the
+only implemented public API: it compiles or loads `vocab.json` and `merges.txt`
+and tokenizes one pre-tokenized UTF-8 piece with the deterministic scalar BPE
+oracle. A raw-text `Tokenizer` facade, `tokenizer.json` loading, differential
+Hugging Face fixtures, caches, SIMD, and benchmarks are not implemented yet.
+
+Do not invent a stable API extension, build tag, benchmark result, or
+compatibility claim that has not been implemented and verified. Update this
+section and the README when that state materially changes.
 
 ## Package boundaries
 

@@ -4,15 +4,16 @@ SIMD-accelerated Byte-Pair Encoding for Go, designed for semantic compatibility
 with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 
 > [!IMPORTANT]
-> This project is at the design stage. It does not provide a stable API or a
-> usable tokenizer yet.
+> The `Model` API is available for deterministic BPE over already
+> pre-tokenized UTF-8 pieces. A complete raw-text Hugging Face tokenizer is not
+> implemented yet.
 
 ## Goals
 
 - Produce the same tokens and token IDs as Hugging Face's BPE model for the
   same vocabulary, ordered merge rules, input pieces, and supported options.
-- Load the conventional `vocab.json` and `merges.txt` representation, followed
-  by the BPE model section of `tokenizer.json`.
+- Load the conventional `vocab.json` and `merges.txt` representation; add the
+  BPE model section of `tokenizer.json` with the future tokenizer facade.
 - Keep a small, idiomatic Go API that does not expose CPU features or SIMD
   implementation details.
 - Use runtime-selected SIMD kernels on supported CPUs and a portable scalar
@@ -20,11 +21,10 @@ with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 - Make performance claims only from reproducible, shape-specific benchmarks
   against a scalar implementation and Hugging Face Tokenizers.
 
-Compatibility work will cover deterministic merge ranking and the BPE options
-exposed by Hugging Face, including the unknown token, continuing-subword
-prefix, end-of-word suffix, unknown-token fusion, byte fallback, and ignored
-merges. Options such as dropout that introduce randomness will be implemented
-and tested separately from the deterministic fast path.
+`Model` implements deterministic merge ranking and the Hugging Face BPE
+options for unknown tokens, continuing-subword prefixes, end-of-word suffixes,
+unknown-token fusion, byte fallback, and ignored merges. Dropout is excluded:
+this package is for deterministic inference rather than research workflows.
 
 ## Scope
 
@@ -57,9 +57,10 @@ paths are optimizations of that behavior, not alternate semantics. Every
 optimized path must have a portable fallback and differential tests covering
 the same inputs.
 
-The public API will be introduced together with the first reference
-implementation. Until then, no constructor or encoding shape documented in an
-issue should be treated as committed API.
+The first public API is `Model`, which loads or compiles `vocab.json` and
+`merges.txt`, then tokenizes one pre-tokenized piece. Its contract is documented
+in [docs/Model.md](docs/Model.md). The future `Tokenizer` facade will own
+normalization, pre-tokenization, added tokens, and post-processing.
 
 ## Compatibility testing
 
@@ -86,9 +87,10 @@ work and must not present allocation differences as kernel speedups.
 
 ## Development status
 
-The next milestone is a portable reference implementation with differential
-Hugging Face fixtures. SIMD work starts only after the compatibility suite and
-representative benchmarks are in place.
+The scalar reference `Model` is implemented and covered by unit, race, and
+parser fuzz tests. The next milestone is pinned differential fixtures from
+Hugging Face Tokenizers, followed by the raw-text `Tokenizer` facade. SIMD work
+starts only after that compatibility suite and representative benchmarks exist.
 
 ## License
 
