@@ -12,11 +12,13 @@ These instructions apply to the entire repository.
 
 ## Repository state
 
-The module is `github.com/gosimd/bpe` and declares Go 1.27. `Model` is the
-only implemented public API: it compiles or loads `vocab.json` and `merges.txt`
-and tokenizes one pre-tokenized UTF-8 piece with the deterministic scalar BPE
-oracle. A raw-text `Tokenizer` facade, `tokenizer.json` loading, differential
-Hugging Face fixtures, caches, SIMD, and benchmarks are not implemented yet.
+The module is `github.com/gosimd/bpe` and declares Go 1.27. `Model` compiles or
+loads `vocab.json` and `merges.txt`, then tokenizes one pre-tokenized UTF-8
+piece with the deterministic scalar BPE oracle. `Tokenizer` adds the standard
+GPT-2 ByteLevel pre-tokenizer. `tokenizer.json` loading, normalizers,
+model-specific pre-tokenizers such as Qwen, added tokens, post-processing,
+differential Hugging Face fixtures, caches, SIMD, and benchmarks are not
+implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this

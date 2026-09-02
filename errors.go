@@ -1,6 +1,10 @@
 package bpe
 
-import "github.com/gosimd/bpe/internal/model"
+import (
+	"errors"
+
+	"github.com/gosimd/bpe/internal/model"
+)
 
 // Errors returned while parsing or compiling a BPE model.
 var (
@@ -9,4 +13,5 @@ var (
 	ErrDuplicateTokenID       = model.ErrDuplicateTokenID
 	ErrUnknownTokenNotInVocab = model.ErrUnknownTokenNotInVocab
 	ErrInvalidUTF8            = model.ErrInvalidUTF8
+	ErrNilModel               = errors.New("bpe: nil model")
 )

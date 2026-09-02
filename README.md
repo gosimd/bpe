@@ -4,16 +4,16 @@ SIMD-accelerated Byte-Pair Encoding for Go, designed for semantic compatibility
 with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 
 > [!IMPORTANT]
-> The `Model` API is available for deterministic BPE over already
-> pre-tokenized UTF-8 pieces. A complete raw-text Hugging Face tokenizer is not
-> implemented yet.
+> `Model` and the GPT-2 ByteLevel `Tokenizer` API are available for
+> deterministic inference. A complete arbitrary `tokenizer.json` pipeline is
+> not implemented yet.
 
 ## Goals
 
 - Produce the same tokens and token IDs as Hugging Face's BPE model for the
   same vocabulary, ordered merge rules, input pieces, and supported options.
 - Load the conventional `vocab.json` and `merges.txt` representation; add the
-  BPE model section of `tokenizer.json` with the future tokenizer facade.
+  BPE model section of `tokenizer.json` with a future configurable facade.
 - Keep a small, idiomatic Go API that does not expose CPU features or SIMD
   implementation details.
 - Use runtime-selected SIMD kernels on supported CPUs and a portable scalar
@@ -29,15 +29,15 @@ this package is for deterministic inference rather than research workflows.
 ## Scope
 
 Hugging Face Tokenizers is a pipeline: normalization, pre-tokenization, the BPE
-model, post-processing, and decoding are distinct stages. The initial scope of
-this repository is the **BPE model stage**. Its input is therefore one or more
-pieces already produced by a pre-tokenizer.
+model, post-processing, and decoding are distinct stages. The initial scope is
+the **BPE model stage** plus a narrow raw-text facade for the standard GPT-2
+ByteLevel pre-tokenizer.
 
 The following are not initial goals:
 
 - training a BPE vocabulary;
 - a complete `tokenizer.json` pipeline runtime;
-- normalizers, pre-tokenizers, post-processors, or decoders;
+- normalizers, arbitrary pre-tokenizers, post-processors, or decoders;
 - network access or model downloads;
 - silently emulating unsupported Hugging Face options.
 
@@ -57,10 +57,16 @@ paths are optimizations of that behavior, not alternate semantics. Every
 optimized path must have a portable fallback and differential tests covering
 the same inputs.
 
-The first public API is `Model`, which loads or compiles `vocab.json` and
-`merges.txt`, then tokenizes one pre-tokenized piece. Its contract is documented
-in [docs/Model.md](docs/Model.md). The future `Tokenizer` facade will own
-normalization, pre-tokenization, added tokens, and post-processing.
+The public API has two layers:
+
+- `Model` loads or compiles `vocab.json` and `merges.txt`, then tokenizes one
+  pre-tokenized piece. See [docs/Model.md](docs/Model.md).
+- `Tokenizer` performs standard GPT-2 ByteLevel splitting and byte mapping
+  before delegating each piece to `Model`. See
+  [docs/Tokenizer.md](docs/Tokenizer.md).
+
+The configurable tokenizer facade will later add normalizers, model-specific
+pre-tokenization, added tokens, and post-processing.
 
 ## Compatibility testing
 
@@ -87,10 +93,11 @@ work and must not present allocation differences as kernel speedups.
 
 ## Development status
 
-The scalar reference `Model` is implemented and covered by unit, race, and
-parser fuzz tests. The next milestone is pinned differential fixtures from
-Hugging Face Tokenizers, followed by the raw-text `Tokenizer` facade. SIMD work
-starts only after that compatibility suite and representative benchmarks exist.
+The scalar `Model` and GPT-2 ByteLevel `Tokenizer` are implemented and covered
+by unit, race, and parser fuzz tests. The next milestone is pinned differential
+fixtures from Hugging Face Tokenizers, then additional model-specific
+pre-tokenizers. SIMD work starts only after that compatibility suite and
+representative benchmarks exist.
 
 ## License
 
