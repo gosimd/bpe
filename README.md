@@ -98,6 +98,13 @@ OS, architecture, Go version, enabled instruction set, input distribution,
 and allocation model. SIMD-to-Hugging-Face comparisons must use equivalent
 work and must not present allocation differences as kernel speedups.
 
+The representative benchmark corpus is pinned under `testdata/`: GPT-2
+tokenizer assets at an exact model revision and the 3,760-record WikiText-2 raw
+validation split at an exact dataset revision. Provenance, hashes, licenses,
+and regeneration details are recorded in
+[`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md) and
+[`testdata/wikitext2/MANIFEST.md`](testdata/wikitext2/MANIFEST.md).
+
 ## Development status
 
 The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
@@ -105,9 +112,10 @@ TemplateProcessing, and ByteLevel offset post-processing are implemented and
 covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and
 have public allocation benchmarks; no general throughput claim is made from
-those small shapes. The next milestone is broader pipeline fixtures, then
-additional model-specific pre-tokenizers. SIMD work starts only after that
-compatibility suite and representative benchmarks exist.
+those small shapes. Pinned GPT-2 tokenizer assets and the WikiText-2 raw
+validation corpus are available for the representative benchmark suite, but
+that suite and its reference encodings are not implemented yet. SIMD work
+starts only after profiling this workload.
 
 ## License
 

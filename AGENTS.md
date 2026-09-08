@@ -20,10 +20,14 @@ TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
 post-processor behavior have pinned Hugging Face 0.23.2 differential fixtures.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
 scratch pools; scratch-reuse tests and initial public allocation benchmarks
-cover short model and raw-text inputs.
+cover short model and raw-text inputs. Exact-revision GPT-2 tokenizer assets and
+all 3,760 separate records of the WikiText-2 raw validation split are pinned in
+`testdata/`, with source hashes, licenses, and a reproducible Parquet-to-JSONL
+conversion.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, and representative benchmark families are not implemented yet.
+SIMD, reference corpus encodings, and representative benchmark families are
+not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
