@@ -1,5 +1,5 @@
 // Package addedtoken extracts configured AddedTokens before normalization and
-// pre-tokenization. Its behavior follows Hugging Face Tokenizers v0.22.2.
+// pre-tokenization. Its behavior follows Hugging Face Tokenizers v0.23.2.
 package addedtoken
 
 import (

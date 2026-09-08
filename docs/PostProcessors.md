@@ -156,4 +156,4 @@ expressed with `TemplateProcessing`; unsupported serialized processor types
 must not be approximated silently.
 
 The behavior is covered by a reproducible differential fixture generated with
-Hugging Face Tokenizers 0.22.2.
+Hugging Face Tokenizers 0.23.2.

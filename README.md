@@ -102,7 +102,7 @@ work and must not present allocation differences as kernel speedups.
 
 The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
 TemplateProcessing, and ByteLevel offset post-processing are implemented and
-covered by unit, race, fuzz, and pinned Hugging Face 0.22.2 differential tests.
+covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and
 have public allocation benchmarks; no general throughput claim is made from
 those small shapes. The next milestone is broader pipeline fixtures, then

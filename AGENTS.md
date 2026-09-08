@@ -17,7 +17,7 @@ loads `vocab.json` and `merges.txt`, then tokenizes one pre-tokenized UTF-8
 piece with the deterministic scalar BPE oracle. `Tokenizer` adds immutable
 AddedToken matching, the standard GPT-2 ByteLevel pre-tokenizer, pair encoding,
 TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
-post-processor behavior have pinned Hugging Face 0.22.2 differential fixtures.
+post-processor behavior have pinned Hugging Face 0.23.2 differential fixtures.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
 scratch pools; scratch-reuse tests and initial public allocation benchmarks
 cover short model and raw-text inputs.

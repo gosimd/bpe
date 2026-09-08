@@ -1,6 +1,6 @@
 {
   "upstream": "huggingface/tokenizers",
-  "version": "0.22.2",
+  "version": "0.23.2",
   "generator": "scripts/generate_hf_added_token_fixtures.py",
   "cases": [
     {

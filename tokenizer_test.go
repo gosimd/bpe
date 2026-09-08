@@ -316,14 +316,14 @@ func TestHFAddedTokenFixtures(t *testing.T) {
 		Version  string        `json:"version"`
 		Cases    []fixtureCase `json:"cases"`
 	}
-	data, err := os.ReadFile("testdata/hf_added_tokens_v0.22.2.json")
+	data, err := os.ReadFile("testdata/hf_added_tokens_v0.23.2.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if err := json.Unmarshal(data, &fixture); err != nil {
 		t.Fatal(err)
 	}
-	if fixture.Upstream != "huggingface/tokenizers" || fixture.Version != "0.22.2" {
+	if fixture.Upstream != "huggingface/tokenizers" || fixture.Version != "0.23.2" {
 		t.Fatalf("unexpected fixture source %q %q", fixture.Upstream, fixture.Version)
 	}
 
@@ -438,14 +438,14 @@ func TestHFPostProcessorFixtures(t *testing.T) {
 		TemplateCases  []templateCase  `json:"template_cases"`
 		ByteLevelCases []byteLevelCase `json:"byte_level_cases"`
 	}
-	data, err := os.ReadFile("testdata/hf_post_processors_v0.22.2.json")
+	data, err := os.ReadFile("testdata/hf_post_processors_v0.23.2.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if err := json.Unmarshal(data, &fixture); err != nil {
 		t.Fatal(err)
 	}
-	if fixture.Upstream != "huggingface/tokenizers" || fixture.Version != "0.22.2" {
+	if fixture.Upstream != "huggingface/tokenizers" || fixture.Version != "0.23.2" {
 		t.Fatalf("unexpected fixture source %q %q", fixture.Upstream, fixture.Version)
 	}
 

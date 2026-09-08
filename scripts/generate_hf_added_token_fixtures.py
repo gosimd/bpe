@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the pinned AddedToken differential fixture.
 
-Run with a Python environment containing tokenizers==0.22.2:
+Run with a Python environment containing tokenizers==0.23.2:
 
     python scripts/generate_hf_added_token_fixtures.py
 """
@@ -13,8 +13,8 @@ import tokenizers
 from tokenizers import AddedToken, Tokenizer, models, pre_tokenizers
 
 
-if tokenizers.__version__ != "0.22.2":
-    raise SystemExit(f"expected tokenizers 0.22.2, got {tokenizers.__version__}")
+if tokenizers.__version__ != "0.23.2":
+    raise SystemExit(f"expected tokenizers 0.23.2, got {tokenizers.__version__}")
 
 
 CASES = [
@@ -103,5 +103,5 @@ for case in CASES:
         }
     )
 
-path = Path(__file__).resolve().parents[1] / "testdata" / "hf_added_tokens_v0.22.2.json"
+path = Path(__file__).resolve().parents[1] / "testdata" / "hf_added_tokens_v0.23.2.json"
 path.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")

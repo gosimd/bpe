@@ -190,7 +190,7 @@ The implementation follows AddedToken extraction, the deterministic BPE model,
 the standard GPT-2 ByteLevel pre-tokenizer, TemplateProcessing, and ByteLevel
 post-processing. AddedToken and post-processor results are covered by
 reproducible differential fixtures generated with Hugging Face Tokenizers
-0.22.2. Broader pinned fixtures are still required before making a
+0.23.2. Broader pinned fixtures are still required before making a
 release-level conformance claim. The following are deliberately not supported:
 
 - `tokenizer.json` parsing;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate pinned TemplateProcessing and ByteLevel differential fixtures.
 
-Run with a Python environment containing tokenizers==0.22.2:
+Run with a Python environment containing tokenizers==0.23.2:
 
     python scripts/generate_hf_post_processor_fixtures.py
 """
@@ -13,8 +13,8 @@ import tokenizers
 from tokenizers import Tokenizer, models, pre_tokenizers, processors
 
 
-if tokenizers.__version__ != "0.22.2":
-    raise SystemExit(f"expected tokenizers 0.22.2, got {tokenizers.__version__}")
+if tokenizers.__version__ != "0.23.2":
+    raise SystemExit(f"expected tokenizers 0.23.2, got {tokenizers.__version__}")
 
 
 def encoded(encoding):
@@ -181,5 +181,5 @@ for case in BYTE_LEVEL_CASES:
     encoding = tokenizer.encode(case["first"], case["second"], add_special_tokens=True)
     output["byte_level_cases"].append({**case, "encoding": encoded(encoding)})
 
-path = Path(__file__).resolve().parents[1] / "testdata" / "hf_post_processors_v0.22.2.json"
+path = Path(__file__).resolve().parents[1] / "testdata" / "hf_post_processors_v0.23.2.json"
 path.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")
