@@ -29,11 +29,13 @@ corpus and can record self-describing upstream benchmarks without participating
 in the Go build. `make test-reference` regenerates that ignored oracle and
 checks the entire corpus against internal ByteLevel, public Model, public
 Tokenizer, and public AppendIDs behavior. Ordinary `go test` skips the
-full-corpus tests when the opt-in oracle environment is absent.
+full-corpus tests when the opt-in oracle environment is absent. A retained
+single-thread Apple M5 baseline measures HF pre-tokenization, uncached BPE,
+full uncached encoding, and warm-cache encoding separately; a sampling profile
+covers full uncached encoding.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, retained HF corpus measurements, and representative Go benchmark
-families are not implemented yet.
+SIMD, and representative Go benchmark families are not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
@@ -58,6 +60,10 @@ section and the README when that state materially changes.
 - Store retained benchmark results under `tools/hf-reference/results/`. Keep
   the corpus and tokenizer hashes, encoding mode, warm-up, measurement count,
   thread count, machine/CPU, OS, and execution conditions with every result.
+- Measure pre-tokenization, BPE with `cache_capacity(0)`, full uncached encode,
+  and warm-cache full encode as distinct cases. Never infer model time by
+  subtracting stage measurements from full encode. Keep raw CPU profiles and
+  their sampling method beside retained timings.
 - Do not expose the Rust executable as a Go package, link it through FFI, or
   ship it as part of the Go library. Cross-language comparison happens through
   compact committed regression fixtures, locally generated corpus oracles, and

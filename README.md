@@ -108,7 +108,8 @@ and regeneration details are recorded in
 
 The repository-only Rust [Hugging Face reference tool](tools/hf-reference/README.md)
 generates local three-level corpus oracles—pre-tokenization, per-piece BPE, and
-final Encoding—and records upstream full-pipeline benchmarks. It pins
+final Encoding—and separately measures pre-tokenization, uncached BPE, full
+uncached encoding, and warm-cache encoding. It pins
 `tokenizers` 0.23.2 and its Rust toolchain and is not built or linked by the Go
 package. Corpus oracle output lives under the ignored `testdata/generated/`
 directory. Run `make test-reference` to regenerate it and compare all 3,760
@@ -127,8 +128,10 @@ those small shapes. Pinned GPT-2 tokenizer assets and the WikiText-2 raw
 validation corpus and a pinned Hugging Face reference executable are available
 for the representative benchmark suite. The full WikiText-2 differential
 suite is available through `make test-reference`; its generated oracle is not
-retained in Git. No retained HF measurement or Go corpus benchmark is
-published yet. SIMD work starts only after profiling this workload.
+retained in Git. An initial single-threaded
+[HF baseline and CPU profile](tools/hf-reference/results/gpt2-wikitext2-apple-m5-macos-26.6.2-threads1-2026-09-09.md)
+are retained for this corpus. A comparable Go corpus benchmark is not
+implemented yet; no SIMD speedup is claimed.
 
 ## License
 

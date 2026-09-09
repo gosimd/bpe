@@ -1,12 +1,9 @@
 use std::fs::{self, File};
-use std::hint::black_box;
 use std::io::{BufRead, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
-use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
 use anyhow::{bail, Context, Result};
 use clap::{Parser, Subcommand};
-use rayon::{prelude::*, ThreadPool, ThreadPoolBuilder};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use tokenizers::models::ModelWrapper;
@@ -16,6 +13,8 @@ use tokenizers::{
 
 const TOKENIZERS_VERSION: &str = "0.23.2";
 const RUST_TOOLCHAIN: &str = "1.98.1";
+
+mod benchmark;
 
 #[derive(Parser)]
 #[command(version, about = "Pinned Hugging Face tokenizer oracle and benchmark")]
@@ -35,12 +34,18 @@ enum Command {
         #[arg(long)]
         output: PathBuf,
     },
-    /// Benchmark the complete Tokenizer::encode pipeline.
+    /// Benchmark pre-tokenization, uncached BPE, and full encode separately.
     Benchmark {
         #[arg(long)]
         tokenizer: PathBuf,
         #[arg(long)]
         corpus: PathBuf,
+        #[arg(long)]
+        vocab: PathBuf,
+        #[arg(long)]
+        merges: PathBuf,
+        #[arg(long)]
+        fixture: PathBuf,
         #[arg(long)]
         output: PathBuf,
         #[arg(long, default_value_t = 3)]
@@ -53,6 +58,25 @@ enum Command {
         #[arg(long)]
         environment: String,
     },
+    /// Run one prepared workload long enough for an external CPU profiler.
+    Profile {
+        #[arg(long)]
+        tokenizer: PathBuf,
+        #[arg(long)]
+        corpus: PathBuf,
+        #[arg(long)]
+        vocab: PathBuf,
+        #[arg(long)]
+        merges: PathBuf,
+        #[arg(long)]
+        fixture: PathBuf,
+        #[arg(long, value_enum, default_value_t = benchmark::BenchmarkOperation::EncodeFullUncached)]
+        operation: benchmark::BenchmarkOperation,
+        #[arg(long, default_value_t = 20)]
+        seconds: u64,
+        #[arg(long, default_value_t = 1)]
+        threads: usize,
+    },
 }
 
 #[derive(Debug, Deserialize)]
@@ -61,7 +85,7 @@ struct CorpusRecord {
     text: String,
 }
 
-#[derive(Serialize)]
+#[derive(Deserialize, Serialize)]
 struct FileMetadata {
     path: String,
     sha256: String,
@@ -100,7 +124,7 @@ struct FixtureMetadata {
     mode: Mode,
 }
 
-#[derive(Serialize)]
+#[derive(Deserialize, Serialize)]
 struct CorpusMetadata {
     path: String,
     sha256: String,
@@ -162,51 +186,6 @@ impl Aggregate {
     }
 }
 
-#[derive(Serialize)]
-struct BenchmarkResult {
-    schema: &'static str,
-    upstream: &'static str,
-    tokenizers_version: &'static str,
-    rust_toolchain: &'static str,
-    operation: &'static str,
-    recorded_at_unix_seconds: u64,
-    tokenizer: FileMetadata,
-    corpus: CorpusMetadata,
-    mode: Mode,
-    environment: Environment,
-    configuration: BenchmarkConfiguration,
-    measurement: BenchmarkMeasurement,
-}
-
-#[derive(Serialize)]
-struct Environment {
-    description: String,
-    os: &'static str,
-    architecture: &'static str,
-    available_parallelism: usize,
-}
-
-#[derive(Serialize)]
-struct BenchmarkConfiguration {
-    warmup_iterations: usize,
-    measurement_iterations: usize,
-    threads: usize,
-}
-
-#[derive(Serialize)]
-struct BenchmarkMeasurement {
-    input_bytes_per_iteration: usize,
-    records_per_iteration: usize,
-    tokens_per_iteration: usize,
-    checksum: u64,
-    iteration_nanoseconds: Vec<u128>,
-    min_nanoseconds: u128,
-    median_nanoseconds: u128,
-    max_nanoseconds: u128,
-    median_nanoseconds_per_input_byte: f64,
-    median_mib_per_second: f64,
-}
-
 fn main() -> Result<()> {
     match Cli::parse().command {
         Command::Generate {
@@ -217,19 +196,37 @@ fn main() -> Result<()> {
         Command::Benchmark {
             tokenizer,
             corpus,
+            vocab,
+            merges,
+            fixture,
             output,
             warmup,
             iterations,
             threads,
             environment,
-        } => run_benchmark(
+        } => benchmark::run_benchmark(
             &tokenizer,
             &corpus,
+            &vocab,
+            &merges,
+            &fixture,
             &output,
             warmup,
             iterations,
             threads,
             environment,
+        ),
+        Command::Profile {
+            tokenizer,
+            corpus,
+            vocab,
+            merges,
+            fixture,
+            operation,
+            seconds,
+            threads,
+        } => benchmark::run_profile(
+            &tokenizer, &corpus, &vocab, &merges, &fixture, operation, seconds, threads,
         ),
     }
 }
@@ -422,174 +419,10 @@ fn snapshot_encoding(encoding: &Encoding) -> FinalEncoding {
     }
 }
 
-fn run_benchmark(
-    tokenizer_path: &Path,
-    corpus_path: &Path,
-    output: &Path,
-    warmup: usize,
-    iterations: usize,
-    threads: usize,
-    environment_description: String,
-) -> Result<()> {
-    reject_input_overwrite(tokenizer_path, corpus_path, output)?;
-    if iterations == 0 {
-        bail!("--iterations must be greater than zero");
-    }
-    if threads == 0 {
-        bail!("--threads must be greater than zero");
-    }
-    if environment_description.trim().is_empty() {
-        bail!("--environment must not be empty");
-    }
-
-    let tokenizer = load_tokenizer(tokenizer_path)?;
-    let records = load_corpus(corpus_path)?;
-    let pool = if threads > 1 {
-        Some(
-            ThreadPoolBuilder::new()
-                .num_threads(threads)
-                .thread_name(|index| format!("hf-reference-{index}"))
-                .build()
-                .context("create benchmark thread pool")?,
-        )
-    } else {
-        None
-    };
-
-    for _ in 0..warmup {
-        black_box(encode_corpus(&tokenizer, &records, pool.as_ref())?);
-    }
-
-    let mut durations = Vec::with_capacity(iterations);
-    let mut expected = None;
-    for _ in 0..iterations {
-        let started = Instant::now();
-        let aggregate = black_box(encode_corpus(&tokenizer, &records, pool.as_ref())?);
-        let elapsed = started.elapsed().as_nanos();
-        if let Some(expected) = expected {
-            if aggregate != expected {
-                bail!("token count or checksum changed between benchmark iterations");
-            }
-        } else {
-            expected = Some(aggregate);
-        }
-        durations.push(elapsed);
-    }
-
-    let aggregate = expected.expect("iterations is non-zero");
-    let input_bytes = records
-        .iter()
-        .map(|record| record.text.len())
-        .sum::<usize>();
-    if input_bytes == 0 {
-        bail!("cannot benchmark a corpus containing zero UTF-8 bytes");
-    }
-    let median = median(&durations);
-    let seconds = median as f64 / 1_000_000_000.0;
-    let result = BenchmarkResult {
-        schema: "gosimd-bpe-hf-benchmark-v1",
-        upstream: "huggingface/tokenizers",
-        tokenizers_version: TOKENIZERS_VERSION,
-        rust_toolchain: RUST_TOOLCHAIN,
-        operation: "Tokenizer::encode/full_pipeline",
-        recorded_at_unix_seconds: SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .context("system clock is before Unix epoch")?
-            .as_secs(),
-        tokenizer: FileMetadata {
-            path: tokenizer_path.display().to_string(),
-            sha256: sha256(tokenizer_path)?,
-        },
-        corpus: corpus_metadata(corpus_path, &records)?,
-        mode: Mode::default(),
-        environment: Environment {
-            description: environment_description,
-            os: std::env::consts::OS,
-            architecture: std::env::consts::ARCH,
-            available_parallelism: std::thread::available_parallelism()
-                .map(usize::from)
-                .unwrap_or(1),
-        },
-        configuration: BenchmarkConfiguration {
-            warmup_iterations: warmup,
-            measurement_iterations: iterations,
-            threads,
-        },
-        measurement: BenchmarkMeasurement {
-            input_bytes_per_iteration: input_bytes,
-            records_per_iteration: records.len(),
-            tokens_per_iteration: aggregate.tokens,
-            checksum: aggregate.checksum,
-            iteration_nanoseconds: durations.clone(),
-            min_nanoseconds: *durations.iter().min().expect("durations is non-empty"),
-            median_nanoseconds: median,
-            max_nanoseconds: *durations.iter().max().expect("durations is non-empty"),
-            median_nanoseconds_per_input_byte: median as f64 / input_bytes as f64,
-            median_mib_per_second: input_bytes as f64 / (1024.0 * 1024.0) / seconds,
-        },
-    };
-
-    ensure_parent(output)?;
-    let mut file = BufWriter::new(
-        File::create(output).with_context(|| format!("create {}", output.display()))?,
-    );
-    serde_json::to_writer_pretty(&mut file, &result)
-        .with_context(|| format!("serialize {}", output.display()))?;
-    file.write_all(b"\n")?;
-    file.flush()?;
-    println!("wrote benchmark result to {}", output.display());
-    Ok(())
-}
-
-fn encode_corpus(
-    tokenizer: &Tokenizer,
-    records: &[CorpusRecord],
-    pool: Option<&ThreadPool>,
-) -> Result<Aggregate> {
-    if let Some(pool) = pool {
-        pool.install(|| {
-            records
-                .par_iter()
-                .map(|record| encode(tokenizer, &record.text).map(|encoding| digest(&encoding)))
-                .try_reduce(Aggregate::default, |left, right| Ok(left.combine(right)))
-        })
-    } else {
-        records
-            .iter()
-            .try_fold(Aggregate::default(), |total, record| {
-                let encoding = encode(tokenizer, &record.text)?;
-                Ok(total.combine(digest(&encoding)))
-            })
-    }
-}
-
 fn encode(tokenizer: &Tokenizer, text: &str) -> Result<Encoding> {
     tokenizer
         .encode(text, false)
         .map_err(|error| anyhow::anyhow!(error.to_string()))
-}
-
-fn digest(encoding: &Encoding) -> Aggregate {
-    let mut checksum = 0xcbf29ce484222325_u64;
-    for &id in encoding.get_ids() {
-        checksum ^= u64::from(id);
-        checksum = checksum.wrapping_mul(0x100000001b3);
-    }
-    Aggregate {
-        tokens: encoding.len(),
-        checksum,
-    }
-}
-
-fn median(values: &[u128]) -> u128 {
-    let mut sorted = values.to_vec();
-    sorted.sort_unstable();
-    let middle = sorted.len() / 2;
-    if sorted.len().is_multiple_of(2) {
-        (sorted[middle - 1] + sorted[middle]) / 2
-    } else {
-        sorted[middle]
-    }
 }
 
 fn sha256(path: &Path) -> Result<String> {
@@ -653,12 +486,6 @@ mod tests {
 
         let error = load_corpus(&path).unwrap_err();
         assert!(error.to_string().contains("physically empty"));
-    }
-
-    #[test]
-    fn median_handles_odd_and_even_samples() {
-        assert_eq!(median(&[9, 1, 5]), 5);
-        assert_eq!(median(&[10, 2, 8, 4]), 6);
     }
 
     #[test]

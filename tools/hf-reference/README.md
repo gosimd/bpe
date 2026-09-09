@@ -11,7 +11,7 @@ graph is recorded in `Cargo.lock`, and `rust-toolchain.toml` selects Rust
 
 ## Fixed encoding mode
 
-Both commands use the same mode:
+All commands use the same mode:
 
 - each JSONL corpus record is encoded independently;
 - `add_special_tokens = false`;
@@ -71,30 +71,87 @@ the flattened `AppendIDs` output and record boundaries. A failure identifies
 the source record, original text, piece, token, and first differing field.
 Ordinary `go test` does not invoke Cargo and skips these full-corpus tests.
 
-## Benchmark the full pipeline
+## Benchmark the pipeline stages
 
-The benchmark measures a complete pass over all records using
-`Tokenizer::encode`. It does not claim to separate normalization,
-pre-tokenization, model encoding, or post-processing time.
+The benchmark runs four independent workloads over the complete corpus:
+
+- `pretokenize_only` performs AddedToken extraction and normalization followed
+  by the configured pre-tokenizer;
+- `bpe_only_uncached` invokes the BPE model for the prepared `source = "bpe"`
+  pieces from the generated oracle;
+- `encode_full_uncached` runs `Tokenizer::encode` with a BPE model constructed
+  with `cache_capacity(0)`;
+- `encode_full_warm_cache` runs the original tokenizer after one untimed corpus
+  pass has populated its default thread-local cache.
+
+Generate the ignored oracle first with `make generate-fixtures`, then run from
+the repository root:
 
 ```sh
 cargo run --locked --release \
   --manifest-path tools/hf-reference/Cargo.toml -- benchmark \
   --tokenizer testdata/gpt2/tokenizer.json \
+  --vocab testdata/gpt2/vocab.json \
+  --merges testdata/gpt2/merges.txt \
   --corpus testdata/wikitext2/validation.jsonl \
+  --fixture testdata/generated/hf_gpt2_wikitext2_v0.23.2.jsonl \
   --output tools/hf-reference/results/gpt2-wikitext2.json \
   --warmup 3 \
   --iterations 10 \
   --threads 1 \
-  --environment "Apple M5; macOS; performance mode and background load noted here"
+  --environment "CPU and machine; OS; power mode; affinity and background load"
 ```
+
+The uncached model is constructed from the pinned `vocab.json` and
+`merges.txt`; its serialized BPE options are copied from `tokenizer.json` and
+its output is checked against the oracle before timing. The warm-cache case
+uses the upstream default capacity of 10,000 entries. The result records both
+that capacity and the number of distinct cache-eligible pieces, because one
+prefill cannot imply a hit for every piece when the working set is larger.
+
+Input loading, fixture validation, model construction, and cache prefill are
+outside the measured interval. Operation output construction and destruction
+are inside it. The BPE-only throughput denominator is the UTF-8 byte size of
+the transformed pre-tokenized pieces; the other three cases use source-text
+bytes. These are separate workloads: do not derive BPE time by subtracting
+`pretokenize_only` from `encode_full_uncached`. Full encoding also includes
+pipeline bookkeeping, offset conversion, post-processing, and allocation.
 
 For `--threads 1`, records are encoded serially. Larger values use one
 persistent Rayon pool with exactly the requested number of worker threads;
 records remain independent. Pool construction and input loading occur outside
-the measured interval.
+the measured interval. This is repository-tool parallelism, not an
+`encode_batch` measurement; benchmark upstream `encode_batch` separately when
+evaluating a future Go Batch API.
 
 Each result contains the corpus and tokenizer paths and SHA-256 hashes, mode,
 warm-up and measurement counts, thread count, environment description,
-per-iteration duration, median throughput, token count, and a result checksum.
+per-iteration duration, median throughput, workload shape, cache state, token
+count, and result checksum. It also hashes the Rust sources and `Cargo.lock`.
 See [`results/README.md`](results/README.md) before retaining a measurement.
+
+## Capture a CPU profile
+
+Build the release executable, then run one validated workload long enough for
+an external sampling profiler:
+
+```sh
+cargo build --locked --release \
+  --manifest-path tools/hf-reference/Cargo.toml
+
+tools/hf-reference/target/release/hf-reference profile \
+  --tokenizer testdata/gpt2/tokenizer.json \
+  --vocab testdata/gpt2/vocab.json \
+  --merges testdata/gpt2/merges.txt \
+  --corpus testdata/wikitext2/validation.jsonl \
+  --fixture testdata/generated/hf_gpt2_wikitext2_v0.23.2.jsonl \
+  --operation encode-full-uncached \
+  --seconds 30 \
+  --threads 1
+```
+
+Attach only after the tool prints `PROFILE_READY`; setup and validation happen
+before that marker. On macOS, for example, use `/usr/bin/sample <pid> 10 1
+-mayDie -fullPaths -file <result.sample.txt>`. The command prints
+`PROFILE_COMPLETE` with the number of corpus passes and a marker when the
+profile interval ends.
