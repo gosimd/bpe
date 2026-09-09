@@ -148,7 +148,8 @@ func (m *Model) AppendIDsWithScratch(dst []uint32, piece string, scratch *Scratc
 	if len(symbols) == 0 {
 		return dst
 	}
-	m.mergeAll(symbols, &scratch.candidates)
+	// The ID-only path retains the heap and its reusable candidate storage.
+	m.mergeHeap(symbols, &scratch.candidates)
 	for index := 0; index >= 0; index = symbols[index].next {
 		dst = append(dst, symbols[index].id)
 	}
@@ -234,7 +235,7 @@ func (m *Model) initialSymbols(symbols []symbol, piece string) []symbol {
 	return symbols
 }
 
-func (m *Model) mergeAll(symbols []symbol, queue *candidateHeap) {
+func (m *Model) mergeHeap(symbols []symbol, queue *candidateHeap) {
 	*queue = (*queue)[:0]
 	if additional := len(symbols) - cap(*queue); additional > 0 {
 		*queue = make(candidateHeap, 0, cap(*queue)+additional)

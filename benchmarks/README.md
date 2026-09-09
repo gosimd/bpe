@@ -46,3 +46,11 @@ hot paths rather than direct speedups over the materializing HF APIs.
 Each operation covers a whole corpus pass. Consequently, `B/op` and
 `allocs/op` are totals per corpus, not per record or token. `Model*` throughput
 uses transformed-piece bytes; the other cases use source-text bytes.
+
+## Internal merge shapes
+
+`BenchmarkMergeShapes` in `internal/model` measures the production merge
+dispatcher on prepared, reusable symbols without model loading or output
+construction. It covers one/two-symbol pieces, the short-array boundary,
+longer heap inputs, merge-dense `ab` and no-merge `x` strings. These synthetic
+kernel timings complement, but do not replace, the public corpus benchmark.

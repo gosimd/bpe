@@ -41,6 +41,12 @@ Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
 SIMD, and representative benchmark families beyond the GPT-2 corpus baseline
 are not implemented yet.
 
+`Model.Tokenize` uses a direct two-symbol path, a scalar current-pair array
+for up to 32 initial symbols when merge ranks fit its packed priority, and
+the original heap otherwise. Both AppendIDs paths retain the heap. The heap
+also remains the executable oracle for ordinary short-path boundary and fuzz
+tests. There are no experimental backend build tags or SIMD requirements.
+
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
 section and the README when that state materially changes.

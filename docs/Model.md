@@ -93,9 +93,13 @@ rank. After a merge, it considers the newly adjacent pair on either side. Ties
 are resolved by the earlier position in the piece. This global priority is
 essential: applying `merges.txt` once in file order is not equivalent.
 
-The implementation is a scalar heap-based oracle. It deliberately favors
-exactness over micro-optimizations and will be the differential reference for
-future incremental and SIMD implementations.
+`Tokenize` uses a direct pair lookup for two initial symbols, a scalar array
+of current adjacent-pair priorities for up to 32 symbols, and a heap for
+longer pieces or ranks too large for the packed array key. Symbols here are
+the model's initial symbols, not UTF-8 bytes. Both short paths preserve the
+same rank/leftmost ordering and piece-relative byte offsets as the heap.
+The heap remains the executable test oracle and is used by `AppendIDs`.
+No SIMD or experimental build flags are required.
 
 ## Supported options
 

@@ -88,8 +88,8 @@ generated full-corpus oracle. Fixtures record:
 
 Tests include empty inputs, unknown symbols, repeated pairs, merge-rank ties,
 UTF-8 text, byte-level alphabets, special-looking ordinary tokens,
-prefix/suffix modes, and byte fallback. SIMD boundary coverage will be added
-with the first optimized backend.
+prefix/suffix modes, and byte fallback. Short-piece merge paths are also
+tested against the heap oracle around their dispatch boundaries.
 
 ## Performance
 
@@ -136,6 +136,12 @@ are retained for this corpus. The comparable API pairs are `Model.Tokenize`
 against uncached HF BPE and `Tokenizer.Encode` against full uncached HF encode;
 the ID-only `AppendIDs` paths are reported separately. No SIMD speedup is
 claimed.
+
+`Model.Tokenize` uses a direct lookup for two initial symbols and a scalar
+current-pair array for short pieces, with a heap fallback for longer pieces
+or large merge ranks. The heap remains the correctness oracle and the
+implementation of the ID-only paths. No build tags or SIMD experiment are
+required. The retained Go/HF baseline above predates this optimization.
 
 ## License
 
