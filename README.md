@@ -130,8 +130,12 @@ for the representative benchmark suite. The full WikiText-2 differential
 suite is available through `make test-reference`; its generated oracle is not
 retained in Git. An initial single-threaded
 [HF baseline and CPU profile](tools/hf-reference/results/gpt2-wikitext2-apple-m5-macos-26.6.2-threads1-2026-09-09.md)
-are retained for this corpus. A comparable Go corpus benchmark is not
-implemented yet; no SIMD speedup is claimed.
+and a symmetric
+[Go/HF baseline](benchmarks/results/gpt2-wikitext2-apple-m5-go1.27.0-threads1-2026-09-09.md)
+are retained for this corpus. The comparable API pairs are `Model.Tokenize`
+against uncached HF BPE and `Tokenizer.Encode` against full uncached HF encode;
+the ID-only `AppendIDs` paths are reported separately. No SIMD speedup is
+claimed.
 
 ## License
 

@@ -32,10 +32,14 @@ Tokenizer, and public AppendIDs behavior. Ordinary `go test` skips the
 full-corpus tests when the opt-in oracle environment is absent. A retained
 single-thread Apple M5 baseline measures HF pre-tokenization, uncached BPE,
 full uncached encoding, and warm-cache encoding separately; a sampling profile
-covers full uncached encoding.
+covers full uncached encoding. A symmetric single-thread Go corpus benchmark
+measures ByteLevel pre-tokenization, `Model.Tokenize`, `Model.AppendIDs`,
+`Tokenizer.Encode`, and `Tokenizer.AppendIDs`; its retained baseline compares
+only equivalent materializing APIs directly with HF.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, and representative Go benchmark families are not implemented yet.
+SIMD, and representative benchmark families beyond the GPT-2 corpus baseline
+are not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
@@ -159,6 +163,12 @@ the upstream or intentional contract change in the same commit.
 ## Benchmarks
 
 - Keep public end-to-end benchmarks separate from internal kernel benchmarks.
+- The opt-in `BenchmarkGPT2WikiText2` loads the corpus, compiled model, and
+  ignored HF oracle before timing. Preserve its fixed record order and untimed
+  full-output validation when changing it.
+- Compare HF BPE only with `Model.Tokenize` and HF full encode only with
+  `Tokenizer.Encode`. Report `Model.AppendIDs` and `Tokenizer.AppendIDs` as
+  distinct ID-only inference paths, not as direct HF API speedups.
 - Use realistic families: short pieces, long pieces, merge-dense and
   merge-sparse inputs, ASCII, multilingual UTF-8, byte-level vocabularies,
   unknown-heavy inputs, and cache hits/misses when caching exists.

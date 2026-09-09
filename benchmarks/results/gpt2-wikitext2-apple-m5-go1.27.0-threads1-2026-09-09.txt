@@ -1,0 +1,56 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  37564250 ns/op	  30.46 MB/s	        32.83 ns/input-byte	   5846383 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  38027166 ns/op	  30.09 MB/s	        33.23 ns/input-byte	   5775213 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  35971750 ns/op	  31.81 MB/s	        31.44 ns/input-byte	   6105208 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  37429625 ns/op	  30.57 MB/s	        32.71 ns/input-byte	   5867411 pieces/s	74561032 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  35863291 ns/op	  31.91 MB/s	        31.34 ns/input-byte	   6123671 pieces/s	74561032 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  37292750 ns/op	  30.68 MB/s	        32.59 ns/input-byte	   5888946 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  35832166 ns/op	  31.93 MB/s	        31.32 ns/input-byte	   6128990 pieces/s	74561032 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  37841458 ns/op	  30.24 MB/s	        33.07 ns/input-byte	   5803555 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  37071959 ns/op	  30.87 MB/s	        32.40 ns/input-byte	   5924019 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/PreTokenizer         	       1	  36326750 ns/op	  31.50 MB/s	        31.75 ns/input-byte	   6045545 pieces/s	74561048 B/op	  482101 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  80369375 ns/op	  17.00 MB/s	        58.82 ns/input-byte	   2732571 pieces/s	   3076906 tokens/s	39836200 B/op	  439250 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  81745875 ns/op	  16.72 MB/s	        59.83 ns/input-byte	   2686558 pieces/s	   3025095 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  81639500 ns/op	  16.74 MB/s	        59.75 ns/input-byte	   2690058 pieces/s	   3029036 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  89045042 ns/op	  15.34 MB/s	        65.17 ns/input-byte	   2466336 pieces/s	   2777123 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  88263291 ns/op	  15.48 MB/s	        64.60 ns/input-byte	   2488181 pieces/s	   2801720 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  77858084 ns/op	  17.55 MB/s	        56.98 ns/input-byte	   2820709 pieces/s	   3176151 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  78581958 ns/op	  17.39 MB/s	        57.51 ns/input-byte	   2794725 pieces/s	   3146893 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  77480334 ns/op	  17.64 MB/s	        56.70 ns/input-byte	   2834461 pieces/s	   3191636 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  80382291 ns/op	  17.00 MB/s	        58.83 ns/input-byte	   2732132 pieces/s	   3076411 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelTokenize        	       1	  81966333 ns/op	  16.67 MB/s	        59.99 ns/input-byte	   2679332 pieces/s	   3016958 tokens/s	39827528 B/op	  439234 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  64145542 ns/op	  21.30 MB/s	        46.95 ns/input-byte	   3423699 pieces/s	   3855124 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  62841125 ns/op	  21.74 MB/s	        45.99 ns/input-byte	   3494766 pieces/s	   3935146 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  60604417 ns/op	  22.55 MB/s	        44.35 ns/input-byte	   3623746 pieces/s	   4080379 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  60871709 ns/op	  22.45 MB/s	        44.55 ns/input-byte	   3607834 pieces/s	   4062462 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  62055375 ns/op	  22.02 MB/s	        45.42 ns/input-byte	   3539017 pieces/s	   3984973 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  61455500 ns/op	  22.23 MB/s	        44.98 ns/input-byte	   3573561 pieces/s	   4023871 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  61831709 ns/op	  22.10 MB/s	        45.25 ns/input-byte	   3551818 pieces/s	   3999388 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  62131875 ns/op	  21.99 MB/s	        45.47 ns/input-byte	   3534659 pieces/s	   3980067 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  61861667 ns/op	  22.09 MB/s	        45.27 ns/input-byte	   3550098 pieces/s	   3997451 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/ModelAppendIDs       	       1	  64607000 ns/op	  21.15 MB/s	        47.28 ns/input-byte	   3399245 pieces/s	   3827588 tokens/s	     264 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 139218208 ns/op	   8.22 MB/s	       121.7 ns/input-byte	   1577488 pieces/s	   1776269 tokens/s	145450504 B/op	  715612 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 141053333 ns/op	   8.11 MB/s	       123.3 ns/input-byte	   1556964 pieces/s	   1753160 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 142442458 ns/op	   8.03 MB/s	       124.5 ns/input-byte	   1541780 pieces/s	   1736062 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 143114583 ns/op	   8.00 MB/s	       125.1 ns/input-byte	   1534540 pieces/s	   1727909 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 136539708 ns/op	   8.38 MB/s	       119.3 ns/input-byte	   1608433 pieces/s	   1811114 tokens/s	145450624 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 128082541 ns/op	   8.93 MB/s	       111.9 ns/input-byte	   1714637 pieces/s	   1930700 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 129980833 ns/op	   8.80 MB/s	       113.6 ns/input-byte	   1689595 pieces/s	   1902504 tokens/s	145450624 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 129095625 ns/op	   8.86 MB/s	       112.8 ns/input-byte	   1701181 pieces/s	   1915549 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 127967208 ns/op	   8.94 MB/s	       111.8 ns/input-byte	   1716182 pieces/s	   1932440 tokens/s	145450504 B/op	  715612 allocs/op
+BenchmarkGPT2WikiText2/TokenizerEncode      	       1	 127932625 ns/op	   8.94 MB/s	       111.8 ns/input-byte	   1716646 pieces/s	   1932963 tokens/s	145450640 B/op	  715614 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  73893375 ns/op	  15.49 MB/s	        64.58 ns/input-byte	   2972053 pieces/s	   3346565 tokens/s	   27544 B/op	      35 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71303834 ns/op	  16.05 MB/s	        62.32 ns/input-byte	   3079989 pieces/s	   3468102 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  72124125 ns/op	  15.86 MB/s	        63.03 ns/input-byte	   3044959 pieces/s	   3428659 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71877625 ns/op	  15.92 MB/s	        62.82 ns/input-byte	   3055401 pieces/s	   3440417 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71649083 ns/op	  15.97 MB/s	        62.62 ns/input-byte	   3065147 pieces/s	   3451391 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  72220125 ns/op	  15.84 MB/s	        63.12 ns/input-byte	   3040911 pieces/s	   3424101 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  72230083 ns/op	  15.84 MB/s	        63.12 ns/input-byte	   3040492 pieces/s	   3423629 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71234500 ns/op	  16.06 MB/s	        62.25 ns/input-byte	   3082986 pieces/s	   3471478 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71992667 ns/op	  15.89 MB/s	        62.92 ns/input-byte	   3050519 pieces/s	   3434919 tokens/s	    2184 B/op	       3 allocs/op
+BenchmarkGPT2WikiText2/TokenizerAppendIDs   	       1	  71938916 ns/op	  15.91 MB/s	        62.87 ns/input-byte	   3052798 pieces/s	   3437486 tokens/s	    2184 B/op	       3 allocs/op
+PASS
+ok  	github.com/gosimd/bpe	5.403s

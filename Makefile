@@ -7,7 +7,7 @@ HF_GPT2_TOKENIZER := testdata/gpt2/tokenizer.json
 HF_WIKITEXT2_CORPUS := testdata/wikitext2/validation.jsonl
 HF_GPT2_FIXTURE := testdata/generated/hf_gpt2_wikitext2_v0.23.2.jsonl
 
-.PHONY: generate-fixtures test-reference
+.PHONY: benchmark-go-reference generate-fixtures test-reference
 generate-fixtures:
 	$(HF_REFERENCE) generate \
 		--tokenizer $(HF_GPT2_TOKENIZER) \
@@ -18,3 +18,10 @@ test-reference: generate-fixtures
 	BPE_HF_REFERENCE=$(abspath $(HF_GPT2_FIXTURE)) \
 	BPE_HF_REPOSITORY=$(CURDIR) \
 	$(GO) test -count=1 -run '^TestHFGPT2WikiText2' ./internal/bytelevel .
+
+benchmark-go-reference: generate-fixtures
+	BPE_HF_REFERENCE=$(abspath $(HF_GPT2_FIXTURE)) \
+	BPE_HF_REPOSITORY=$(CURDIR) \
+	GOMAXPROCS=1 \
+	$(GO) test -run '^$$' -bench '^BenchmarkGPT2WikiText2$$' \
+		-benchmem -benchtime=1x -count=10 -cpu=1 .
