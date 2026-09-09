@@ -32,11 +32,30 @@ make generate-fixtures
 
 The generated oracle is written to the ignored `testdata/generated/` directory
 as JSON Lines. Its first line records the schema, upstream version, toolchain,
-file hashes, corpus size, and fixed mode. Every following line records one
-encoding with its source index, IDs, token strings, byte offsets, type IDs,
-word/sequence IDs, and masks. Full-corpus oracle output is not committed; rerun
-the tool whenever it is needed. Small fixtures for specific compatibility edge
-cases remain suitable repository artifacts.
+file hashes, corpus size, and fixed mode. Every following line contains three
+linked levels for one source record:
+
+1. `pre_tokenization` records every transformed piece and its byte offsets in
+   the original record. For GPT-2 these are the configured ByteLevel regex
+   splitting and byte-to-Unicode transformation results.
+2. Each piece's `model` records BPE IDs and byte offsets local to the
+   transformed piece. `source` is `bpe`, or `added_token` when Hugging Face
+   bypassed the model for an AddedToken match.
+3. `encoding` records final IDs, record-relative byte offsets, type IDs,
+   sequence IDs, and the special-token mask after post-processing.
+
+`input_byte_range` and `output_token_range` make record boundaries explicit;
+the latter indexes a conceptual flattening of the independently encoded record
+outputs. Token strings are omitted because they can be recovered from the
+pinned tokenizer vocabulary. While generating, the tool reconstructs the
+pipeline from these upstream stages and requires it to equal the public
+`Tokenizer::encode` result for every record.
+
+The command accepts tokenizers with a configured BPE model and arbitrary
+serializable normalizer, pre-tokenizer, AddedToken set, and post-processor.
+Full-corpus oracle output is not committed; rerun the tool whenever it is
+needed. Small fixtures for specific compatibility edge cases remain suitable
+repository artifacts.
 
 ## Benchmark the full pipeline
 

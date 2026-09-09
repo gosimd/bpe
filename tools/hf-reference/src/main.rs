@@ -9,7 +9,10 @@ use clap::{Parser, Subcommand};
 use rayon::{prelude::*, ThreadPool, ThreadPoolBuilder};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use tokenizers::{Encoding, Tokenizer};
+use tokenizers::models::ModelWrapper;
+use tokenizers::{
+    Encoding, Model, OffsetReferential, OffsetType, PreTokenizedString, PreTokenizer, Tokenizer,
+};
 
 const TOKENIZERS_VERSION: &str = "0.23.2";
 const RUST_TOOLCHAIN: &str = "1.98.1";
@@ -106,17 +109,42 @@ struct CorpusMetadata {
 }
 
 #[derive(Serialize)]
-struct FixtureEncoding<'a> {
+struct FixtureRecord {
     kind: &'static str,
     index: usize,
-    ids: &'a [u32],
-    type_ids: &'a [u32],
-    tokens: &'a [String],
+    input_byte_range: [usize; 2],
+    output_token_range: [usize; 2],
+    pre_tokenization: Vec<PreTokenPiece>,
+    encoding: FinalEncoding,
+}
+
+#[derive(Serialize)]
+struct PreTokenPiece {
+    index: usize,
+    value: String,
+    offsets: [usize; 2],
+    model: PieceModelOutput,
+}
+
+#[derive(Serialize)]
+struct PieceModelOutput {
+    source: &'static str,
+    ids: Vec<u32>,
+    local_offsets: Vec<[usize; 2]>,
+}
+
+#[derive(Serialize)]
+struct FinalEncoding {
+    ids: Vec<u32>,
+    type_ids: Vec<u32>,
     offsets: Vec<[usize; 2]>,
-    word_ids: &'a [Option<u32>],
     sequence_ids: Vec<Option<usize>>,
-    special_tokens_mask: &'a [u32],
-    attention_mask: &'a [u32],
+    special_tokens_mask: Vec<u32>,
+}
+
+struct TracedRecord {
+    pieces: Vec<PreTokenPiece>,
+    encoding: Encoding,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -214,6 +242,12 @@ fn load_tokenizer(path: &Path) -> Result<Tokenizer> {
         .with_truncation(None)
         .map_err(|error| anyhow::anyhow!(error.to_string()))?;
     tokenizer.with_padding(None);
+    if !matches!(tokenizer.get_model(), ModelWrapper::BPE(_)) {
+        bail!(
+            "{} does not contain a BPE model; the three-level oracle is BPE-specific",
+            path.display()
+        );
+    }
     Ok(tokenizer)
 }
 
@@ -256,7 +290,7 @@ fn generate_fixture(tokenizer_path: &Path, corpus_path: &Path, output: &Path) ->
     let records = load_corpus(corpus_path)?;
     let metadata = FixtureMetadata {
         kind: "metadata",
-        schema: "gosimd-bpe-hf-fixture-v1",
+        schema: "gosimd-bpe-hf-fixture-v2",
         upstream: "huggingface/tokenizers",
         tokenizers_version: TOKENIZERS_VERSION,
         rust_toolchain: RUST_TOOLCHAIN,
@@ -273,33 +307,119 @@ fn generate_fixture(tokenizer_path: &Path, corpus_path: &Path, output: &Path) ->
     let mut writer = BufWriter::new(file);
     write_json_line(&mut writer, &metadata)?;
 
+    let mut output_token_offset = 0;
+    let mut total_pieces = 0;
     for (index, record) in records.iter().enumerate() {
-        let encoding = encode(&tokenizer, &record.text)
-            .with_context(|| format!("encode corpus record {index}"))?;
-        let fixture = FixtureEncoding {
-            kind: "encoding",
+        let traced = trace_record(&tokenizer, &record.text)
+            .with_context(|| format!("trace corpus record {index}"))?;
+        let output_token_end = output_token_offset + traced.encoding.len();
+        total_pieces += traced.pieces.len();
+        let fixture = FixtureRecord {
+            kind: "record",
             index,
-            ids: encoding.get_ids(),
-            type_ids: encoding.get_type_ids(),
-            tokens: encoding.get_tokens(),
-            offsets: encoding
-                .get_offsets()
-                .iter()
-                .map(|&(start, end)| [start, end])
-                .collect(),
-            word_ids: encoding.get_word_ids(),
-            sequence_ids: encoding.get_sequence_ids(),
-            special_tokens_mask: encoding.get_special_tokens_mask(),
-            attention_mask: encoding.get_attention_mask(),
+            input_byte_range: [0, record.text.len()],
+            output_token_range: [output_token_offset, output_token_end],
+            pre_tokenization: traced.pieces,
+            encoding: snapshot_encoding(&traced.encoding),
         };
         write_json_line(&mut writer, &fixture)?;
+        output_token_offset = output_token_end;
     }
 
     writer
         .flush()
         .with_context(|| format!("flush {}", output.display()))?;
-    println!("wrote {} encodings to {}", records.len(), output.display());
+    println!(
+        "wrote {} records, {} pieces, and {} tokens to {}",
+        records.len(),
+        total_pieces,
+        output_token_offset,
+        output.display()
+    );
     Ok(())
+}
+
+fn trace_record(tokenizer: &Tokenizer, text: &str) -> Result<TracedRecord> {
+    let mut pretokenized: PreTokenizedString = tokenizer
+        .get_added_vocabulary()
+        .extract_and_normalize(tokenizer.get_normalizer(), text);
+    if let Some(pre_tokenizer) = tokenizer.get_pre_tokenizer() {
+        pre_tokenizer
+            .pre_tokenize(&mut pretokenized)
+            .map_err(|error| anyhow::anyhow!(error.to_string()))?;
+    }
+
+    let sources = pretokenized
+        .get_splits(OffsetReferential::Original, OffsetType::Byte)
+        .into_iter()
+        .map(|(_, _, tokens)| {
+            if tokens.is_some() {
+                "added_token"
+            } else {
+                "bpe"
+            }
+        })
+        .collect::<Vec<_>>();
+
+    tokenizer
+        .get_model()
+        .tokenize_in_pretokenized(&mut pretokenized, None)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?;
+
+    let splits = pretokenized.get_splits(OffsetReferential::Original, OffsetType::Byte);
+    if splits.len() != sources.len() {
+        bail!("pre-tokenized split count changed during model tokenization");
+    }
+    let pieces = splits
+        .into_iter()
+        .zip(sources)
+        .enumerate()
+        .map(|(index, ((value, (start, end), tokens), source))| {
+            let tokens = tokens
+                .as_ref()
+                .with_context(|| format!("piece {index} has no model tokens"))?;
+            Ok(PreTokenPiece {
+                index,
+                value: value.to_owned(),
+                offsets: [start, end],
+                model: PieceModelOutput {
+                    source,
+                    ids: tokens.iter().map(|token| token.id).collect(),
+                    local_offsets: tokens
+                        .iter()
+                        .map(|token| [token.offsets.0, token.offsets.1])
+                        .collect(),
+                },
+            })
+        })
+        .collect::<Result<Vec<_>>>()?;
+
+    let model_encoding = pretokenized
+        .into_encoding(None, 0, OffsetType::Byte)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?;
+    let reconstructed = tokenizer
+        .post_process(model_encoding, None, false)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?;
+    let encoding = encode(tokenizer, text)?;
+    if reconstructed != encoding {
+        bail!("manually traced pipeline differs from Tokenizer::encode");
+    }
+
+    Ok(TracedRecord { pieces, encoding })
+}
+
+fn snapshot_encoding(encoding: &Encoding) -> FinalEncoding {
+    FinalEncoding {
+        ids: encoding.get_ids().to_vec(),
+        type_ids: encoding.get_type_ids().to_vec(),
+        offsets: encoding
+            .get_offsets()
+            .iter()
+            .map(|&(start, end)| [start, end])
+            .collect(),
+        sequence_ids: encoding.get_sequence_ids(),
+        special_tokens_mask: encoding.get_special_tokens_mask().to_vec(),
+    }
 }
 
 fn run_benchmark(
@@ -539,5 +659,50 @@ mod tests {
     fn median_handles_odd_and_even_samples() {
         assert_eq!(median(&[9, 1, 5]), 5);
         assert_eq!(median(&[10, 2, 8, 4]), 6);
+    }
+
+    #[test]
+    fn trace_exposes_all_gpt2_pipeline_levels() {
+        let tokenizer_path =
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../testdata/gpt2/tokenizer.json");
+        let tokenizer = load_tokenizer(&tokenizer_path).unwrap();
+
+        let traced = trace_record(&tokenizer, "Hello, world!").unwrap();
+        assert_eq!(
+            traced
+                .pieces
+                .iter()
+                .map(|piece| piece.value.as_str())
+                .collect::<Vec<_>>(),
+            ["Hello", ",", "Ġworld", "!"]
+        );
+        assert_eq!(
+            traced
+                .pieces
+                .iter()
+                .map(|piece| piece.offsets)
+                .collect::<Vec<_>>(),
+            [[0, 5], [5, 6], [6, 12], [12, 13]]
+        );
+        assert!(traced
+            .pieces
+            .iter()
+            .all(|piece| piece.model.source == "bpe"));
+        assert_eq!(traced.pieces[2].model.ids, [995]);
+        assert_eq!(traced.pieces[2].model.local_offsets, [[0, 7]]);
+        assert_eq!(traced.encoding.get_ids(), [15496, 11, 995, 0]);
+        assert_eq!(
+            traced.encoding.get_offsets(),
+            [(0, 5), (5, 6), (6, 12), (12, 13)]
+        );
+
+        let added = trace_record(&tokenizer, "<|endoftext|>").unwrap();
+        assert_eq!(added.pieces.len(), 1);
+        assert_eq!(added.pieces[0].value, "<|endoftext|>");
+        assert_eq!(added.pieces[0].offsets, [0, 13]);
+        assert_eq!(added.pieces[0].model.source, "added_token");
+        assert_eq!(added.pieces[0].model.ids, [50256]);
+        assert_eq!(added.pieces[0].model.local_offsets, [[0, 13]]);
+        assert_eq!(added.encoding.get_ids(), [50256]);
     }
 }

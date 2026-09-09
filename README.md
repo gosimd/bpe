@@ -106,11 +106,12 @@ and regeneration details are recorded in
 [`testdata/wikitext2/MANIFEST.md`](testdata/wikitext2/MANIFEST.md).
 
 The repository-only Rust [Hugging Face reference tool](tools/hf-reference/README.md)
-generates local full-corpus oracle files and records upstream full-pipeline
-benchmarks. It pins `tokenizers` 0.23.2 and its Rust toolchain and is not built
-or linked by the Go package. Corpus oracle output lives under the ignored
-`testdata/generated/` directory. Run `make generate-fixtures` explicitly;
-ordinary `go test` never invokes Rust.
+generates local three-level corpus oracles—pre-tokenization, per-piece BPE, and
+final Encoding—and records upstream full-pipeline benchmarks. It pins
+`tokenizers` 0.23.2 and its Rust toolchain and is not built or linked by the Go
+package. Corpus oracle output lives under the ignored `testdata/generated/`
+directory. Run `make generate-fixtures` explicitly; ordinary `go test` never
+invokes Rust.
 
 ## Development status
 

@@ -23,9 +23,10 @@ scratch pools; scratch-reuse tests and initial public allocation benchmarks
 cover short model and raw-text inputs. Exact-revision GPT-2 tokenizer assets and
 all 3,760 separate records of the WikiText-2 raw validation split are pinned in
 `testdata/`, with source hashes, licenses, and a reproducible Parquet-to-JSONL
-conversion. The pinned Rust reference tool generates a local full-pipeline
-oracle for that corpus and can record self-describing upstream benchmarks
-without participating in the Go build.
+conversion. The pinned Rust reference tool generates a local three-level
+oracle—pre-tokenized pieces, per-piece BPE output, and final Encoding—for that
+corpus and can record self-describing upstream benchmarks without participating
+in the Go build.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
 SIMD, retained HF corpus measurements, and representative Go benchmark
