@@ -105,6 +105,13 @@ and regeneration details are recorded in
 [`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md) and
 [`testdata/wikitext2/MANIFEST.md`](testdata/wikitext2/MANIFEST.md).
 
+The repository-only Rust [Hugging Face reference tool](tools/hf-reference/README.md)
+generates local full-corpus oracle files and records upstream full-pipeline
+benchmarks. It pins `tokenizers` 0.23.2 and its Rust toolchain and is not built
+or linked by the Go package. Corpus oracle output lives under the ignored
+`testdata/generated/` directory. Run `make generate-fixtures` explicitly;
+ordinary `go test` never invokes Rust.
+
 ## Development status
 
 The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
@@ -113,9 +120,10 @@ covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and
 have public allocation benchmarks; no general throughput claim is made from
 those small shapes. Pinned GPT-2 tokenizer assets and the WikiText-2 raw
-validation corpus are available for the representative benchmark suite, but
-that suite and its reference encodings are not implemented yet. SIMD work
-starts only after profiling this workload.
+validation corpus and a pinned Hugging Face reference executable are available
+for the representative benchmark suite. No retained HF measurement or Go
+corpus benchmark is published yet. SIMD work starts only after profiling this
+workload.
 
 ## License
 

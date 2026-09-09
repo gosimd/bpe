@@ -23,15 +23,39 @@ scratch pools; scratch-reuse tests and initial public allocation benchmarks
 cover short model and raw-text inputs. Exact-revision GPT-2 tokenizer assets and
 all 3,760 separate records of the WikiText-2 raw validation split are pinned in
 `testdata/`, with source hashes, licenses, and a reproducible Parquet-to-JSONL
-conversion.
+conversion. The pinned Rust reference tool generates a local full-pipeline
+oracle for that corpus and can record self-describing upstream benchmarks
+without participating in the Go build.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, reference corpus encodings, and representative benchmark families are
-not implemented yet.
+SIMD, retained HF corpus measurements, and representative Go benchmark
+families are not implemented yet.
 
 Do not invent a stable API extension, build tag, benchmark result, or
 compatibility claim that has not been implemented and verified. Update this
 section and the README when that state materially changes.
+
+## Hugging Face reference tool
+
+- Keep the Rust oracle and benchmark executable under `tools/hf-reference/`.
+  It is repository tooling, not part of the public Go package.
+- Pin the exact Rust toolchain in `rust-toolchain.toml`, commit `Cargo.lock`,
+  and run Cargo with `--locked`.
+- Pin the `tokenizers` crate with an exact `=0.23.2` requirement. Changing it
+  is a deliberate compatibility-baseline change, not routine dependency
+  maintenance.
+- Commit compact, targeted compatibility fixtures that protect specific
+  behavior or regressions. Do not commit full-corpus oracle output; generate it
+  locally under the ignored `testdata/generated/` directory when needed.
+- Do not invoke Rust builds, fixture generation, or reference benchmarks from
+  ordinary `go test`. Use the explicit `make generate-fixtures` workflow.
+- Store retained benchmark results under `tools/hf-reference/results/`. Keep
+  the corpus and tokenizer hashes, encoding mode, warm-up, measurement count,
+  thread count, machine/CPU, OS, and execution conditions with every result.
+- Do not expose the Rust executable as a Go package, link it through FFI, or
+  ship it as part of the Go library. Cross-language comparison happens through
+  compact committed regression fixtures, locally generated corpus oracles, and
+  benchmark result files.
 
 ## Package boundaries
 
@@ -157,7 +181,8 @@ rendered Markdown and state that Go tests were not applicable.
 - Keep public API changes small and deliberate; document ownership, lifetime,
   concurrency, offset units, and error behavior.
 - Keep generated fixtures reproducible. Commit the generator or exact command
-  and upstream version with generated output.
+  and upstream version. Commit compact targeted fixtures, but keep full-corpus
+  oracle output under ignored `testdata/generated/` and regenerate it locally.
 - Update README compatibility and performance claims only after the relevant
   tests or benchmarks pass.
 - Preserve unrelated user changes and do not mix broad cleanup with a

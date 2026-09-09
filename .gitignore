@@ -34,3 +34,9 @@ go.work.sum
 
 # local experiments
 _exp/*
+
+# Repository-only Rust reference tool build output
+tools/hf-reference/target/
+
+# Full-corpus Hugging Face oracle files are generated locally.
+testdata/generated/
