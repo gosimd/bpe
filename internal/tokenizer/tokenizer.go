@@ -132,11 +132,12 @@ func (t *Tokenizer) encodeOrdinary(dst []Token, text string, base int) []Token {
 		mapped := bytelevel.Map(working[piece.Start:piece.End], piece.Start, rawAt)
 		for _, token := range t.model.Tokenize(mapped.Text) {
 			value, _ := t.model.IDToToken(token.ID)
+			start, end := mapped.RawRange(token.Start, token.End)
 			dst = append(dst, Token{
 				ID:         token.ID,
 				Value:      value,
-				Start:      base + mapped.RawOffset(token.Start),
-				End:        base + mapped.RawOffset(token.End),
+				Start:      base + start,
+				End:        base + end,
 				SequenceID: postprocess.NoSequence,
 			})
 		}

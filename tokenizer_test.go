@@ -120,6 +120,34 @@ func TestTokenizerMapsOffsetsBackFromByteLevelUTF8(t *testing.T) {
 	}
 }
 
+// Hugging Face tokenizers 0.23.2 expands tokens that cover only some
+// ByteLevel bytes of one UTF-8 scalar to that scalar's complete raw range.
+func TestTokenizerByteLevelOffsetsMayOverlapWithinUTF8Scalar(t *testing.T) {
+	model := mustModel(t,
+		map[string]uint32{
+			"Ġ": 0, "â": 1, "Ģ": 2, "²": 3,
+			"Ġâ": 4, "ĠâĢ": 5,
+		},
+		[]bpe.Merge{
+			{Left: "Ġ", Right: "â"},
+			{Left: "Ġâ", Right: "Ģ"},
+		},
+		bpe.ModelOptions{},
+	)
+	tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{AddPrefixSpace: false})
+	if err != nil {
+		t.Fatal(err)
+	}
+	encoding, err := tokenizer.EncodeWithOptions(" ′", bpe.EncodeOptions{AddSpecialTokens: false})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []bpe.Offset{{Start: 0, End: 4}, {Start: 1, End: 4}}
+	if !reflect.DeepEqual(encoding.Offsets, want) {
+		t.Fatalf("EncodeWithOptions() offsets = %v, want %v", encoding.Offsets, want)
+	}
+}
+
 func TestTokenizerAddedTokenBypassesByteLevelAndBPE(t *testing.T) {
 	model := mustModel(t,
 		map[string]uint32{"a": 1, "b": 2}, nil,

@@ -77,8 +77,8 @@ facade may later add normalizers and model-specific pre-tokenization.
 
 ## Compatibility testing
 
-Compatibility is established with generated and hand-written fixtures that
-record:
+Compatibility is established with compact committed fixtures and a locally
+generated full-corpus oracle. Fixtures record:
 
 - the exact upstream `huggingface/tokenizers` version;
 - vocabulary, ordered merges, and BPE configuration;
@@ -86,9 +86,10 @@ record:
 - expected token strings, IDs, and piece-relative byte offsets;
 - expected errors for invalid model data or unsupported configuration.
 
-Tests will include empty inputs, unknown symbols, repeated pairs, merge-rank
-ties, UTF-8 text, byte-level alphabets, special-looking ordinary tokens,
-prefix/suffix modes, byte fallback, and lengths around every SIMD boundary.
+Tests include empty inputs, unknown symbols, repeated pairs, merge-rank ties,
+UTF-8 text, byte-level alphabets, special-looking ordinary tokens,
+prefix/suffix modes, and byte fallback. SIMD boundary coverage will be added
+with the first optimized backend.
 
 ## Performance
 
@@ -110,8 +111,10 @@ generates local three-level corpus oracles—pre-tokenization, per-piece BPE, an
 final Encoding—and records upstream full-pipeline benchmarks. It pins
 `tokenizers` 0.23.2 and its Rust toolchain and is not built or linked by the Go
 package. Corpus oracle output lives under the ignored `testdata/generated/`
-directory. Run `make generate-fixtures` explicitly; ordinary `go test` never
-invokes Rust.
+directory. Run `make test-reference` to regenerate it and compare all 3,760
+records at four boundaries: ByteLevel pieces and offsets, per-piece Model
+tokens and offsets, final Tokenizer Encoding, and AppendIDs record boundaries.
+Ordinary `go test` skips this opt-in corpus suite and never invokes Rust.
 
 ## Development status
 
@@ -122,9 +125,10 @@ covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 have public allocation benchmarks; no general throughput claim is made from
 those small shapes. Pinned GPT-2 tokenizer assets and the WikiText-2 raw
 validation corpus and a pinned Hugging Face reference executable are available
-for the representative benchmark suite. No retained HF measurement or Go
-corpus benchmark is published yet. SIMD work starts only after profiling this
-workload.
+for the representative benchmark suite. The full WikiText-2 differential
+suite is available through `make test-reference`; its generated oracle is not
+retained in Git. No retained HF measurement or Go corpus benchmark is
+published yet. SIMD work starts only after profiling this workload.
 
 ## License
 

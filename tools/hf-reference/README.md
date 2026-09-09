@@ -57,6 +57,20 @@ Full-corpus oracle output is not committed; rerun the tool whenever it is
 needed. Small fixtures for specific compatibility edge cases remain suitable
 repository artifacts.
 
+## Run the Go differential suite
+
+From the repository root:
+
+```sh
+make test-reference
+```
+
+This regenerates the ignored oracle, then compares all corpus records with the
+Go ByteLevel pre-tokenizer, per-piece `Model`, final `Tokenizer` encoding, and
+the flattened `AppendIDs` output and record boundaries. A failure identifies
+the source record, original text, piece, token, and first differing field.
+Ordinary `go test` does not invoke Cargo and skips these full-corpus tests.
+
 ## Benchmark the full pipeline
 
 The benchmark measures a complete pass over all records using

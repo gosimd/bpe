@@ -4,7 +4,6 @@
 package bytelevel
 
 import (
-	"sort"
 	"strings"
 	"unicode"
 	"unicode/utf8"
@@ -155,16 +154,16 @@ func runeClass(r rune) int {
 	return classOther
 }
 
-// MappedPiece is a ByteLevel-mapped piece with a translation from transformed
-// byte boundaries back to raw input byte boundaries.
+// MappedPiece is a ByteLevel-mapped piece with Hugging Face-compatible
+// alignment ranges from transformed bytes back to the raw input.
 type MappedPiece struct {
 	Text       string
-	boundaries []boundary
+	alignments []alignment
 }
 
-type boundary struct {
-	transformed int
-	raw         int
+type alignment struct {
+	start int
+	end   int
 }
 
 // Map maps every source byte to the GPT-2 visible-Unicode alphabet. offset is
@@ -174,35 +173,34 @@ type boundary struct {
 func Map(input string, offset int, rawAt func(int) int) MappedPiece {
 	var builder strings.Builder
 	builder.Grow(len(input) * 2)
-	boundaries := make([]boundary, 1, len(input)*2+1)
-	boundaries[0] = boundary{transformed: 0, raw: rawAt(offset)}
-	transformed := 0
-	for index := range len(input) {
-		r := byteToRune(input[index])
-		builder.WriteRune(r)
-		width := utf8.RuneLen(r)
-		for byteIndex := 1; byteIndex <= width; byteIndex++ {
-			transformed++
-			raw := rawAt(offset + index)
-			if byteIndex == width {
-				raw = rawAt(offset + index + 1)
-			}
-			boundaries = append(boundaries, boundary{transformed: transformed, raw: raw})
+	alignments := make([]alignment, 0, len(input)*2)
+	for runeStart := 0; runeStart < len(input); {
+		_, runeSize := utf8.DecodeRuneInString(input[runeStart:])
+		runeEnd := runeStart + runeSize
+		raw := alignment{
+			start: rawAt(offset + runeStart),
+			end:   rawAt(offset + runeEnd),
 		}
+		for byteIndex := runeStart; byteIndex < runeEnd; byteIndex++ {
+			r := byteToRune(input[byteIndex])
+			builder.WriteRune(r)
+			for range utf8.RuneLen(r) {
+				alignments = append(alignments, raw)
+			}
+		}
+		runeStart = runeEnd
 	}
-	return MappedPiece{Text: builder.String(), boundaries: boundaries}
+	return MappedPiece{Text: builder.String(), alignments: alignments}
 }
 
-// RawOffset maps a boundary in Text to a byte offset in the original input.
-// Model offsets always land on one of these boundaries.
-func (p MappedPiece) RawOffset(transformed int) int {
-	index := sort.Search(len(p.boundaries), func(i int) bool {
-		return p.boundaries[i].transformed >= transformed
-	})
-	if index >= len(p.boundaries) || p.boundaries[index].transformed != transformed {
-		panic("bytelevel: BPE offset is not on a byte boundary")
+// RawRange maps a non-empty range in Text to Hugging Face-compatible byte
+// offsets in the original input. Every transformed byte carries the complete
+// source UTF-8 scalar's alignment, so adjacent model tokens may overlap.
+func (p MappedPiece) RawRange(start, end int) (int, int) {
+	if start < 0 || start >= end || end > len(p.alignments) {
+		panic("bytelevel: invalid BPE offset range")
 	}
-	return p.boundaries[index].raw
+	return p.alignments[start].start, p.alignments[end-1].end
 }
 
 func byteToRune(b byte) rune {

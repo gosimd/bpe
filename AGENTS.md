@@ -26,7 +26,10 @@ all 3,760 separate records of the WikiText-2 raw validation split are pinned in
 conversion. The pinned Rust reference tool generates a local three-level
 oracle—pre-tokenized pieces, per-piece BPE output, and final Encoding—for that
 corpus and can record self-describing upstream benchmarks without participating
-in the Go build.
+in the Go build. `make test-reference` regenerates that ignored oracle and
+checks the entire corpus against internal ByteLevel, public Model, public
+Tokenizer, and public AppendIDs behavior. Ordinary `go test` skips the
+full-corpus tests when the opt-in oracle environment is absent.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
 SIMD, retained HF corpus measurements, and representative Go benchmark
@@ -49,7 +52,9 @@ section and the README when that state materially changes.
   behavior or regressions. Do not commit full-corpus oracle output; generate it
   locally under the ignored `testdata/generated/` directory when needed.
 - Do not invoke Rust builds, fixture generation, or reference benchmarks from
-  ordinary `go test`. Use the explicit `make generate-fixtures` workflow.
+  ordinary `go test`. Use `make generate-fixtures` to create the oracle and
+  `make test-reference` to regenerate it and run full-corpus differential
+  tests.
 - Store retained benchmark results under `tools/hf-reference/results/`. Keep
   the corpus and tokenizer hashes, encoding mode, warm-up, measurement count,
   thread count, machine/CPU, OS, and execution conditions with every result.

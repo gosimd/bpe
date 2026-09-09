@@ -39,14 +39,30 @@ func TestMapUsesGPT2ByteAlphabetAndPreservesBoundaries(t *testing.T) {
 	if got, want := mapped.Text, "ĀĠġ"; got != want {
 		t.Fatalf("Map() text = %q, want %q", got, want)
 	}
-	if got, want := mapped.RawOffset(0), 0; got != want {
-		t.Fatalf("RawOffset(0) = %d, want %d", got, want)
+	start, end := mapped.RawRange(0, 2)
+	if got, want := [2]int{start, end}, [2]int{0, 1}; got != want {
+		t.Fatalf("RawRange(first byte) = %v, want %v", got, want)
 	}
-	if got, want := mapped.RawOffset(2), 1; got != want {
-		t.Fatalf("RawOffset(2) = %d, want %d", got, want)
+	start, end = mapped.RawRange(0, len(mapped.Text))
+	if got, want := [2]int{start, end}, [2]int{0, 3}; got != want {
+		t.Fatalf("RawRange(full piece) = %v, want %v", got, want)
 	}
-	if got, want := mapped.RawOffset(len(mapped.Text)), 3; got != want {
-		t.Fatalf("RawOffset(end) = %d, want %d", got, want)
+}
+
+// Hugging Face tokenizers 0.23.2 aligns every ByteLevel byte derived from a
+// UTF-8 scalar with the scalar's complete original byte range.
+func TestMapRawRangeExpandsPartialUTF8Scalar(t *testing.T) {
+	mapped := Map(" ′", 0, func(offset int) int { return offset })
+	if got, want := mapped.Text, "ĠâĢ²"; got != want {
+		t.Fatalf("Map() text = %q, want %q", got, want)
+	}
+	start, end := mapped.RawRange(0, 6)
+	if got, want := [2]int{start, end}, [2]int{0, 4}; got != want {
+		t.Fatalf("RawRange(0, 6) = %v, want %v", got, want)
+	}
+	start, end = mapped.RawRange(6, 8)
+	if got, want := [2]int{start, end}, [2]int{1, 4}; got != want {
+		t.Fatalf("RawRange(6, 8) = %v, want %v", got, want)
 	}
 }
 
@@ -85,11 +101,9 @@ func FuzzSplitAndMap(f *testing.F) {
 				t.Fatalf("invalid piece %#v for %q", piece, input)
 			}
 			mapped := Map(input[piece.Start:piece.End], piece.Start, func(offset int) int { return offset })
-			if got := mapped.RawOffset(0); got != piece.Start {
-				t.Fatalf("start offset = %d, want %d", got, piece.Start)
-			}
-			if got := mapped.RawOffset(len(mapped.Text)); got != piece.End {
-				t.Fatalf("end offset = %d, want %d", got, piece.End)
+			start, mappedEnd := mapped.RawRange(0, len(mapped.Text))
+			if got := [2]int{start, mappedEnd}; got != [2]int{piece.Start, piece.End} {
+				t.Fatalf("mapped range = %v, want %v", got, [2]int{piece.Start, piece.End})
 			}
 			end = piece.End
 		}

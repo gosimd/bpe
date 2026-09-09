@@ -178,6 +178,12 @@ always refer to the original input. For example, the two-byte UTF-8 input `é`
 is represented as `Ã©` for BPE lookup, but a token covering it has the source
 offset `[0, 2)`.
 
+Hugging Face aligns every ByteLevel byte derived from a multibyte UTF-8 scalar
+with that scalar's complete source range. If BPE splits those derived bytes
+between tokens, their source offsets can overlap. For example, tokens covering
+different ByteLevel bytes of `′` can both end at the byte after `′`; offsets
+must not be assumed to partition the input.
+
 When prefix space is enabled, the tokenizer inserts one synthetic ASCII space
 before each ordinary span that does not already begin with an ASCII space. An
 AddedToken divides the input into separate spans, matching Hugging Face's
