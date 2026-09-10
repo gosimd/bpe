@@ -1,0 +1,795 @@
+{
+  "repo": "wikimedia/wikipedia",
+  "revision": "b04c8d1ceb2f5cd4588862100d08de323dccfbaa",
+  "shard": "20231101.ar/train-00000-of-00007.parquet",
+  "split": "train",
+  "license": "CC-BY-SA-3.0; GFDL where applicable",
+  "url": "https://huggingface.co/datasets/wikimedia/wikipedia/resolve/b04c8d1ceb2f5cd4588862100d08de323dccfbaa/20231101.ar/train-00000-of-00007.parquet",
+  "records": [
+    {
+      "row": 0,
+      "id": "7",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%A7%D8%A1",
+      "title": "ماء",
+      "source_sha256": "46754a4c75627d069ea37ba7a1b445585e50e57ddbb41557d3d1aa265e4a9bd7",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        0,
+        32768
+      ],
+      "separator_bytes": 0
+    },
+    {
+      "row": 1,
+      "id": "38",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B1%D9%8A%D8%A7%D8%B6%D9%8A%D8%A7%D8%AA",
+      "title": "رياضيات",
+      "source_sha256": "56f642c27907083a732d9d075588901e802720ae8e1ccc2089115b19f7747a6b",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        32770,
+        65538
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 2,
+      "id": "62",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A5%D8%B3%D8%AA%D9%88%D9%86%D9%8A%D8%A7",
+      "title": "إستونيا",
+      "source_sha256": "f3a6621e55a1069c1a6b369c8211ddee228ef45f43c08037ad23b674add408bc",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        65540,
+        98308
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 3,
+      "id": "76",
+      "url": "https://ar.wikipedia.org/wiki/%D8%AA%D9%84%D9%81%D8%A7%D8%B2",
+      "title": "تلفاز",
+      "source_sha256": "186e4d13a5992cc23ce9026c2111f7200a2f4dfe6792cf6b00da5fc3c58523d4",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        98310,
+        131077
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 4,
+      "id": "77",
+      "url": "https://ar.wikipedia.org/wiki/A",
+      "title": "A",
+      "source_sha256": "985e308bf0525e82eba7375e2abc5481a05340af357ff9c3696ef8a7f944a966",
+      "source_bytes": [
+        0,
+        4279
+      ],
+      "output_bytes": [
+        131079,
+        135358
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 5,
+      "id": "79",
+      "url": "https://ar.wikipedia.org/wiki/F",
+      "title": "F",
+      "source_sha256": "09a2fdb50975642c61b8183edc025dfd8967eaa80729d6505a3cc9faa26a0660",
+      "source_bytes": [
+        0,
+        5597
+      ],
+      "output_bytes": [
+        135360,
+        140957
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 6,
+      "id": "80",
+      "url": "https://ar.wikipedia.org/wiki/K",
+      "title": "K",
+      "source_sha256": "de00d3a958a87c7b702b816ba5f84c26e00c284f6009a958328e20cbe675d073",
+      "source_bytes": [
+        0,
+        279
+      ],
+      "output_bytes": [
+        140959,
+        141238
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 7,
+      "id": "90",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B9%D9%86%D9%83%D8%A8%D9%88%D8%AA",
+      "title": "عنكبوت",
+      "source_sha256": "54b9456beb814fc1b0b16b621bf897965d13af7eae30c3be719e33da00c7817a",
+      "source_bytes": [
+        0,
+        7344
+      ],
+      "output_bytes": [
+        141240,
+        148584
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 8,
+      "id": "1181",
+      "url": "https://ar.wikipedia.org/wiki/%D9%82%D8%B1%D8%B7%D8%A7%D8%AC",
+      "title": "قرطاج",
+      "source_sha256": "90d395f06c6eb89be2a80b2fb075ec8b103f36be3f01d2e73975e52ecc60d7f3",
+      "source_bytes": [
+        0,
+        22590
+      ],
+      "output_bytes": [
+        148586,
+        171176
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 9,
+      "id": "1185",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B3%D9%86%D8%A7%D9%81%D8%B1",
+      "title": "السنافر",
+      "source_sha256": "b7bd6e8a285d1714eabd629ca564ef3d13e3bff2901c42721723b26a82fd00a2",
+      "source_bytes": [
+        0,
+        3782
+      ],
+      "output_bytes": [
+        171178,
+        174960
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 10,
+      "id": "1201",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B4%D8%B9%D8%B1%20%28%D8%A3%D8%AF%D8%A8%29",
+      "title": "شعر (أدب)",
+      "source_sha256": "26c3b9f575a125deb2afec300de33266f0f6cccbaacb2131376a04702d54cfa7",
+      "source_bytes": [
+        0,
+        6969
+      ],
+      "output_bytes": [
+        174962,
+        181931
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 11,
+      "id": "1203",
+      "url": "https://ar.wikipedia.org/wiki/%D8%AA%D8%B5%D9%86%D9%8A%D9%81%20%D9%85%D9%83%D8%AA%D8%A8%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%86%D8%BA%D8%B1%D8%B3",
+      "title": "تصنيف مكتبة الكونغرس",
+      "source_sha256": "c718df000d38b94abb4434c5445241d823cd81725fbc31003f68bf2b0fabf160",
+      "source_bytes": [
+        0,
+        4042
+      ],
+      "output_bytes": [
+        181933,
+        185975
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 12,
+      "id": "1208",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%A7%D8%B1%D8%B4%D8%A7%D9%84%20%28%D8%AA%D9%83%D8%B3%D8%A7%D8%B3%29",
+      "title": "مارشال (تكساس)",
+      "source_sha256": "e9c5a46d84931cea1a152324b47bdfa6b48fafc34610d26667a208bc2afcc833",
+      "source_bytes": [
+        0,
+        7114
+      ],
+      "output_bytes": [
+        185977,
+        193091
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 13,
+      "id": "1216",
+      "url": "https://ar.wikipedia.org/wiki/%D9%81%D9%86%D9%84%D9%86%D8%AF%D8%A7",
+      "title": "فنلندا",
+      "source_sha256": "b2f9885f27133fa006eeeb2650a0675d80d67d8384f3ac92d718f7161fb517d1",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        193093,
+        225861
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 14,
+      "id": "1249",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B9%D9%85%D8%A7%D9%86%20%28%D9%85%D8%AF%D9%8A%D9%86%D8%A9%29",
+      "title": "عمان (مدينة)",
+      "source_sha256": "2f35f84953269b41ea337927f24ff9118dd794fb7094a422c3f1ad85eb15dee3",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        225863,
+        258631
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 15,
+      "id": "1250",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D8%A8%D9%86%20%D8%AE%D9%84%D8%AF%D9%88%D9%86",
+      "title": "ابن خلدون",
+      "source_sha256": "ca652ca9f408ad91d2d74b7e032ca74f08984c0dc5d419c22a39e500ebc9db45",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        258633,
+        291400
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 16,
+      "id": "1253",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86",
+      "title": "الأردن",
+      "source_sha256": "bb93ae2f7438aeef8a018d5586b2e4a71130ae6855f13d347f5c81c4eb1cf205",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        291402,
+        324170
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 17,
+      "id": "1255",
+      "url": "https://ar.wikipedia.org/wiki/%D9%84%D9%8A%D9%86%D9%83%D8%B3",
+      "title": "لينكس",
+      "source_sha256": "d245563718dff811c3df37901d8415674b80e575fde1f10f75749fa949d8f5ba",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        324172,
+        356940
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 18,
+      "id": "1256",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1%20%D9%85%D9%81%D8%AA%D9%88%D8%AD",
+      "title": "مصدر مفتوح",
+      "source_sha256": "7f9b213028463c6ca17bc70f82bdc41352280bba85316f3ba6b4f3c249f92c34",
+      "source_bytes": [
+        0,
+        14168
+      ],
+      "output_bytes": [
+        356942,
+        371110
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 19,
+      "id": "1270",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D9%8A%D8%AF%D9%8A%D8%A7%D9%88%D9%8A%D9%83%D9%8A",
+      "title": "ميدياويكي",
+      "source_sha256": "0665711ff2abdb3c3cc683fbc9fa193702908a428aaf23f7c8abad8fa06f8745",
+      "source_bytes": [
+        0,
+        4310
+      ],
+      "output_bytes": [
+        371112,
+        375422
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 20,
+      "id": "1271",
+      "url": "https://ar.wikipedia.org/wiki/%D9%88%D9%8A%D9%83%D9%8A",
+      "title": "ويكي",
+      "source_sha256": "1a7621754f23c8c8fd54329bab7d3ad5f7f776b5e7b7ef0f2bc5f06d44b46b73",
+      "source_bytes": [
+        0,
+        8173
+      ],
+      "output_bytes": [
+        375424,
+        383597
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 21,
+      "id": "1275",
+      "url": "https://ar.wikipedia.org/wiki/%D9%86%D8%B8%D8%A7%D9%85%20%D8%AA%D8%B4%D8%BA%D9%8A%D9%84",
+      "title": "نظام تشغيل",
+      "source_sha256": "c059bc0f79101624bfb58557a56647323f6d5d1fa464028c2063cca47290a99a",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        383599,
+        416366
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 22,
+      "id": "1293",
+      "url": "https://ar.wikipedia.org/wiki/%D9%8A%D9%88%D8%B1%D9%88",
+      "title": "يورو",
+      "source_sha256": "14941fa79f96cadc54d99001eec6c822f587e3666fe1d4c5681eee2934c92d31",
+      "source_bytes": [
+        0,
+        20569
+      ],
+      "output_bytes": [
+        416368,
+        436937
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 23,
+      "id": "1296",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%86%20%28%D8%AA%D9%88%D8%B6%D9%8A%D8%AD%29",
+      "title": "الميدان (توضيح)",
+      "source_sha256": "579cc1559ba2bff80c53165dcf67b6f08ff1a7c7fc510e4e61c59b7ffcc7cfe0",
+      "source_bytes": [
+        0,
+        571
+      ],
+      "output_bytes": [
+        436939,
+        437510
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 24,
+      "id": "1298",
+      "url": "https://ar.wikipedia.org/wiki/%D9%87%D9%84%D8%B3%D9%86%D9%83%D9%8A",
+      "title": "هلسنكي",
+      "source_sha256": "48faf2d906ad98e602f6943ef37c22a27a9699a88ea3883b77022dcfd5753d7f",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        437512,
+        470280
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 25,
+      "id": "1299",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A8%D8%B1%D9%85%D8%AC%D9%8A%D8%A7%D8%AA%20%D8%AD%D8%B1%D8%A9",
+      "title": "برمجيات حرة",
+      "source_sha256": "5743ba7bcc81b6cedaf1d2b6afec6db4c5bfc4e003e896263b9ef2033326ab3d",
+      "source_bytes": [
+        0,
+        23157
+      ],
+      "output_bytes": [
+        470282,
+        493439
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 26,
+      "id": "1309",
+      "url": "https://ar.wikipedia.org/wiki/%D9%84%D8%A8%D9%86%D8%A7%D9%86",
+      "title": "لبنان",
+      "source_sha256": "151836db3748df48500f6b8adb5b70f292f8f05f5828b02090687bb6eda79463",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        493441,
+        526208
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 27,
+      "id": "1313",
+      "url": "https://ar.wikipedia.org/wiki/%D8%AC%D8%A7%D9%85%D8%B9%D8%A9%20%D8%A7%D9%84%D8%AF%D9%88%D9%84%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9",
+      "title": "جامعة الدول العربية",
+      "source_sha256": "0eb1992aa50781cab5f072eb6f092c4ef419ce923e2fcd6a9fde1494503cb573",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        526210,
+        558978
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 28,
+      "id": "1318",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AC%D8%A8%D8%B1",
+      "title": "الجبر",
+      "source_sha256": "dc0aa791703418e6bcfb3bb058e62cdd29fe086133db9a0d38643d94f8e79b60",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        558980,
+        591747
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 29,
+      "id": "1319",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%AD%D9%85%D8%AF%20%D8%A8%D9%86%20%D9%85%D9%88%D8%B3%D9%89%20%D8%A7%D9%84%D8%AE%D9%88%D8%A7%D8%B1%D8%B2%D9%85%D9%8A",
+      "title": "محمد بن موسى الخوارزمي",
+      "source_sha256": "b76b27f1a87d3b6287d4c3f82d40ffda9571f1b3f35cbf574ff67b659158a58e",
+      "source_bytes": [
+        0,
+        31495
+      ],
+      "output_bytes": [
+        591749,
+        623244
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 30,
+      "id": "1330",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A8%D9%8A%D8%B1%D9%88%D8%AA",
+      "title": "بيروت",
+      "source_sha256": "4c6eba47ef417ba880a13e93a27bc2b954ae09315b7a0bd06d0f7d44a5c736ea",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        623246,
+        656014
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 31,
+      "id": "1333",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A8%D8%AD%D8%B1%20%D8%A7%D9%84%D8%A3%D8%A8%D9%8A%D8%B6%20%D8%A7%D9%84%D9%85%D8%AA%D9%88%D8%B3%D8%B7",
+      "title": "البحر الأبيض المتوسط",
+      "source_sha256": "2f3413f52a8de4e1b71c6fde90c747097fc66b51d4790ff2ac0e419df161a9a4",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        656016,
+        688784
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 32,
+      "id": "1341",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A7",
+      "title": "ألمانيا",
+      "source_sha256": "77196c604fe134087ef2bf084f77bb30f303d0527a1dcfcdfed47e89463f956f",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        688786,
+        721554
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 33,
+      "id": "1343",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A8%D8%B1%D9%84%D9%8A%D9%86",
+      "title": "برلين",
+      "source_sha256": "b22be3e475bdf7c5fcd8e11fdaabd33230ec48bb45fed2112625786083fef825",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        721556,
+        754323
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 34,
+      "id": "1346",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A5%D8%B3%D8%A8%D8%B1%D8%A7%D9%86%D8%AA%D9%88",
+      "title": "إسبرانتو",
+      "source_sha256": "f2806e296ccae69851a85d8fdd7bccb2369a9f43b8f8ca02b32f8053d4c1c6cf",
+      "source_bytes": [
+        0,
+        7954
+      ],
+      "output_bytes": [
+        754325,
+        762279
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 35,
+      "id": "1348",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B9%D9%85%D8%B1%D9%88%20%D9%85%D9%88%D8%B3%D9%89",
+      "title": "عمرو موسى",
+      "source_sha256": "19f313dd608186baff6eeff976285d5eac2a87e27c59e63431d1dc2f64f6d397",
+      "source_bytes": [
+        0,
+        15104
+      ],
+      "output_bytes": [
+        762281,
+        777385
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 36,
+      "id": "1349",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B3%D9%84%D8%B7%D9%86%D8%A9%20%D8%B9%D9%85%D8%A7%D9%86",
+      "title": "سلطنة عمان",
+      "source_sha256": "70f284adfdbf3bfdb5a1f7a4acfe8cc9517ef92ff8e35fcdada4cd86d9d88426",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        777387,
+        810154
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 37,
+      "id": "1351",
+      "url": "https://ar.wikipedia.org/wiki/1958",
+      "title": "1958",
+      "source_sha256": "1a0b93b88ba1217f6e65bf6b0dd61edac93d3576c39fcbb3f12cb9b1713c5c96",
+      "source_bytes": [
+        0,
+        8917
+      ],
+      "output_bytes": [
+        810156,
+        819073
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 38,
+      "id": "1353",
+      "url": "https://ar.wikipedia.org/wiki/%D8%AF%D9%85%D8%B4%D9%82",
+      "title": "دمشق",
+      "source_sha256": "d5bbbeba4026b624dee7c29f3dd998364bc6ccc3cb0e3ad0eeb6c4199a96ec04",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        819075,
+        851843
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 39,
+      "id": "1357",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%AA",
+      "title": "الفرات",
+      "source_sha256": "f12ef066046259ca06e70db08db3f2917289f508c4958a93ffd92312430ee18b",
+      "source_bytes": [
+        0,
+        22457
+      ],
+      "output_bytes": [
+        851845,
+        874302
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 40,
+      "id": "1358",
+      "url": "https://ar.wikipedia.org/wiki/%D9%86%D9%8A%D9%88%D9%8A%D9%88%D8%B1%D9%83",
+      "title": "نيويورك",
+      "source_sha256": "2ca83355cedba8f4d7edade55ec7651e378e48423605b3aa6aad4de15f2e79e2",
+      "source_bytes": [
+        0,
+        23107
+      ],
+      "output_bytes": [
+        874304,
+        897411
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 41,
+      "id": "1360",
+      "url": "https://ar.wikipedia.org/wiki/%D9%82%D8%A7%D8%A8%D9%88%D8%B3%20%D8%A8%D9%86%20%D8%B3%D8%B9%D9%8A%D8%AF",
+      "title": "قابوس بن سعيد",
+      "source_sha256": "8157331220cbb84a1c55e1b04233d95fc2ffc84114de3935c8bde7604f9afaf3",
+      "source_bytes": [
+        0,
+        23692
+      ],
+      "output_bytes": [
+        897413,
+        921105
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 42,
+      "id": "1361",
+      "url": "https://ar.wikipedia.org/wiki/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D8%AF%D9%88%D9%84",
+      "title": "قائمة الدول",
+      "source_sha256": "ef1a5f1deea55498f879c3f921d52090b20f53e298be8d0bd501d8fcac3f78bb",
+      "source_bytes": [
+        0,
+        2910
+      ],
+      "output_bytes": [
+        921107,
+        924017
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 43,
+      "id": "1363",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B5%D9%84%D8%A7%D8%A9%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85",
+      "title": "الصلاة في الإسلام",
+      "source_sha256": "469b3e5b4067fb3f43612f1196e740b4b461ff4f766bb5a30d26850077cffdb6",
+      "source_bytes": [
+        0,
+        31463
+      ],
+      "output_bytes": [
+        924019,
+        955482
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 44,
+      "id": "1364",
+      "url": "https://ar.wikipedia.org/wiki/%D9%84%D9%8A%D9%86%D9%88%D8%B3%20%D8%AA%D9%88%D8%B1%D9%81%D8%A7%D9%84%D8%AF%D8%B3",
+      "title": "لينوس تورفالدس",
+      "source_sha256": "41b9183cc2b277a9938c2a2dfecd232c5b86a30ad554eb913b3bdda0b0c3656d",
+      "source_bytes": [
+        0,
+        4142
+      ],
+      "output_bytes": [
+        955484,
+        959626
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 45,
+      "id": "1367",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D9%88%D8%B3%D9%83%D9%88",
+      "title": "موسكو",
+      "source_sha256": "3afbfc73e35c5d0a016878df3aab65f256d0d5b33e4530ad6bd570404e7c2ad0",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        959628,
+        992396
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 46,
+      "id": "1369",
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%8A%D9%85%D9%86",
+      "title": "اليمن",
+      "source_sha256": "4ffbd15f4619cdfb0d175a1f41f508fadb7a90affae1f6a1b507c976e12c62f8",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        992398,
+        1025166
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 47,
+      "id": "1371",
+      "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B3%D8%AC%D8%AF",
+      "title": "مسجد",
+      "source_sha256": "1de83b6612e4238493f79439e7f21be7c16e5ade0e6dc9a9d2a202e87215feda",
+      "source_bytes": [
+        0,
+        20595
+      ],
+      "output_bytes": [
+        1025168,
+        1045763
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 48,
+      "id": "1372",
+      "url": "https://ar.wikipedia.org/wiki/%D8%B3%D9%85%D8%B1%D9%82%D9%86%D8%AF",
+      "title": "سمرقند",
+      "source_sha256": "05b348dd54ba6dafb5037935bcd59351554046889c82513c246693d2c30bcacb",
+      "source_bytes": [
+        0,
+        2811
+      ],
+      "output_bytes": [
+        1045765,
+        1048576
+      ],
+      "separator_bytes": 2
+    }
+  ],
+  "pool_sha256": "b0c6959075290e1ed20c5c1bf6f4f114fb9d3ab17237d681263bbc280507e8e5"
+}

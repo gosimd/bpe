@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "models": [
+    {
+      "name": "gpt2",
+      "tokenizer": "testdata/gpt2/tokenizer.json",
+      "vocab": "testdata/gpt2/vocab.json",
+      "merges": "testdata/gpt2/merges.txt",
+      "pipeline": "gpt2"
+    },
+    {
+      "name": "tiny",
+      "tokenizer": "internal/benchsuite/testdata/tiny/tokenizer.json",
+      "vocab": "internal/benchsuite/testdata/tiny/vocab.json",
+      "merges": "internal/benchsuite/testdata/tiny/merges.txt",
+      "pipeline": "model-only"
+    }
+  ],
+  "corpora": [
+    {"name": "tiny-text", "path": "internal/benchsuite/testdata/tiny/corpus.jsonl"}
+  ]
+}

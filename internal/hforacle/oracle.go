@@ -15,8 +15,6 @@ import (
 )
 
 const (
-	// ReferenceEnvironment names the opt-in full-corpus oracle path.
-	ReferenceEnvironment = "BPE_HF_REFERENCE"
 	// RepositoryEnvironment names the repository root used to locate pinned
 	// tokenizer and corpus inputs from package-specific test working directories.
 	RepositoryEnvironment = "BPE_HF_REPOSITORY"

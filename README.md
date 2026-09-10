@@ -99,12 +99,10 @@ OS, architecture, Go version, enabled instruction set, input distribution,
 and allocation model. SIMD-to-Hugging-Face comparisons must use equivalent
 work and must not present allocation differences as kernel speedups.
 
-The representative benchmark corpus is pinned under `testdata/`: GPT-2
-tokenizer assets at an exact model revision and the 3,760-record WikiText-2 raw
-validation split at an exact dataset revision. Provenance, hashes, licenses,
-and regeneration details are recorded in
-[`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md) and
-[`testdata/wikitext2/MANIFEST.md`](testdata/wikitext2/MANIFEST.md).
+Benchmark inputs are pinned under `testdata/`: GPT-2 tokenizer assets at an
+exact model revision and five multilingual text pools with hashes, licenses
+and exact request boundaries. See [`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md)
+and [`testdata/corpora/text/README.md`](testdata/corpora/text/README.md).
 
 The repository-only Rust [Hugging Face reference tool](tools/hf-reference/README.md)
 generates local three-level corpus oracles—pre-tokenization, per-piece BPE, and
@@ -112,10 +110,19 @@ final Encoding—and separately measures pre-tokenization, uncached BPE, full
 uncached encoding, and warm-cache encoding. It pins
 `tokenizers` 0.23.2 and its Rust toolchain and is not built or linked by the Go
 package. Corpus oracle output lives under the ignored `testdata/generated/`
-directory. Run `make test-reference` to regenerate it and compare all 3,760
-records at four boundaries: ByteLevel pieces and offsets, per-piece Model
+directory. Run `make test-reference` to regenerate the selected suite's oracles
+and compare every record at four boundaries: ByteLevel pieces and offsets, per-piece Model
 tokens and offsets, final Tokenizer Encoding, and AppendIDs record boundaries.
 Ordinary `go test` skips this opt-in corpus suite and never invokes Rust.
+
+The [named benchmark catalogue](benchmarks/README.md) supports independent
+model and corpus selection. `make benchmark-suite` runs GPT-2 on English,
+Russian, Arabic, Japanese and Chinese
+[text pools](testdata/corpora/text/README.md), using exact 4 KiB request
+boundaries. `make benchmark-hf-suite` measures the same selected inputs with
+HF 0.23.2. Additional BPE models can be registered for model-only measurements
+on HF-prepared pieces; full Go pipeline measurements currently require the
+GPT-2 preset. Corpus conversion and full-corpus oracles remain local and ignored.
 
 ## Development status
 
@@ -124,15 +131,17 @@ TemplateProcessing, and ByteLevel offset post-processing are implemented and
 covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and
 have public allocation benchmarks; no general throughput claim is made from
-those small shapes. Pinned GPT-2 tokenizer assets and the WikiText-2 raw
-validation corpus and a pinned Hugging Face reference executable are available
-for the representative benchmark suite. The full WikiText-2 differential
+those small shapes. Pinned GPT-2 tokenizer assets, multilingual text pools
+and a pinned Hugging Face reference executable are available
+for the representative benchmark suite. The full-corpus differential
 suite is available through `make test-reference`; its generated oracle is not
 retained in Git. An initial single-threaded
 [HF baseline and CPU profile](tools/hf-reference/results/gpt2-wikitext2-apple-m5-macos-26.6.2-threads1-2026-09-09.md)
 and a symmetric
 [Go/HF baseline](benchmarks/results/gpt2-wikitext2-apple-m5-go1.27.0-threads1-2026-09-09.md)
-are retained for this corpus. The comparable API pairs are `Model.Tokenize`
+are retained for the retired WikiText-2 validation workload. The current English
+pool uses WikiText-2 train with different request boundaries; it is not the same
+workload. The comparable API pairs are `Model.Tokenize`
 against uncached HF BPE and `Tokenizer.Encode` against full uncached HF encode;
 the ID-only `AppendIDs` paths are reported separately. No SIMD speedup is
 claimed.

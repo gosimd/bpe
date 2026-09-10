@@ -6,11 +6,54 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/gosimd/bpe/internal/benchsuite"
 	"github.com/gosimd/bpe/internal/hforacle"
 )
 
-func TestHFGPT2WikiText2ByteLevel(t *testing.T) {
-	reader := openHFReference(t)
+func TestHFSuiteByteLevel(t *testing.T) {
+	path := os.Getenv(benchsuite.Environment)
+	if path == "" {
+		t.Skip("run make test-reference (missing BPE_BENCH_SUITE)")
+	}
+	root := os.Getenv(hforacle.RepositoryEnvironment)
+	if root == "" {
+		t.Fatal("BPE_HF_REPOSITORY must name the repository root")
+	}
+	suite, err := benchsuite.Load(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	suite, err = suite.Select(os.Getenv("BPE_BENCH_MODELS"), os.Getenv("BPE_BENCH_CORPORA"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, spec := range suite.Models {
+		if spec.Pipeline != "gpt2" {
+			continue
+		}
+		if _, err := benchsuite.ModelOptions(filepath.Join(root, spec.Tokenizer), spec.Pipeline); err != nil {
+			t.Fatal(err)
+		}
+		for _, corpus := range suite.Corpora {
+			t.Run(spec.Name+"/"+corpus.Name, func(t *testing.T) {
+				if err := benchsuite.ValidateCorpus(root, corpus); err != nil {
+					t.Fatal(err)
+				}
+				reader, err := hforacle.Open(benchsuite.ReferencePath(root, spec, corpus), corpus.CorpusPath(root))
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := reader.Metadata.ValidateTokenizer(filepath.Join(root, spec.Tokenizer)); err != nil {
+					reader.Close()
+					t.Fatal(err)
+				}
+				checkHFReference(t, reader)
+			})
+		}
+	}
+}
+
+func checkHFReference(t *testing.T, reader *hforacle.Reader) {
 	defer func() {
 		if err := reader.Close(); err != nil {
 			t.Error(err)
@@ -24,6 +67,18 @@ func TestHFGPT2WikiText2ByteLevel(t *testing.T) {
 		}
 		if !ok {
 			break
+		}
+		// AddedToken extraction precedes ByteLevel and is checked by the public
+		// suite. A raw ByteLevel split cannot reproduce those extracted records.
+		hasAddedToken := false
+		for _, piece := range fixture.Record.PreTokenization {
+			if piece.Model.Source == "added_token" {
+				hasAddedToken = true
+				break
+			}
+		}
+		if hasAddedToken {
+			continue
 		}
 		compareByteLevelRecord(t, fixture)
 	}
@@ -52,27 +107,6 @@ func compareByteLevelRecord(t *testing.T, fixture hforacle.Case) {
 	if len(got) != len(want) {
 		failByteLevel(t, fixture, common, "piece count", len(got), len(want))
 	}
-}
-
-func openHFReference(t *testing.T) *hforacle.Reader {
-	t.Helper()
-	referencePath := os.Getenv(hforacle.ReferenceEnvironment)
-	if referencePath == "" {
-		t.Skipf("full Hugging Face corpus oracle is opt-in; run make test-reference (missing %s)", hforacle.ReferenceEnvironment)
-	}
-	repository := os.Getenv(hforacle.RepositoryEnvironment)
-	if repository == "" {
-		t.Fatalf("%s must name the repository root", hforacle.RepositoryEnvironment)
-	}
-	reader, err := hforacle.Open(referencePath, filepath.Join(repository, "testdata", "wikitext2", "validation.jsonl"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := reader.Metadata.ValidateTokenizer(filepath.Join(repository, "testdata", "gpt2", "tokenizer.json")); err != nil {
-		reader.Close()
-		t.Fatal(err)
-	}
-	return reader
 }
 
 func failByteLevel(t *testing.T, fixture hforacle.Case, pieceIndex int, field string, got, want any) {

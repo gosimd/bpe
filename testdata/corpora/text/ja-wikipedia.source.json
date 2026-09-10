@@ -1,0 +1,859 @@
+{
+  "repo": "wikimedia/wikipedia",
+  "revision": "b04c8d1ceb2f5cd4588862100d08de323dccfbaa",
+  "shard": "20231101.ja/train-00000-of-00015.parquet",
+  "split": "train",
+  "license": "CC-BY-SA-3.0; GFDL where applicable",
+  "url": "https://huggingface.co/datasets/wikimedia/wikipedia/resolve/b04c8d1ceb2f5cd4588862100d08de323dccfbaa/20231101.ja/train-00000-of-00015.parquet",
+  "records": [
+    {
+      "row": 0,
+      "id": "5",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89",
+      "title": "アンパサンド",
+      "source_sha256": "c845d068dfbdd05825bfe958c34bc685e5eae23f8bb890d617784f63f160a65b",
+      "source_bytes": [
+        0,
+        6566
+      ],
+      "output_bytes": [
+        0,
+        6566
+      ],
+      "separator_bytes": 0
+    },
+    {
+      "row": 1,
+      "id": "10",
+      "url": "https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E",
+      "title": "言語",
+      "source_sha256": "2a1e897a0e9a6912074a21298957545ec36763fa34d98c70316f08f274b05969",
+      "source_bytes": [
+        0,
+        30890
+      ],
+      "output_bytes": [
+        6568,
+        37458
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 2,
+      "id": "11",
+      "url": "https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E",
+      "title": "日本語",
+      "source_sha256": "afe2d2ccedad24ceaed9ee9895ad73c33d781460d10c6f6e339251b108c3aa91",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        37460,
+        70228
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 3,
+      "id": "12",
+      "url": "https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6",
+      "title": "地理学",
+      "source_sha256": "c3ba47387dee441bf8b4f6e9a2372ebe753de40d99de6eeaaae55a5d065217b9",
+      "source_bytes": [
+        0,
+        22311
+      ],
+      "output_bytes": [
+        70230,
+        92541
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 4,
+      "id": "14",
+      "url": "https://ja.wikipedia.org/wiki/EU%20%28%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF%29",
+      "title": "EU (曖昧さ回避)",
+      "source_sha256": "342e711cf25f3cf5b2676679ae5497892e5aa9b81c3cce976d9cc00816c9a70b",
+      "source_bytes": [
+        0,
+        1681
+      ],
+      "output_bytes": [
+        92543,
+        94224
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 5,
+      "id": "23",
+      "url": "https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7",
+      "title": "国の一覧",
+      "source_sha256": "fcb7836afc8e3188a4fd02d89f15bc45951b130585b0477047385cd1b2eed2cb",
+      "source_bytes": [
+        0,
+        4157
+      ],
+      "output_bytes": [
+        94226,
+        98383
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 6,
+      "id": "31",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA",
+      "title": "パリ",
+      "source_sha256": "985cdec4fd0b13025c696261bb4476d0023968c2d57f4f5d36517705230e5723",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        98385,
+        131152
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 7,
+      "id": "32",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91",
+      "title": "ヨーロッパ",
+      "source_sha256": "2a9e0367b7acb9e939eac6f0b917e3761d996a62501e36d687a2b6416538c11b",
+      "source_bytes": [
+        0,
+        27187
+      ],
+      "output_bytes": [
+        131154,
+        158341
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 8,
+      "id": "42",
+      "url": "https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9",
+      "title": "生物",
+      "source_sha256": "181264c90546c30c308555ae15c8c4394bb1d4424ea84f615c0f3c9e17bb93de",
+      "source_bytes": [
+        0,
+        11006
+      ],
+      "output_bytes": [
+        158343,
+        169349
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 9,
+      "id": "43",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9",
+      "title": "コケ植物",
+      "source_sha256": "0d1abdc8ae5fa6d3d847f1f4fbb48ed93357eb918a53ae56e8ad9d41eb11133e",
+      "source_bytes": [
+        0,
+        28287
+      ],
+      "output_bytes": [
+        169351,
+        197638
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 10,
+      "id": "47",
+      "url": "https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6",
+      "title": "社会学",
+      "source_sha256": "729f75fc4c005a6cb21ec65cfb9c6bc2cd6e3ed36656234d3e2f773ba0ecf210",
+      "source_bytes": [
+        0,
+        26056
+      ],
+      "output_bytes": [
+        197640,
+        223696
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 11,
+      "id": "48",
+      "url": "https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88",
+      "title": "古代エジプト",
+      "source_sha256": "b70c01170aecdb012b90ac0eac4b0b355f48afdf6898a307eab56ed90e4eae2b",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        223698,
+        256464
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 12,
+      "id": "49",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88",
+      "title": "エジプト",
+      "source_sha256": "71f5e8df93b33deef8a2725aea9bef7645838ef89c58f469bef7c8372721c0e6",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        256466,
+        289234
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 13,
+      "id": "53",
+      "url": "https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93",
+      "title": "著作権の保護期間",
+      "source_sha256": "813ef03535d1f205deb1c9b9fdf9be407462b027f10760121fd5b37a4194f9e3",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        289236,
+        322002
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 14,
+      "id": "55",
+      "url": "https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA",
+      "title": "台東区",
+      "source_sha256": "c5fb7f7893408cbb56e52d3605fedfac881f2465ecc0aa7c8a5ab4781b9cb1df",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        322004,
+        354770
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 15,
+      "id": "56",
+      "url": "https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86",
+      "title": "地理",
+      "source_sha256": "6273adbb57d9fbca1eb6cfb5ee57f88db4853487fd91cfb490dde71a48d87dcc",
+      "source_bytes": [
+        0,
+        2610
+      ],
+      "output_bytes": [
+        354772,
+        357382
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 16,
+      "id": "57",
+      "url": "https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6",
+      "title": "生物学",
+      "source_sha256": "458e1d095e59f9a7583ac264c9c518a80e3b9a962b6d99b23a42533f19091508",
+      "source_bytes": [
+        0,
+        32525
+      ],
+      "output_bytes": [
+        357384,
+        389909
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 17,
+      "id": "58",
+      "url": "https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A",
+      "title": "社会",
+      "source_sha256": "e19b6ca75cb0ff4a12e53f211d089031d744e9160cabdce537ecbfcac7a4808b",
+      "source_bytes": [
+        0,
+        14562
+      ],
+      "output_bytes": [
+        389911,
+        404473
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 18,
+      "id": "59",
+      "url": "https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96",
+      "title": "こどもの文化",
+      "source_sha256": "771aeb157d3772a062911909c30911fc09cf0eedad15e5fe2a866a4c797b1694",
+      "source_bytes": [
+        0,
+        6393
+      ],
+      "output_bytes": [
+        404475,
+        410868
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 19,
+      "id": "60",
+      "url": "https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE",
+      "title": "特撮",
+      "source_sha256": "e65ee8355848ee96b180eae4a1c94c75ad967d155cb370c777f57a5a3087c633",
+      "source_bytes": [
+        0,
+        7463
+      ],
+      "output_bytes": [
+        410870,
+        418333
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 20,
+      "id": "62",
+      "url": "https://ja.wikipedia.org/wiki/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB",
+      "title": "日常生活",
+      "source_sha256": "57750469ed0e7e981301d309f445b46a90196a9406f3f2683fbb65f171aa93f7",
+      "source_bytes": [
+        0,
+        6122
+      ],
+      "output_bytes": [
+        418335,
+        424457
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 21,
+      "id": "63",
+      "url": "https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6",
+      "title": "情報工学",
+      "source_sha256": "a0dc80e5d76696b0af002e6960418a71b7e4a2d781add8e7e56a17cc233f8b8e",
+      "source_bytes": [
+        0,
+        4086
+      ],
+      "output_bytes": [
+        424459,
+        428545
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 22,
+      "id": "64",
+      "url": "https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E",
+      "title": "形式言語",
+      "source_sha256": "1dc966fd316ed15df542735e11aba87310764628b328959f6c0a1a538061aef2",
+      "source_bytes": [
+        0,
+        7245
+      ],
+      "output_bytes": [
+        428547,
+        435792
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 23,
+      "id": "65",
+      "url": "https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E",
+      "title": "文脈自由言語",
+      "source_sha256": "6b06be3de30fc19a4f8e90021ea6d086ac7c118b9b89982fea4a4a2d241a3698",
+      "source_bytes": [
+        0,
+        2638
+      ],
+      "output_bytes": [
+        435794,
+        438432
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 24,
+      "id": "66",
+      "url": "https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A8%80%E8%AA%9E",
+      "title": "正規言語",
+      "source_sha256": "a9b54d688d84c23dcce4e029ec4e9f40ddb06e3eff6042565c41c1e9cc1c8958",
+      "source_bytes": [
+        0,
+        3649
+      ],
+      "output_bytes": [
+        438434,
+        442083
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 25,
+      "id": "67",
+      "url": "https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86",
+      "title": "自然言語処理",
+      "source_sha256": "1b9dfcaf19d7904d90a4b60735d3ca84e72d1a1d1f28cb674bb36a6c22ffea11",
+      "source_bytes": [
+        0,
+        10196
+      ],
+      "output_bytes": [
+        442085,
+        452281
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 26,
+      "id": "68",
+      "url": "https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E",
+      "title": "自然言語",
+      "source_sha256": "e4d872395872a5868f8eac47a14a6c74962e8080b97c7d218c103f6614ad9d34",
+      "source_bytes": [
+        0,
+        2851
+      ],
+      "output_bytes": [
+        452283,
+        455134
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 27,
+      "id": "69",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E",
+      "title": "プログラミング言語",
+      "source_sha256": "3e004135344aab1e0e3b00799b551a3fc341672907a8334294871dc1e1cf1a06",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        455136,
+        487903
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 28,
+      "id": "70",
+      "url": "https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD",
+      "title": "人工知能",
+      "source_sha256": "ee12edd0dfd78901b2edcd81845cd3ad9037a924e833bce7477ac93815c2a897",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        487905,
+        520673
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 29,
+      "id": "74",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2",
+      "title": "オーストリア",
+      "source_sha256": "b4980e0db3aa618c5c404ec2c15fb7c8599aeadcce466345329966cf87cf8e67",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        520675,
+        553442
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 30,
+      "id": "75",
+      "url": "https://ja.wikipedia.org/wiki/GNU%20Free%20Documentation%20License",
+      "title": "GNU Free Documentation License",
+      "source_sha256": "7801d8c641342da1e049d7441ea4f4a6b1459458cd3ea5e3bac0b4a1bee1071d",
+      "source_bytes": [
+        0,
+        11905
+      ],
+      "output_bytes": [
+        553444,
+        565349
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 31,
+      "id": "76",
+      "url": "https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6%E8%80%85%E3%81%AE%E4%B8%80%E8%A6%A7",
+      "title": "社会学者の一覧",
+      "source_sha256": "adf02288a7f79cb05d901a46d81ae8483e76a8ca8f849105f5754e89cf7cd42b",
+      "source_bytes": [
+        0,
+        12889
+      ],
+      "output_bytes": [
+        565351,
+        578240
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 32,
+      "id": "81",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%BC%E3%83%80%E3%83%81%E3%83%BC%E3%82%BA",
+      "title": "ゴーダチーズ",
+      "source_sha256": "860d9c2e3eddd6087398bc916ddeafef608b0ad173d01613df9ff5bef3f1525e",
+      "source_bytes": [
+        0,
+        2108
+      ],
+      "output_bytes": [
+        578242,
+        580350
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 33,
+      "id": "82",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%BC%E3%83%AB%E3%83%BC%E3%83%95%E3%83%BB%E3%83%87%E3%83%BB%E3%82%B9%E3%83%94%E3%83%8E%E3%82%B6",
+      "title": "バールーフ・デ・スピノザ",
+      "source_sha256": "afed7e13daa67b5ec1f6cb3bdc2021019785a13827f0d1257537a6ccf267de27",
+      "source_bytes": [
+        0,
+        21606
+      ],
+      "output_bytes": [
+        580352,
+        601958
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 34,
+      "id": "89",
+      "url": "https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E6%96%87%E6%B3%95",
+      "title": "文脈自由文法",
+      "source_sha256": "09f00d574a1b740423dd81e8aeb888cef0a87ca262579300e8ea6111619bd1b8",
+      "source_bytes": [
+        0,
+        13282
+      ],
+      "output_bytes": [
+        601960,
+        615242
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 35,
+      "id": "90",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%95%E3%83%A9%E3%83%B3%E3%82%B9%E8%AA%9E",
+      "title": "フランス語",
+      "source_sha256": "394c6171b03d196dfc52a527162bda99c27dfe1267b2e4991212a65b929bf097",
+      "source_bytes": [
+        0,
+        25619
+      ],
+      "output_bytes": [
+        615244,
+        640863
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 36,
+      "id": "91",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A4%E3%82%BF%E3%83%AA%E3%82%A2%E8%AA%9E",
+      "title": "イタリア語",
+      "source_sha256": "f9cf98d7750fd8f7095703d370b0c948e46cc25aef890f6626659a224f5b6126",
+      "source_bytes": [
+        0,
+        30203
+      ],
+      "output_bytes": [
+        640865,
+        671068
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 37,
+      "id": "92",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%9A%E3%82%A4%E3%83%B3%E8%AA%9E",
+      "title": "スペイン語",
+      "source_sha256": "c581dfb8e710236de9e4c816d09d7ccca01d5e389c16fee0af1026706133a05c",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        671070,
+        703838
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 38,
+      "id": "97",
+      "url": "https://ja.wikipedia.org/wiki/%E5%AE%97%E6%95%99%E5%AD%A6",
+      "title": "宗教学",
+      "source_sha256": "49c19ecd7c9894979e36a38deb2d97e923d1df1691dc89bc36f9a82c1f1d9cb5",
+      "source_bytes": [
+        0,
+        2901
+      ],
+      "output_bytes": [
+        703840,
+        706741
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 39,
+      "id": "99",
+      "url": "https://ja.wikipedia.org/wiki/%E9%9F%B3%E6%A5%BD",
+      "title": "音楽",
+      "source_sha256": "9e911fd92ceb5fc506caa6be03701ef2539ee2f7ea63395d5aa6a2b0e8c4c852",
+      "source_bytes": [
+        0,
+        31142
+      ],
+      "output_bytes": [
+        706743,
+        737885
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 40,
+      "id": "100",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%89%E3%83%8D%E3%82%B7%E3%82%A2",
+      "title": "インドネシア",
+      "source_sha256": "e7d6645e1ac44617a8ce38fbd1b83d866f94780b39816ba67b387e1c1d62bc8d",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        737887,
+        770653
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 41,
+      "id": "101",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%A9%E3%82%AF",
+      "title": "イラク",
+      "source_sha256": "325a2fd2811bbab119943df84b84d6e66782ab7b3622948caf5af0bee0c05ebc",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        770655,
+        803423
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 42,
+      "id": "102",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%A9%E3%83%B3",
+      "title": "イラン",
+      "source_sha256": "e2daea7070b2156fa708d9a497f3b0a4092c90c92d6abe5f5bd793df1b129f7d",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        803425,
+        836191
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 43,
+      "id": "105",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%BF%E3%82%A4",
+      "title": "タイ",
+      "source_sha256": "259d3b5ff9826522a7139f61eaa710a51d8900bc1d4b9a8de1cb7fcd3fcf2885",
+      "source_bytes": [
+        0,
+        2461
+      ],
+      "output_bytes": [
+        836193,
+        838654
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 44,
+      "id": "106",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%81%E3%83%A5%E3%83%8B%E3%82%B8%E3%82%A2",
+      "title": "チュニジア",
+      "source_sha256": "2ec55a7b56f1e248ea5dbad80b3906e202110b6d5a473961b2f3b3d6cff4323e",
+      "source_bytes": [
+        0,
+        32766
+      ],
+      "output_bytes": [
+        838656,
+        871422
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 45,
+      "id": "107",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AB%E3%82%B3",
+      "title": "トルコ",
+      "source_sha256": "603db9f5809aef172a779f45c54032c620acf465b1c7581497fc9db50d8c229e",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        871424,
+        904192
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 46,
+      "id": "109",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B7%E3%82%A2",
+      "title": "ロシア",
+      "source_sha256": "7bf6d8443706c48bf384c1518cab64c82985a79f2758c6f84f783a52010a058d",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        904194,
+        936962
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 47,
+      "id": "110",
+      "url": "https://ja.wikipedia.org/wiki/%E5%93%B2%E5%AD%A6",
+      "title": "哲学",
+      "source_sha256": "356c7c9555844ace594f7505577486cbf2ab42456c5b995be40c7d6fa82a7ec5",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        936964,
+        969732
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 48,
+      "id": "111",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%9F%E3%83%A5%E3%83%BC%E3%82%B8%E3%83%83%E3%82%AF",
+      "title": "ブラックミュージック",
+      "source_sha256": "d7522db9b0d1e5ad7ab293e135f6e0d6186db6059f4386a5c0e73c7328467c83",
+      "source_bytes": [
+        0,
+        1976
+      ],
+      "output_bytes": [
+        969734,
+        971710
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 49,
+      "id": "112",
+      "url": "https://ja.wikipedia.org/wiki/%E7%89%A9%E7%90%86%E5%AD%A6",
+      "title": "物理学",
+      "source_sha256": "5be4697cb469c10cdbc723ecdd0d743f431229b91fa862541e1649168e5ebaa0",
+      "source_bytes": [
+        0,
+        23885
+      ],
+      "output_bytes": [
+        971712,
+        995597
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 50,
+      "id": "115",
+      "url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E8%81%9E%E5%AD%A6",
+      "title": "新聞学",
+      "source_sha256": "e4b25648c77b7e8e21be1129b6179ba49f2ca8e749fa1322b1866920e0ddb9b4",
+      "source_bytes": [
+        0,
+        3090
+      ],
+      "output_bytes": [
+        995599,
+        998689
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 51,
+      "id": "117",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%BD%E3%82%AF%E3%83%A9%E3%83%86%E3%82%B9",
+      "title": "ソクラテス",
+      "source_sha256": "8f892833d0fa22a97702b69d4d2b8cab948fb3b524db41cc32d1a95fd99766d0",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        998691,
+        1031459
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 52,
+      "id": "120",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84",
+      "title": "スポーツ",
+      "source_sha256": "7b8a59d3fa296de549231651f4e4e380c72c017d55d806dc05992aeeae092cb4",
+      "source_bytes": [
+        0,
+        17114
+      ],
+      "output_bytes": [
+        1031461,
+        1048575
+      ],
+      "separator_bytes": 2
+    }
+  ],
+  "pool_sha256": "8c202706554b597785e3a671d14d865340fdb013eb339c3a1b57fbd352e9504f"
+}

@@ -1,0 +1,603 @@
+{
+  "repo": "wikimedia/wikipedia",
+  "revision": "b04c8d1ceb2f5cd4588862100d08de323dccfbaa",
+  "shard": "20231101.ru/train-00000-of-00021.parquet",
+  "split": "train",
+  "license": "CC-BY-SA-3.0; GFDL where applicable",
+  "url": "https://huggingface.co/datasets/wikimedia/wikipedia/resolve/b04c8d1ceb2f5cd4588862100d08de323dccfbaa/20231101.ru/train-00000-of-00021.parquet",
+  "records": [
+    {
+      "row": 0,
+      "id": "7",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%82%D0%B2%D0%B0",
+      "title": "Литва",
+      "source_sha256": "19e04acc9727b2ad01a63cbe6649a2d79652b5ee879e63c00bb7cb86b6ae030d",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        0,
+        32767
+      ],
+      "separator_bytes": 0
+    },
+    {
+      "row": 1,
+      "id": "9",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F",
+      "title": "Россия",
+      "source_sha256": "80fda230e752f135c647ef500b1adc8e1f614572ef86da9f99b900449f716de9",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        32769,
+        65536
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 2,
+      "id": "10",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5",
+      "title": "Слоновые",
+      "source_sha256": "4b0582d2928c96862de1c3956d3d22ea20e7a2917f2b52b7e4f827e1822ab3a5",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        65538,
+        98306
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 3,
+      "id": "11",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BC%D0%BE%D0%BD%D1%82%D1%8B",
+      "title": "Мамонты",
+      "source_sha256": "9645c0c29e6b49425c9d382dc2a18abf7b19e1b3697c25beb36af36e0a84cb4e",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        98308,
+        131076
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 4,
+      "id": "15",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BA%D0%BD%D0%B8%D0%B3%D0%B0",
+      "title": "Красная книга",
+      "source_sha256": "180369f49be2cf3489d03683990343d49303984bc1be9492383a404971242638",
+      "source_bytes": [
+        0,
+        15873
+      ],
+      "output_bytes": [
+        131078,
+        146951
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 5,
+      "id": "16",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0",
+      "title": "Соционика",
+      "source_sha256": "45f575f43825d02a4a184585d8e7830435ff3312e966111f609ba2329bc670c7",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        146953,
+        179721
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 6,
+      "id": "18",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0",
+      "title": "Школа",
+      "source_sha256": "55003638d894de25561eb255bbdd61893fc3c80634c2336caa7aab2b30e0b3db",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        179723,
+        212490
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 7,
+      "id": "20",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D0%BD%D0%B3%D0%B2%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0",
+      "title": "Лингвистика",
+      "source_sha256": "d5cb92a5ec7829c410661c10dfb62ef0996ef97023857de42354434131176ffe",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        212492,
+        245260
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 8,
+      "id": "21",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F",
+      "title": "Социология",
+      "source_sha256": "00e0543d6fc5389ea1336825c6c2224aeac0d1a15be13cefd28c377f8da2ee0c",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        245262,
+        278029
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 9,
+      "id": "27",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%A0%D1%83%D1%81%D1%8C",
+      "title": "Киевская Русь",
+      "source_sha256": "96b753c0d137251e9da43875e1280632ee5451a6bdeed4459e046834bed7b7fd",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        278031,
+        310799
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 10,
+      "id": "28",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9F%D1%83%D1%82%D1%8C%20%D0%B8%D0%B7%20%D0%B2%D0%B0%D1%80%D1%8F%D0%B3%20%D0%B2%20%D0%B3%D1%80%D0%B5%D0%BA%D0%B8",
+      "title": "Путь из варяг в греки",
+      "source_sha256": "7a36b4c9defa94b570007d68ca3b41afcc0d6ca7314d8e3be2dd0ee7ce6fc397",
+      "source_bytes": [
+        0,
+        32550
+      ],
+      "output_bytes": [
+        310801,
+        343351
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 11,
+      "id": "29",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B8%D1%8F",
+      "title": "Российская империя",
+      "source_sha256": "71fca27091056c2841e89e76af95fbaec82ce9ccae43a554804d05d507b81616",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        343353,
+        376121
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 12,
+      "id": "30",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B2%D0%BA%D0%B0%D0%B7%D1%81%D0%BA%D0%B8%D0%B5%20%D0%9C%D0%B8%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%92%D0%BE%D0%B4%D1%8B",
+      "title": "Кавказские Минеральные Воды",
+      "source_sha256": "242349beed44c9e2c00648a178ec9c877ae3eafd7fa99a587dba5400b943b414",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        376123,
+        408891
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 13,
+      "id": "31",
+      "url": "https://ru.wikipedia.org/wiki/%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D0%BD%D0%B8%D0%B7%D0%BC",
+      "title": "Военный коммунизм",
+      "source_sha256": "c09ba9ee0f96499db9a8eec6408338e6d5ef6f9b862f6b65514c9beee49b3c6f",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        408893,
+        441660
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 14,
+      "id": "32",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0",
+      "title": "Новая экономическая политика",
+      "source_sha256": "899f2e2c34c771106d019cb29736d8b562d4c6d1574beedb3f3d9d463214d929",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        441662,
+        474429
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 15,
+      "id": "33",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A4%D0%B5%D0%B2%D1%80%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F",
+      "title": "Февральская революция",
+      "source_sha256": "d235139c3063731eecd41eee284a39c0088164ae7b9a530924d079f01125cd79",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        474431,
+        507198
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 16,
+      "id": "35",
+      "url": "https://ru.wikipedia.org/wiki/%D0%93%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0%20%D0%B2%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8",
+      "title": "Гражданская война в России",
+      "source_sha256": "c998d73b9d778d832dc49cd54048c3b0a2138a480c898ca51b8907ea5c175267",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        507200,
+        539967
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 17,
+      "id": "36",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F%201905%E2%80%941907%20%D0%B3%D0%BE%D0%B4%D0%BE%D0%B2%20%D0%B2%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8",
+      "title": "Революция 1905—1907 годов в России",
+      "source_sha256": "db1c74b3f41070dbcff9647c5256d00c53a94d73a3165027a66a8d7668b38f3c",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        539969,
+        572737
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 18,
+      "id": "37",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D0%BE%D0%BB%D1%8B%D0%BF%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D0%B3%D1%80%D0%B0%D1%80%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B5%D1%84%D0%BE%D1%80%D0%BC%D0%B0",
+      "title": "Столыпинская аграрная реформа",
+      "source_sha256": "5e4d5f2229b569ca026a9a3e754dba70ad53ab15a497b736e4a6d2b7c699a5c4",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        572739,
+        605506
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 19,
+      "id": "38",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%8E%D0%B7%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B8%D1%85%20%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85%20%D0%A0%D0%B5%D1%81%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA",
+      "title": "Союз Советских Социалистических Республик",
+      "source_sha256": "63ac288d3873249df0f8271ce7c418d02a2abe83a0ffb433a36cd4f8eb4d31f7",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        605508,
+        638275
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 20,
+      "id": "39",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B4%D1%80%D1%83%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D0%9D%D0%B5%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D1%8B%D1%85%20%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2",
+      "title": "Содружество Независимых Государств",
+      "source_sha256": "abe95409a8836b50558bf45eaf318d8a742754b6e8d7cb27251e5453aa88870e",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        638277,
+        671044
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 21,
+      "id": "40",
+      "url": "https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%9E%D1%82%D0%B5%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0",
+      "title": "Великая Отечественная война",
+      "source_sha256": "0ea2fbc9bb2dba787b0ea714ad6b736668448e8f194f02fe015809343ac3aaa6",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        671046,
+        703814
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 22,
+      "id": "41",
+      "url": "https://ru.wikipedia.org/wiki/%D0%92%D1%82%D0%BE%D1%80%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0",
+      "title": "Вторая мировая война",
+      "source_sha256": "a3007237513a4b95fbe9d5421191e034f146434efdbb058cbed4d1081c5bda6e",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        703816,
+        736584
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 23,
+      "id": "42",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%BE-%D0%B3%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%281939%E2%80%941941%29",
+      "title": "Советско-германские соглашения (1939—1941)",
+      "source_sha256": "00cbf87961400b9e79450f9446e37d7195b4e805329f28c22b05c969db171d7c",
+      "source_bytes": [
+        0,
+        5036
+      ],
+      "output_bytes": [
+        736586,
+        741622
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 24,
+      "id": "43",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%B7%D0%BC",
+      "title": "Космополитизм",
+      "source_sha256": "bb1d637459103abf88130a66b5c08e7f49a2d7fe0820a1de358a8d5d9967322a",
+      "source_bytes": [
+        0,
+        16180
+      ],
+      "output_bytes": [
+        741624,
+        757804
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 25,
+      "id": "44",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9F%D0%B5%D1%80%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0",
+      "title": "Перестройка",
+      "source_sha256": "a3b412ffd54104f819d8b80e43f400eb69ba66dd09189e0dd490081846c842fa",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        757806,
+        790573
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 26,
+      "id": "45",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3",
+      "title": "Санкт-Петербург",
+      "source_sha256": "b38b49fdb46f20adb7c89bbc5e4eede624f2a33a6421afe9b578263db5682dd7",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        790575,
+        823343
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 27,
+      "id": "46",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BF%D0%B0%D0%B2%D0%BB%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BA%D1%80%D0%B5%D0%BF%D0%BE%D1%81%D1%82%D1%8C",
+      "title": "Петропавловская крепость",
+      "source_sha256": "8f0cf6b203a90df4f76983b970c1d5dcd26b3b4b899ee2fbf7298365c770ee95",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        823345,
+        856113
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 28,
+      "id": "47",
+      "url": "https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE-%D0%9D%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BB%D0%B0%D0%B2%D1%80%D0%B0",
+      "title": "Александро-Невская лавра",
+      "source_sha256": "4de1eedfea25fed1bd7510a78224c9debb992255c09657681cc9fda6bce7d4a5",
+      "source_bytes": [
+        0,
+        28349
+      ],
+      "output_bytes": [
+        856115,
+        884464
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 29,
+      "id": "48",
+      "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B2%D1%80%D0%B0",
+      "title": "Лавра",
+      "source_sha256": "d93db724dfc981815b4af5f3a515acf5ecda532d73730f02c782701304044999",
+      "source_bytes": [
+        0,
+        14986
+      ],
+      "output_bytes": [
+        884466,
+        899452
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 30,
+      "id": "49",
+      "url": "https://ru.wikipedia.org/wiki/%D0%94%D0%B2%D0%BE%D1%80%D1%86%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D1%8C",
+      "title": "Дворцовая площадь",
+      "source_sha256": "95cc1b071827debcb0b71ecbb6f057b359e73f73d631b030ab4edef9425e8007",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        899454,
+        932221
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 31,
+      "id": "50",
+      "url": "https://ru.wikipedia.org/wiki/%D0%97%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9%20%D0%B4%D0%B2%D0%BE%D1%80%D0%B5%D1%86",
+      "title": "Зимний дворец",
+      "source_sha256": "e8fbb115c606721c7e7a71dc84d73e8c3f9e150117769ab3f4c8cca2ebdd77d7",
+      "source_bytes": [
+        0,
+        32767
+      ],
+      "output_bytes": [
+        932223,
+        964990
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 32,
+      "id": "51",
+      "url": "https://ru.wikipedia.org/wiki/%D0%AD%D1%80%D0%BC%D0%B8%D1%82%D0%B0%D0%B6",
+      "title": "Эрмитаж",
+      "source_sha256": "e80654a1d5dbe26017b068c22431638f9c3fab2eec1c429daf59a74a0e346893",
+      "source_bytes": [
+        0,
+        32768
+      ],
+      "output_bytes": [
+        964992,
+        997760
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 33,
+      "id": "52",
+      "url": "https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%B8%D0%B5",
+      "title": "Всемирное наследие",
+      "source_sha256": "614ca8317ce25df62006114fb630fc8655015baf5a74187e908ca8a94224fbc6",
+      "source_bytes": [
+        0,
+        24183
+      ],
+      "output_bytes": [
+        997762,
+        1021945
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 34,
+      "id": "53",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A8%D0%B0%D1%80%D1%82%D1%80",
+      "title": "Шартр",
+      "source_sha256": "d7a825195f5cfccb24e976111c7f7129cec798c03f47897a17c6a4e4e030dba7",
+      "source_bytes": [
+        0,
+        3439
+      ],
+      "output_bytes": [
+        1021947,
+        1025386
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 35,
+      "id": "54",
+      "url": "https://ru.wikipedia.org/wiki/%D0%90%D0%BC%D1%8C%D0%B5%D0%BD",
+      "title": "Амьен",
+      "source_sha256": "e38ede2c80a80f7f601719ce8b532b56b9219592c0513ba35af678752d6ad96c",
+      "source_bytes": [
+        0,
+        10521
+      ],
+      "output_bytes": [
+        1025388,
+        1035909
+      ],
+      "separator_bytes": 2
+    },
+    {
+      "row": 36,
+      "id": "55",
+      "url": "https://ru.wikipedia.org/wiki/%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D0%B8%D1%8F",
+      "title": "Франция",
+      "source_sha256": "44011e7863007c697e68794eabbc7d820f4b7dd9dfa95f1d74898c65fd68be1d",
+      "source_bytes": [
+        0,
+        12664
+      ],
+      "output_bytes": [
+        1035911,
+        1048575
+      ],
+      "separator_bytes": 2
+    }
+  ],
+  "pool_sha256": "8aef35a8d5a2ec6818b96a44611ae46b7bf310e6a74cac792188a2561f052f26"
+}

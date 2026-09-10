@@ -24,3 +24,9 @@ For a retained profile, keep the raw profiler output and a short Markdown
 report that records the profiled operation, profiler command and sampling
 interval. Treat sample counts as evidence about hot call paths, not exact
 stage timings. Review all result files before committing them.
+
+## Historical workload notice
+
+The retained `gpt2-wikitext2-*` reports measure the retired WikiText-2 validation
+corpus, not the current English train pool. Their commands require the original
+source revision and inputs; timings and metadata have not been relabeled.

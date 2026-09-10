@@ -7,38 +7,50 @@ import (
 	"testing"
 
 	"github.com/gosimd/bpe"
+	"github.com/gosimd/bpe/internal/benchsuite"
 	"github.com/gosimd/bpe/internal/hforacle"
 )
 
 type hfReferenceConfiguration struct {
 	referencePath string
-	repository    string
+	corpusPath    string
+	tokenizerPath string
 }
 
-func TestHFGPT2WikiText2(t *testing.T) {
-	configuration := configuredHFReference(t)
-	model, err := bpe.OpenModel(
-		filepath.Join(configuration.repository, "testdata", "gpt2", "vocab.json"),
-		filepath.Join(configuration.repository, "testdata", "gpt2", "merges.txt"),
-		bpe.ModelOptions{},
-	)
+func TestHFSuite(t *testing.T) {
+	path := os.Getenv(benchsuite.Environment)
+	if path == "" {
+		t.Skip("run make test-reference (missing BPE_BENCH_SUITE)")
+	}
+	root := os.Getenv(hforacle.RepositoryEnvironment)
+	if root == "" {
+		t.Fatal("BPE_HF_REPOSITORY must name the repository root")
+	}
+	suite, err := benchsuite.Load(path)
 	if err != nil {
 		t.Fatal(err)
 	}
-	endOfText := bpe.NewAddedToken("<|endoftext|>", 50256, true)
-	// This is the exact flag serialized in the pinned GPT-2 tokenizer.json.
-	endOfText.Normalized = true
-	tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
-		AddPrefixSpace: false,
-		AddedTokens:    []bpe.AddedToken{endOfText},
-		PostProcessor: bpe.ByteLevelPostProcessor{
-			AddPrefixSpace: true,
-			TrimOffsets:    false,
-		},
-	})
+	suite, err = suite.Select(os.Getenv("BPE_BENCH_MODELS"), os.Getenv("BPE_BENCH_CORPORA"))
 	if err != nil {
 		t.Fatal(err)
 	}
+	for _, spec := range suite.Models {
+		for _, corpus := range suite.Corpora {
+			t.Run(spec.Name+"/"+corpus.Name, func(t *testing.T) {
+				if err := benchsuite.ValidateCorpus(root, corpus); err != nil {
+					t.Fatal(err)
+				}
+				configuration := hfReferenceConfiguration{referencePath: benchsuite.ReferencePath(root, spec, corpus), corpusPath: corpus.CorpusPath(root), tokenizerPath: filepath.Join(root, spec.Tokenizer)}
+				data := loadCorpusBenchmarkData(t, root, spec, configuration.corpusPath, configuration.referencePath)
+				data.verify(t)
+				testHFReference(t, configuration, data)
+			})
+		}
+	}
+}
+
+func testHFReference(t *testing.T, configuration hfReferenceConfiguration, data *corpusBenchmarkData) {
+	model, tokenizer := data.model, data.tokenizer
 
 	t.Run("Model", func(t *testing.T) {
 		walkHFReference(t, configuration, func(fixture hforacle.Case) {
@@ -48,6 +60,9 @@ func TestHFGPT2WikiText2(t *testing.T) {
 		})
 	})
 
+	if tokenizer == nil {
+		return
+	}
 	t.Run("Tokenizer", func(t *testing.T) {
 		walkHFReference(t, configuration, func(fixture hforacle.Case) {
 			got, err := tokenizer.EncodeWithOptions(fixture.Text, bpe.EncodeOptions{AddSpecialTokens: false})
@@ -79,24 +94,11 @@ func TestHFGPT2WikiText2(t *testing.T) {
 	})
 }
 
-func configuredHFReference(t *testing.T) hfReferenceConfiguration {
-	t.Helper()
-	referencePath := os.Getenv(hforacle.ReferenceEnvironment)
-	if referencePath == "" {
-		t.Skipf("full Hugging Face corpus oracle is opt-in; run make test-reference (missing %s)", hforacle.ReferenceEnvironment)
-	}
-	repository := os.Getenv(hforacle.RepositoryEnvironment)
-	if repository == "" {
-		t.Fatalf("%s must name the repository root", hforacle.RepositoryEnvironment)
-	}
-	return hfReferenceConfiguration{referencePath: referencePath, repository: repository}
-}
-
 func walkHFReference(t *testing.T, configuration hfReferenceConfiguration, visit func(hforacle.Case)) {
 	t.Helper()
 	reader, err := hforacle.Open(
 		configuration.referencePath,
-		filepath.Join(configuration.repository, "testdata", "wikitext2", "validation.jsonl"),
+		configuration.corpusPath,
 	)
 	if err != nil {
 		t.Fatal(err)
@@ -106,7 +108,7 @@ func walkHFReference(t *testing.T, configuration hfReferenceConfiguration, visit
 			t.Error(err)
 		}
 	}()
-	if err := reader.Metadata.ValidateTokenizer(filepath.Join(configuration.repository, "testdata", "gpt2", "tokenizer.json")); err != nil {
+	if err := reader.Metadata.ValidateTokenizer(configuration.tokenizerPath); err != nil {
 		t.Fatal(err)
 	}
 

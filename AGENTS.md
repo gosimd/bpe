@@ -21,16 +21,17 @@ post-processor behavior have pinned Hugging Face 0.23.2 differential fixtures.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
 scratch pools; scratch-reuse tests and initial public allocation benchmarks
 cover short model and raw-text inputs. Exact-revision GPT-2 tokenizer assets and
-all 3,760 separate records of the WikiText-2 raw validation split are pinned in
-`testdata/`, with source hashes, licenses, and a reproducible Parquet-to-JSONL
-conversion. The pinned Rust reference tool generates a local three-level
-oracle—pre-tokenized pieces, per-piece BPE output, and final Encoding—for that
-corpus and can record self-describing upstream benchmarks without participating
-in the Go build. `make test-reference` regenerates that ignored oracle and
-checks the entire corpus against internal ByteLevel, public Model, public
+five multilingual text pools are pinned in `testdata/`, with source hashes,
+licenses and exact UTF-8 request boundaries. The former WikiText-2 validation
+corpus is retired; the English pool uses train, not validation.
+The pinned Rust reference tool generates a local three-level
+oracle—pre-tokenized pieces, per-piece BPE output, and final Encoding—for each
+selected model/corpus and records self-describing upstream benchmarks without
+participating in the Go build. `make test-reference` regenerates ignored oracles
+and checks every selected record against internal ByteLevel, public Model, public
 Tokenizer, and public AppendIDs behavior. Ordinary `go test` skips the
 full-corpus tests when the opt-in oracle environment is absent. A retained
-single-thread Apple M5 baseline measures HF pre-tokenization, uncached BPE,
+historical single-thread Apple M5 baseline measures HF pre-tokenization, uncached BPE,
 full uncached encoding, and warm-cache encoding separately; a sampling profile
 covers full uncached encoding. A symmetric single-thread Go corpus benchmark
 measures ByteLevel pre-tokenization, `Model.Tokenize`, `Model.AppendIDs`,
@@ -38,8 +39,11 @@ measures ByteLevel pre-tokenization, `Model.Tokenize`, `Model.AppendIDs`,
 only equivalent materializing APIs directly with HF.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, and representative benchmark families beyond the GPT-2 corpus baseline
-are not implemented yet.
+SIMD, and additional real-world tokenizer assets beyond GPT-2 are not implemented
+yet. The named benchmark catalogue supports multiple model/corpus entries and
+includes vendored English, Russian, Arabic, Japanese and Chinese text pools
+with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
+full Go stages currently require the validated GPT-2 preset.
 
 `Model.Tokenize` uses a direct two-symbol path, a scalar current-pair array
 for up to 32 initial symbols when merge ranks fit its packed priority, and
@@ -169,9 +173,16 @@ the upstream or intentional contract change in the same commit.
 ## Benchmarks
 
 - Keep public end-to-end benchmarks separate from internal kernel benchmarks.
-- The opt-in `BenchmarkGPT2WikiText2` loads the corpus, compiled model, and
-  ignored HF oracle before timing. Preserve its fixed record order and untimed
-  full-output validation when changing it.
+- `BenchmarkBPE/<model>/<corpus>/<operation>` uses `benchmarks/suite.json` (or
+  `BPE_BENCH_SUITE`) with exact-name model/corpus selectors. Load models, corpus
+  and oracle before timing; preserve fixed order and untimed correctness checks.
+  The historical validation benchmark was retired; do not relabel its results
+  as measurements of the current English train pool. Use `make generate-suite-fixtures` and
+  `make benchmark-suite` explicitly; ordinary Go tests must not invoke Rust.
+  Preserve vendored corpus hashes, source/license notices and exact request
+  boundaries. New model-only entries must use their own HF-transformed pieces,
+  not GPT-2 pre-tokenization; do not enable full Go stages for unsupported
+  pipelines. Keep generic corpus/catalogue implementation in `internal/benchsuite`.
 - Compare HF BPE only with `Model.Tokenize` and HF full encode only with
   `Tokenizer.Encode`. Report `Model.AppendIDs` and `Tokenizer.AppendIDs` as
   distinct ID-only inference paths, not as direct HF API speedups.

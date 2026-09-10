@@ -1,5 +1,11 @@
 # Hugging Face reference tool
 
+For multiple models and multilingual corpora, use the repository
+[benchmark catalogue](../../benchmarks/README.md): `make generate-suite-fixtures`
+and `make benchmark-hf-suite` select independent model/corpus pairs and invoke
+this same pinned executable. They do not alter the oracle schema or add an FFI
+dependency to the Go package.
+
 `hf-reference` is a repository-only Rust executable for generating oracle
 fixtures and measuring the upstream Hugging Face tokenizer implementation. It
 is not a Go package, is never linked through FFI, and is not run by `go test`.
@@ -93,9 +99,9 @@ cargo run --locked --release \
   --tokenizer testdata/gpt2/tokenizer.json \
   --vocab testdata/gpt2/vocab.json \
   --merges testdata/gpt2/merges.txt \
-  --corpus testdata/wikitext2/validation.jsonl \
-  --fixture testdata/generated/hf_gpt2_wikitext2_v0.23.2.jsonl \
-  --output tools/hf-reference/results/gpt2-wikitext2.json \
+  --corpus testdata/generated/corpora/en-4k.jsonl \
+  --fixture testdata/generated/suite/gpt2/en-4k.jsonl \
+  --output tools/hf-reference/results/gpt2-en-4k.json \
   --warmup 3 \
   --iterations 10 \
   --threads 1 \
@@ -143,8 +149,8 @@ tools/hf-reference/target/release/hf-reference profile \
   --tokenizer testdata/gpt2/tokenizer.json \
   --vocab testdata/gpt2/vocab.json \
   --merges testdata/gpt2/merges.txt \
-  --corpus testdata/wikitext2/validation.jsonl \
-  --fixture testdata/generated/hf_gpt2_wikitext2_v0.23.2.jsonl \
+  --corpus testdata/generated/corpora/en-4k.jsonl \
+  --fixture testdata/generated/suite/gpt2/en-4k.jsonl \
   --operation encode-full-uncached \
   --seconds 30 \
   --threads 1

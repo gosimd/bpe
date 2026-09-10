@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "models": [
+    {
+      "name": "gpt2",
+      "tokenizer": "testdata/gpt2/tokenizer.json",
+      "vocab": "testdata/gpt2/vocab.json",
+      "merges": "testdata/gpt2/merges.txt",
+      "pipeline": "gpt2"
+    }
+  ],
+  "corpora": [
+    {"name": "en-4k", "pool": "en-wikitext2", "request_bytes": 4096},
+    {"name": "ru-4k", "pool": "ru-wikipedia", "request_bytes": 4096},
+    {"name": "ar-4k", "pool": "ar-wikipedia", "request_bytes": 4096},
+    {"name": "ja-4k", "pool": "ja-wikipedia", "request_bytes": 4096},
+    {"name": "zh-4k", "pool": "zh-wikipedia", "request_bytes": 4096}
+  ]
+}

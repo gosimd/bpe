@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "added_tokens": [],
+  "normalizer": {"type": "Lowercase"},
+  "pre_tokenizer": {"type": "WhitespaceSplit"},
+  "post_processor": null,
+  "decoder": null,
+  "model": {
+    "type": "BPE",
+    "dropout": null,
+    "unk_token": "[UNK]",
+    "continuing_subword_prefix": null,
+    "end_of_word_suffix": null,
+    "fuse_unk": true,
+    "byte_fallback": false,
+    "ignore_merges": true,
+    "vocab": {"a": 70000, "b": 90000, "ab": 399999, "[UNK]": 400000},
+    "merges": [["a", "b"]]
+  }
+}
