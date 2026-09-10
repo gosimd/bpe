@@ -9,6 +9,7 @@ HF_RESULT_DIR ?= testdata/generated/hf-benchmarks
 HF_WARMUP ?= 3
 HF_ITERATIONS ?= 10
 HF_ENVIRONMENT ?=
+WORKLOAD_DIR ?= testdata/generated/model-workload
 
 HF_REFERENCE_MANIFEST := tools/hf-reference/Cargo.toml
 
@@ -21,6 +22,15 @@ test-reference: generate-fixtures
 	$(GO) test -count=1 -run '^TestHFSuite' ./internal/bytelevel .
 
 benchmark-go-reference: benchmark-suite
+
+# Test-only counted copy of the current merge methods; never a timed backend.
+.PHONY: analyze-model-workload
+analyze-model-workload:
+	$(GO) run ./tools/workload-instrument -check
+	BPE_BENCH_SUITE=$(abspath $(SUITE)) BPE_HF_REPOSITORY=$(CURDIR) \
+	BPE_BENCH_MODELS='$(MODELS)' BPE_BENCH_CORPORA='$(CORPORA)' \
+	BPE_WORKLOAD_OUTPUT=$(abspath $(WORKLOAD_DIR)) \
+	$(GO) test -count=1 -run '^TestModelWorkload$$' -v ./internal/model
 
 # Explicit tooling targets. Neither Go tests nor benchmarks invoke Rust.
 .PHONY: prepare-corpora generate-suite-fixtures benchmark-suite benchmark-hf-suite

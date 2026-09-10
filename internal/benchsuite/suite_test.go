@@ -13,7 +13,7 @@ func TestCatalogueAndSelection(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(suite.Models) != 1 || len(suite.Corpora) != 5 {
+	if len(suite.Models) != 4 || len(suite.Corpora) != 5 {
 		t.Fatalf("unexpected catalogue size: %d/%d", len(suite.Models), len(suite.Corpora))
 	}
 	// A second model with different assets/pipeline must remain independent.

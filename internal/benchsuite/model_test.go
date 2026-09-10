@@ -1,11 +1,80 @@
 package benchsuite
 
 import (
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 )
+
+func TestPinnedLargeModelAssets(t *testing.T) {
+	suite, err := Load("../../benchmarks/suite.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := map[string][2]int{
+		"qwen2-5": {151643, 151387},
+		"qwen3-8": {248044, 247587},
+		"bloom":   {250680, 250434},
+	}
+	for _, spec := range suite.Models {
+		counts, ok := want[spec.Name]
+		if !ok {
+			continue
+		}
+		delete(want, spec.Name)
+		t.Run(spec.Name, func(t *testing.T) {
+			if spec.Pipeline != "model-only" {
+				t.Fatal("full Go pipeline is not implemented")
+			}
+			path := filepath.Join("../..", spec.Tokenizer)
+			dir := filepath.Dir(path)
+			sums, err := os.ReadFile(filepath.Join(dir, "SHA256SUMS"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			lines := strings.Split(strings.TrimSpace(string(sums)), "\n")
+			if len(lines) != 4 {
+				t.Fatal("expected hashes for tokenizer, vocab, merges and license")
+			}
+			for _, line := range lines {
+				fields := strings.Fields(line)
+				if len(fields) != 2 {
+					t.Fatalf("malformed checksum line %q", line)
+				}
+				if _, err := checkedFile(dir, fields[1], fields[0]); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := ValidateModelFiles("../..", spec); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := ModelOptions(path, spec.Pipeline); err != nil {
+				t.Fatal(err)
+			}
+			data, err := os.ReadFile(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var tokenizer struct {
+				Model struct {
+					Vocab  map[string]uint32 `json:"vocab"`
+					Merges []json.RawMessage `json:"merges"`
+				} `json:"model"`
+			}
+			if err := json.Unmarshal(data, &tokenizer); err != nil {
+				t.Fatal(err)
+			}
+			if len(tokenizer.Model.Vocab) != counts[0] || len(tokenizer.Model.Merges) != counts[1] {
+				t.Fatalf("unexpected vocab/merges counts: %d/%d", len(tokenizer.Model.Vocab), len(tokenizer.Model.Merges))
+			}
+		})
+	}
+	if len(want) != 0 {
+		t.Fatalf("pinned models absent from catalogue: %v", want)
+	}
+}
 
 func TestModelFiles(t *testing.T) {
 	suite, err := Load("testdata/suite.json")

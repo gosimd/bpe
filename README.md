@@ -99,10 +99,13 @@ OS, architecture, Go version, enabled instruction set, input distribution,
 and allocation model. SIMD-to-Hugging-Face comparisons must use equivalent
 work and must not present allocation differences as kernel speedups.
 
-Benchmark inputs are pinned under `testdata/`: GPT-2 tokenizer assets at an
-exact model revision and five multilingual text pools with hashes, licenses
-and exact request boundaries. See [`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md)
-and [`testdata/corpora/text/README.md`](testdata/corpora/text/README.md).
+Benchmark inputs are pinned under `testdata/`: GPT-2, Qwen2.5,
+Qwen3.8-Flash-Next and BLOOM tokenizer assets at exact model revisions, and five
+multilingual text pools with hashes, licenses and exact request boundaries.
+See [`testdata/gpt2/MANIFEST.md`](testdata/gpt2/MANIFEST.md)
+and [`testdata/corpora/text/README.md`](testdata/corpora/text/README.md), plus
+the [Qwen2.5](testdata/qwen2.5/MANIFEST.md), [Qwen3.8](testdata/qwen3.8/MANIFEST.md)
+and [BLOOM](testdata/bloom/MANIFEST.md) asset manifests.
 
 The repository-only Rust [Hugging Face reference tool](tools/hf-reference/README.md)
 generates local three-level corpus oracles—pre-tokenization, per-piece BPE, and
@@ -116,11 +119,11 @@ tokens and offsets, final Tokenizer Encoding, and AppendIDs record boundaries.
 Ordinary `go test` skips this opt-in corpus suite and never invokes Rust.
 
 The [named benchmark catalogue](benchmarks/README.md) supports independent
-model and corpus selection. `make benchmark-suite` runs GPT-2 on English,
+model and corpus selection. `make benchmark-suite` runs the registered models on English,
 Russian, Arabic, Japanese and Chinese
 [text pools](testdata/corpora/text/README.md), using exact 4 KiB request
 boundaries. `make benchmark-hf-suite` measures the same selected inputs with
-HF 0.23.2. Additional BPE models can be registered for model-only measurements
+HF 0.23.2. Qwen2.5, Qwen3.8 and BLOOM use model-only measurements
 on HF-prepared pieces; full Go pipeline measurements currently require the
 GPT-2 preset. Corpus conversion and full-corpus oracles remain local and ignored.
 
@@ -131,7 +134,7 @@ TemplateProcessing, and ByteLevel offset post-processing are implemented and
 covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and
 have public allocation benchmarks; no general throughput claim is made from
-those small shapes. Pinned GPT-2 tokenizer assets, multilingual text pools
+those small shapes. Pinned GPT-2, Qwen2.5, Qwen3.8 and BLOOM tokenizer assets, multilingual text pools
 and a pinned Hugging Face reference executable are available
 for the representative benchmark suite. The full-corpus differential
 suite is available through `make test-reference`; its generated oracle is not
@@ -146,14 +149,23 @@ against uncached HF BPE and `Tokenizer.Encode` against full uncached HF encode;
 the ID-only `AppendIDs` paths are reported separately. No SIMD speedup is
 claimed.
 
+The current [four-model/five-language BPE baseline and workload report](benchmarks/results/bpe-multilingual-2026-09-10/README.md)
+retains all 20 combinations, including slower Go cases. Untimed
+`make analyze-model-workload` records piece lengths, merge counts and actual
+merge-map query distributions without adding instrumentation to the library.
+
 `Model.Tokenize` uses a direct lookup for two initial symbols and a scalar
 current-pair array for short pieces, with a heap fallback for longer pieces
 or large merge ranks. The heap remains the correctness oracle and the
 implementation of the ID-only paths. No build tags or SIMD experiment are
-required. The retained Go/HF baseline above predates this optimization.
+required. The historical validation baseline predates this optimization;
+the multilingual baseline measures the current dispatcher.
 
 ## License
 
 [MIT](LICENSE)
+
+Third-party tokenizer and corpus assets retain their upstream licenses;
+see the asset manifests and bundled license notices in `testdata/`.
 
 [hf-bpe]: https://huggingface.co/docs/tokenizers/main/api/models#tokenizers.models.BPE

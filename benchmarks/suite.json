@@ -7,6 +7,27 @@
       "vocab": "testdata/gpt2/vocab.json",
       "merges": "testdata/gpt2/merges.txt",
       "pipeline": "gpt2"
+    },
+    {
+      "name": "qwen2-5",
+      "tokenizer": "testdata/qwen2.5/tokenizer.json",
+      "vocab": "testdata/qwen2.5/vocab.json",
+      "merges": "testdata/qwen2.5/merges.txt",
+      "pipeline": "model-only"
+    },
+    {
+      "name": "qwen3-8",
+      "tokenizer": "testdata/qwen3.8/tokenizer.json",
+      "vocab": "testdata/qwen3.8/vocab.json",
+      "merges": "testdata/qwen3.8/merges.txt",
+      "pipeline": "model-only"
+    },
+    {
+      "name": "bloom",
+      "tokenizer": "testdata/bloom/tokenizer.json",
+      "vocab": "testdata/bloom/vocab.json",
+      "merges": "testdata/bloom/merges.txt",
+      "pipeline": "model-only"
     }
   ],
   "corpora": [

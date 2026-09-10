@@ -1,0 +1,5 @@
+pretokenize_only: median 56.772 ms, 17.61 MiB/s
+bpe_only_uncached: median 67.684 ms, 29.17 MiB/s
+encode_full_uncached: median 135.140 ms, 7.40 MiB/s
+encode_full_warm_cache: median 107.191 ms, 9.33 MiB/s
+wrote benchmark result to tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/ru-4k.json

@@ -1,0 +1,2802 @@
+[
+  {
+    "model": "gpt2",
+    "corpus": "en-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 199960,
+      "operation_input_bytes_per_iteration": 1255917,
+      "pieces_per_iteration": 199960,
+      "tokens_per_iteration": 230158,
+      "oracle_checksum": 2398263660465998526,
+      "iteration_nanoseconds": [
+        85571292,
+        84139042,
+        84518125,
+        81470500,
+        81744750,
+        83625042,
+        87102625,
+        84720542,
+        86914542,
+        88629208
+      ],
+      "min_nanoseconds": 81470500,
+      "median_nanoseconds": 84619333,
+      "max_nanoseconds": 88629208,
+      "median_nanoseconds_per_operation_input_byte": 67.37653284412903,
+      "median_operation_mib_per_second": 14.154398811415687
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 52374208.0,
+          "min": 51496959.0,
+          "max": 55857833.0
+        },
+        "MB/s": {
+          "median": 23.98,
+          "min": 22.48,
+          "max": 24.39
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 41.705,
+          "min": 41.0,
+          "max": 44.48
+        },
+        "pieces/op": {
+          "median": 199960.0,
+          "min": 199960.0,
+          "max": 199960.0
+        },
+        "pieces/s": {
+          "median": 3818233.0,
+          "min": 3579802.0,
+          "max": 3882948.0
+        },
+        "tokens/op": {
+          "median": 230158.0,
+          "min": 230158.0,
+          "max": 230158.0
+        },
+        "tokens/s": {
+          "median": 4394863.0,
+          "min": 4120425.0,
+          "max": 4469351.0
+        },
+        "B/op": {
+          "median": 36655344.0,
+          "min": 36655344.0,
+          "max": 36655344.0
+        },
+        "allocs/op": {
+          "median": 399922.0,
+          "min": 399922.0,
+          "max": 399922.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 59260354.5,
+          "min": 57852500.0,
+          "max": 60685000.0
+        },
+        "MB/s": {
+          "median": 21.189999999999998,
+          "min": 20.7,
+          "max": 21.71
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 47.185,
+          "min": 46.06,
+          "max": 48.32
+        },
+        "pieces/op": {
+          "median": 199960.0,
+          "min": 199960.0,
+          "max": 199960.0
+        },
+        "pieces/s": {
+          "median": 3374289.0,
+          "min": 3295048.0,
+          "max": 3456376.0
+        },
+        "tokens/op": {
+          "median": 230158.0,
+          "min": 230158.0,
+          "max": 230158.0
+        },
+        "tokens/s": {
+          "median": 3883874.0,
+          "min": 3792667.0,
+          "max": 3978359.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.6156680307222975
+  },
+  {
+    "model": "gpt2",
+    "corpus": "ru-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 98713,
+      "operation_input_bytes_per_iteration": 2070465,
+      "pieces_per_iteration": 98713,
+      "tokens_per_iteration": 611362,
+      "oracle_checksum": 5664390747866454131,
+      "iteration_nanoseconds": [
+        68666500,
+        67666333,
+        66907292,
+        66701084,
+        68756334,
+        68392625,
+        67700792,
+        68173041,
+        66639042,
+        67285041
+      ],
+      "min_nanoseconds": 66639042,
+      "median_nanoseconds": 67683562,
+      "max_nanoseconds": 68756334,
+      "median_nanoseconds_per_operation_input_byte": 32.690029534428255,
+      "median_operation_mib_per_second": 29.173247316949222
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 63153791.5,
+          "min": 62284500.0,
+          "max": 65385833.0
+        },
+        "MB/s": {
+          "median": 32.785,
+          "min": 31.67,
+          "max": 33.24
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 30.505,
+          "min": 30.08,
+          "max": 31.58
+        },
+        "pieces/op": {
+          "median": 98713.0,
+          "min": 98713.0,
+          "max": 98713.0
+        },
+        "pieces/s": {
+          "median": 1563150.0,
+          "min": 1509700.0,
+          "max": 1584873.0
+        },
+        "tokens/op": {
+          "median": 611362.0,
+          "min": 611362.0,
+          "max": 611362.0
+        },
+        "tokens/s": {
+          "median": 9681100.5,
+          "min": 9350068.0,
+          "max": 9815636.0
+        },
+        "B/op": {
+          "median": 51864432.0,
+          "min": 51864432.0,
+          "max": 51864432.0
+        },
+        "allocs/op": {
+          "median": 197430.0,
+          "min": 197430.0,
+          "max": 197430.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 45921417.0,
+          "min": 44766125.0,
+          "max": 47089583.0
+        },
+        "MB/s": {
+          "median": 45.084999999999994,
+          "min": 43.97,
+          "max": 46.25
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 22.18,
+          "min": 21.62,
+          "max": 22.74
+        },
+        "pieces/op": {
+          "median": 98713.0,
+          "min": 98713.0,
+          "max": 98713.0
+        },
+        "pieces/s": {
+          "median": 2149608.5,
+          "min": 2096281.0,
+          "max": 2205083.0
+        },
+        "tokens/op": {
+          "median": 611362.0,
+          "min": 611362.0,
+          "max": 611362.0
+        },
+        "tokens/s": {
+          "median": 13313228.5,
+          "min": 12982956.0,
+          "max": 13656800.0
+        },
+        "B/op": {
+          "median": 520.0,
+          "min": 520.0,
+          "max": 520.0
+        },
+        "allocs/op": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.0717260340576702
+  },
+  {
+    "model": "gpt2",
+    "corpus": "ar-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 123496,
+      "operation_input_bytes_per_iteration": 2076500,
+      "pieces_per_iteration": 123496,
+      "tokens_per_iteration": 574694,
+      "oracle_checksum": 13331554303806306396,
+      "iteration_nanoseconds": [
+        74545375,
+        71283625,
+        72264167,
+        72951500,
+        72427333,
+        72746750,
+        72031375,
+        73911041,
+        73108792,
+        73032666
+      ],
+      "min_nanoseconds": 71283625,
+      "median_nanoseconds": 72849125,
+      "max_nanoseconds": 74545375,
+      "median_nanoseconds_per_operation_input_byte": 35.08265109559355,
+      "median_operation_mib_per_second": 27.183644525827567
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 58971062.5,
+          "min": 55196875.0,
+          "max": 66950416.0
+        },
+        "MB/s": {
+          "median": 35.224999999999994,
+          "min": 31.02,
+          "max": 37.62
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 28.4,
+          "min": 26.58,
+          "max": 32.24
+        },
+        "pieces/op": {
+          "median": 123496.0,
+          "min": 123496.0,
+          "max": 123496.0
+        },
+        "pieces/s": {
+          "median": 2094875.0,
+          "min": 1844589.0,
+          "max": 2237373.0
+        },
+        "tokens/op": {
+          "median": 574694.0,
+          "min": 574694.0,
+          "max": 574694.0
+        },
+        "tokens/s": {
+          "median": 9748593.5,
+          "min": 8583875.0,
+          "max": 10411713.0
+        },
+        "B/op": {
+          "median": 50029656.0,
+          "min": 50029520.0,
+          "max": 50029656.0
+        },
+        "allocs/op": {
+          "median": 246996.0,
+          "min": 246994.0,
+          "max": 246996.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 44834437.0,
+          "min": 44075166.0,
+          "max": 47088958.0
+        },
+        "MB/s": {
+          "median": 46.315,
+          "min": 44.1,
+          "max": 47.11
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 21.59,
+          "min": 21.23,
+          "max": 22.68
+        },
+        "pieces/op": {
+          "median": 123496.0,
+          "min": 123496.0,
+          "max": 123496.0
+        },
+        "pieces/s": {
+          "median": 2754517.0,
+          "min": 2622611.0,
+          "max": 2801941.0
+        },
+        "tokens/op": {
+          "median": 574694.0,
+          "min": 574694.0,
+          "max": 574694.0
+        },
+        "tokens/s": {
+          "median": 12818263.5,
+          "min": 12204432.0,
+          "max": 13038953.0
+        },
+        "B/op": {
+          "median": 264.0,
+          "min": 264.0,
+          "max": 264.0
+        },
+        "allocs/op": {
+          "median": 3.0,
+          "min": 3.0,
+          "max": 3.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.235336823039266
+  },
+  {
+    "model": "gpt2",
+    "corpus": "ja-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 74514,
+      "operation_input_bytes_per_iteration": 2068095,
+      "pieces_per_iteration": 74514,
+      "tokens_per_iteration": 539986,
+      "oracle_checksum": 14903246478334304727,
+      "iteration_nanoseconds": [
+        80969792,
+        80258542,
+        79637708,
+        81290125,
+        80362500,
+        79125541,
+        81629208,
+        82484750,
+        79690291,
+        81062917
+      ],
+      "min_nanoseconds": 79125541,
+      "median_nanoseconds": 80666146,
+      "max_nanoseconds": 82484750,
+      "median_nanoseconds_per_operation_input_byte": 39.00504860753495,
+      "median_operation_mib_per_second": 24.450022508676486
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 81123792.0,
+          "min": 79301958.0,
+          "max": 82736542.0
+        },
+        "MB/s": {
+          "median": 25.494999999999997,
+          "min": 25.0,
+          "max": 26.08
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 39.224999999999994,
+          "min": 38.35,
+          "max": 40.01
+        },
+        "pieces/op": {
+          "median": 74514.0,
+          "min": 74514.0,
+          "max": 74514.0
+        },
+        "pieces/s": {
+          "median": 918524.5,
+          "min": 900618.0,
+          "max": 939624.0
+        },
+        "tokens/op": {
+          "median": 539986.0,
+          "min": 539986.0,
+          "max": 539986.0
+        },
+        "tokens/s": {
+          "median": 6656340.0,
+          "min": 6526572.0,
+          "max": 6809239.0
+        },
+        "B/op": {
+          "median": 49642864.0,
+          "min": 49642864.0,
+          "max": 49642864.0
+        },
+        "allocs/op": {
+          "median": 149032.0,
+          "min": 149032.0,
+          "max": 149032.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 60303853.5,
+          "min": 60065292.0,
+          "max": 61006583.0
+        },
+        "MB/s": {
+          "median": 34.295,
+          "min": 33.9,
+          "max": 34.43
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 29.16,
+          "min": 29.04,
+          "max": 29.5
+        },
+        "pieces/op": {
+          "median": 74514.0,
+          "min": 74514.0,
+          "max": 74514.0
+        },
+        "pieces/s": {
+          "median": 1235642.5,
+          "min": 1221409.0,
+          "max": 1240550.0
+        },
+        "tokens/op": {
+          "median": 539986.0,
+          "min": 539986.0,
+          "max": 539986.0
+        },
+        "tokens/s": {
+          "median": 8954420.0,
+          "min": 8851274.0,
+          "max": 8989984.0
+        },
+        "B/op": {
+          "median": 1032.0,
+          "min": 1032.0,
+          "max": 1032.0
+        },
+        "allocs/op": {
+          "median": 5.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.9943586710049254
+  },
+  {
+    "model": "gpt2",
+    "corpus": "zh-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048574,
+      "operation_items_per_iteration": 85560,
+      "operation_input_bytes_per_iteration": 2050845,
+      "pieces_per_iteration": 85560,
+      "tokens_per_iteration": 741725,
+      "oracle_checksum": 4483545099407773797,
+      "iteration_nanoseconds": [
+        75788292,
+        75300250,
+        77864542,
+        75502458,
+        75642750,
+        75625875,
+        74579541,
+        74739042,
+        75149042,
+        77031833
+      ],
+      "min_nanoseconds": 74579541,
+      "median_nanoseconds": 75564166,
+      "max_nanoseconds": 77864542,
+      "median_nanoseconds_per_operation_input_byte": 36.84538129405196,
+      "median_operation_mib_per_second": 25.88314418014189
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 76186646.0,
+          "min": 74427917.0,
+          "max": 78411250.0
+        },
+        "MB/s": {
+          "median": 26.92,
+          "min": 26.15,
+          "max": 27.55
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 37.15,
+          "min": 36.29,
+          "max": 38.23
+        },
+        "pieces/op": {
+          "median": 85560.0,
+          "min": 85560.0,
+          "max": 85560.0
+        },
+        "pieces/s": {
+          "median": 1123039.0,
+          "min": 1091170.0,
+          "max": 1149569.0
+        },
+        "tokens/op": {
+          "median": 741725.0,
+          "min": 741725.0,
+          "max": 741725.0
+        },
+        "tokens/s": {
+          "median": 9735698.5,
+          "min": 9459421.0,
+          "max": 9965683.0
+        },
+        "B/op": {
+          "median": 58135456.0,
+          "min": 58135456.0,
+          "max": 58135456.0
+        },
+        "allocs/op": {
+          "median": 171124.0,
+          "min": 171124.0,
+          "max": 171124.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 49566875.0,
+          "min": 49287292.0,
+          "max": 51320041.0
+        },
+        "MB/s": {
+          "median": 41.375,
+          "min": 39.96,
+          "max": 41.61
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 24.165,
+          "min": 24.03,
+          "max": 25.02
+        },
+        "pieces/op": {
+          "median": 85560.0,
+          "min": 85560.0,
+          "max": 85560.0
+        },
+        "pieces/s": {
+          "median": 1726153.5,
+          "min": 1667185.0,
+          "max": 1735944.0
+        },
+        "tokens/op": {
+          "median": 741725.0,
+          "min": 741725.0,
+          "max": 741725.0
+        },
+        "tokens/s": {
+          "median": 14964132.5,
+          "min": 14452931.0,
+          "max": 15049011.0
+        },
+        "B/op": {
+          "median": 1032.0,
+          "min": 1032.0,
+          "max": 1032.0
+        },
+        "allocs/op": {
+          "median": 5.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.9918295458235555
+  },
+  {
+    "model": "qwen2-5",
+    "corpus": "en-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 214997,
+      "operation_input_bytes_per_iteration": 1255917,
+      "pieces_per_iteration": 214997,
+      "tokens_per_iteration": 239611,
+      "oracle_checksum": 6962156014497866680,
+      "iteration_nanoseconds": [
+        90830875,
+        91284625,
+        93863792,
+        94955666,
+        95461166,
+        90654375,
+        89788792,
+        89591125,
+        90728083,
+        89504333
+      ],
+      "min_nanoseconds": 89504333,
+      "median_nanoseconds": 90779479,
+      "max_nanoseconds": 95461166,
+      "median_nanoseconds_per_operation_input_byte": 72.28143181436353,
+      "median_operation_mib_per_second": 13.193904609630865
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 57978750.0,
+          "min": 55472167.0,
+          "max": 59139417.0
+        },
+        "MB/s": {
+          "median": 21.66,
+          "min": 21.24,
+          "max": 22.64
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 46.165,
+          "min": 44.17,
+          "max": 47.09
+        },
+        "pieces/op": {
+          "median": 214997.0,
+          "min": 214997.0,
+          "max": 214997.0
+        },
+        "pieces/s": {
+          "median": 3708215.0,
+          "min": 3635426.0,
+          "max": 3875763.0
+        },
+        "tokens/op": {
+          "median": 239611.0,
+          "min": 239611.0,
+          "max": 239611.0
+        },
+        "tokens/s": {
+          "median": 4132751.5,
+          "min": 4051629.0,
+          "max": 4319482.0
+        },
+        "B/op": {
+          "median": 37116344.0,
+          "min": 37116344.0,
+          "max": 37116344.0
+        },
+        "allocs/op": {
+          "median": 429996.0,
+          "min": 429996.0,
+          "max": 429996.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 62570667.0,
+          "min": 61068208.0,
+          "max": 64359125.0
+        },
+        "MB/s": {
+          "median": 20.075000000000003,
+          "min": 19.51,
+          "max": 20.57
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 49.82,
+          "min": 48.62,
+          "max": 51.24
+        },
+        "pieces/op": {
+          "median": 214997.0,
+          "min": 214997.0,
+          "max": 214997.0
+        },
+        "pieces/s": {
+          "median": 3436085.0,
+          "min": 3340583.0,
+          "max": 3520604.0
+        },
+        "tokens/op": {
+          "median": 239611.0,
+          "min": 239611.0,
+          "max": 239611.0
+        },
+        "tokens/s": {
+          "median": 3829466.0,
+          "min": 3723031.0,
+          "max": 3923662.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.5657370847077594
+  },
+  {
+    "model": "qwen2-5",
+    "corpus": "ru-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 102674,
+      "operation_input_bytes_per_iteration": 2070465,
+      "pieces_per_iteration": 102674,
+      "tokens_per_iteration": 210400,
+      "oracle_checksum": 5351289794156025789,
+      "iteration_nanoseconds": [
+        81023416,
+        80906458,
+        80568208,
+        81882375,
+        80135500,
+        78063500,
+        78758250,
+        77823292,
+        79000208,
+        81390375
+      ],
+      "min_nanoseconds": 77823292,
+      "median_nanoseconds": 80351854,
+      "max_nanoseconds": 81882375,
+      "median_nanoseconds_per_operation_input_byte": 38.80860289838273,
+      "median_operation_mib_per_second": 24.57378635616879
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 66241958.5,
+          "min": 65580542.0,
+          "max": 66913125.0
+        },
+        "MB/s": {
+          "median": 31.255,
+          "min": 30.94,
+          "max": 31.57
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 31.995,
+          "min": 31.67,
+          "max": 32.32
+        },
+        "pieces/op": {
+          "median": 102674.0,
+          "min": 102674.0,
+          "max": 102674.0
+        },
+        "pieces/s": {
+          "median": 1550001.0,
+          "min": 1534437.0,
+          "max": 1565617.0
+        },
+        "tokens/op": {
+          "median": 210400.0,
+          "min": 210400.0,
+          "max": 210400.0
+        },
+        "tokens/s": {
+          "median": 3176269.0,
+          "min": 3144376.0,
+          "max": 3208269.0
+        },
+        "B/op": {
+          "median": 35363976.0,
+          "min": 35363976.0,
+          "max": 35363976.0
+        },
+        "allocs/op": {
+          "median": 205350.0,
+          "min": 205350.0,
+          "max": 205350.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 70631000.0,
+          "min": 69516917.0,
+          "max": 71588792.0
+        },
+        "MB/s": {
+          "median": 29.314999999999998,
+          "min": 28.92,
+          "max": 29.78
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 34.114999999999995,
+          "min": 33.58,
+          "max": 34.58
+        },
+        "pieces/op": {
+          "median": 102674.0,
+          "min": 102674.0,
+          "max": 102674.0
+        },
+        "pieces/s": {
+          "median": 1453667.5,
+          "min": 1434219.0,
+          "max": 1476964.0
+        },
+        "tokens/op": {
+          "median": 210400.0,
+          "min": 210400.0,
+          "max": 210400.0
+        },
+        "tokens/s": {
+          "median": 2978862.0,
+          "min": 2939008.0,
+          "max": 3026601.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.2130054095547311
+  },
+  {
+    "model": "qwen2-5",
+    "corpus": "ar-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 123724,
+      "operation_input_bytes_per_iteration": 2076500,
+      "pieces_per_iteration": 123724,
+      "tokens_per_iteration": 224485,
+      "oracle_checksum": 2521535607324994524,
+      "iteration_nanoseconds": [
+        74401208,
+        77950042,
+        76159458,
+        74984750,
+        76992584,
+        74987875,
+        74025125,
+        74715500,
+        77486125,
+        76421959
+      ],
+      "min_nanoseconds": 74025125,
+      "median_nanoseconds": 75573666,
+      "max_nanoseconds": 77950042,
+      "median_nanoseconds_per_operation_input_byte": 36.39473440886106,
+      "median_operation_mib_per_second": 26.203634451418278
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 61738625.0,
+          "min": 59555083.0,
+          "max": 67451917.0
+        },
+        "MB/s": {
+          "median": 33.64,
+          "min": 30.78,
+          "max": 34.87
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 29.735,
+          "min": 28.68,
+          "max": 32.48
+        },
+        "pieces/op": {
+          "median": 123724.0,
+          "min": 123724.0,
+          "max": 123724.0
+        },
+        "pieces/s": {
+          "median": 2004157.5,
+          "min": 1834255.0,
+          "max": 2077472.0
+        },
+        "tokens/op": {
+          "median": 224485.0,
+          "min": 224485.0,
+          "max": 224485.0
+        },
+        "tokens/s": {
+          "median": 3636346.0,
+          "min": 3328074.0,
+          "max": 3769368.0
+        },
+        "B/op": {
+          "median": 36092784.0,
+          "min": 36092784.0,
+          "max": 36092784.0
+        },
+        "allocs/op": {
+          "median": 247450.0,
+          "min": 247450.0,
+          "max": 247450.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 62625229.0,
+          "min": 61112625.0,
+          "max": 64297209.0
+        },
+        "MB/s": {
+          "median": 33.16,
+          "min": 32.3,
+          "max": 33.98
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 30.159999999999997,
+          "min": 29.43,
+          "max": 30.96
+        },
+        "pieces/op": {
+          "median": 123724.0,
+          "min": 123724.0,
+          "max": 123724.0
+        },
+        "pieces/s": {
+          "median": 1975640.5,
+          "min": 1924251.0,
+          "max": 2024524.0
+        },
+        "tokens/op": {
+          "median": 224485.0,
+          "min": 224485.0,
+          "max": 224485.0
+        },
+        "tokens/s": {
+          "median": 3584604.5,
+          "min": 3491365.0,
+          "max": 3673300.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.2240905348961044
+  },
+  {
+    "model": "qwen2-5",
+    "corpus": "ja-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 56746,
+      "operation_input_bytes_per_iteration": 2068095,
+      "pieces_per_iteration": 56746,
+      "tokens_per_iteration": 268776,
+      "oracle_checksum": 17647041564461871131,
+      "iteration_nanoseconds": [
+        77429084,
+        79134417,
+        79282750,
+        78705125,
+        77192792,
+        78906875,
+        78177291,
+        77720333,
+        78898417,
+        77943458
+      ],
+      "min_nanoseconds": 77192792,
+      "median_nanoseconds": 78441208,
+      "max_nanoseconds": 79282750,
+      "median_nanoseconds_per_operation_input_byte": 37.92920924812448,
+      "median_operation_mib_per_second": 25.143532789400485
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 82366000.0,
+          "min": 79405125.0,
+          "max": 86092917.0
+        },
+        "MB/s": {
+          "median": 25.11,
+          "min": 24.02,
+          "max": 26.04
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 39.825,
+          "min": 38.4,
+          "max": 41.63
+        },
+        "pieces/op": {
+          "median": 56746.0,
+          "min": 56746.0,
+          "max": 56746.0
+        },
+        "pieces/s": {
+          "median": 688949.0,
+          "min": 659125.0,
+          "max": 714639.0
+        },
+        "tokens/op": {
+          "median": 268776.0,
+          "min": 268776.0,
+          "max": 268776.0
+        },
+        "tokens/s": {
+          "median": 3263191.0,
+          "min": 3121929.0,
+          "max": 3384870.0
+        },
+        "B/op": {
+          "median": 37903864.0,
+          "min": 37903864.0,
+          "max": 37904000.0
+        },
+        "allocs/op": {
+          "median": 113494.0,
+          "min": 113494.0,
+          "max": 113496.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 70783250.0,
+          "min": 69369125.0,
+          "max": 72896208.0
+        },
+        "MB/s": {
+          "median": 29.22,
+          "min": 28.37,
+          "max": 29.81
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 34.230000000000004,
+          "min": 33.54,
+          "max": 35.25
+        },
+        "pieces/op": {
+          "median": 56746.0,
+          "min": 56746.0,
+          "max": 56746.0
+        },
+        "pieces/s": {
+          "median": 801753.0,
+          "min": 778449.0,
+          "max": 818030.0
+        },
+        "tokens/op": {
+          "median": 268776.0,
+          "min": 268776.0,
+          "max": 268776.0
+        },
+        "tokens/s": {
+          "median": 3797483.0,
+          "min": 3687105.0,
+          "max": 3874577.0
+        },
+        "B/op": {
+          "median": 520.0,
+          "min": 520.0,
+          "max": 520.0
+        },
+        "allocs/op": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.952349367457446
+  },
+  {
+    "model": "qwen2-5",
+    "corpus": "zh-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048574,
+      "operation_items_per_iteration": 62370,
+      "operation_input_bytes_per_iteration": 2050845,
+      "pieces_per_iteration": 62370,
+      "tokens_per_iteration": 262272,
+      "oracle_checksum": 7069942933879637333,
+      "iteration_nanoseconds": [
+        83771125,
+        84185750,
+        82667792,
+        82416416,
+        82951042,
+        79802500,
+        80857125,
+        81728542,
+        81531209,
+        83894833
+      ],
+      "min_nanoseconds": 79802500,
+      "median_nanoseconds": 82542104,
+      "max_nanoseconds": 84185750,
+      "median_nanoseconds_per_operation_input_byte": 40.24785100775534,
+      "median_operation_mib_per_second": 23.695036940543407
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 85295708.5,
+          "min": 79476292.0,
+          "max": 89767833.0
+        },
+        "MB/s": {
+          "median": 24.045,
+          "min": 22.85,
+          "max": 25.8
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 41.595,
+          "min": 38.75,
+          "max": 43.77
+        },
+        "pieces/op": {
+          "median": 62370.0,
+          "min": 62370.0,
+          "max": 62370.0
+        },
+        "pieces/s": {
+          "median": 731223.0,
+          "min": 694792.0,
+          "max": 784762.0
+        },
+        "tokens/op": {
+          "median": 262272.0,
+          "min": 262272.0,
+          "max": 262272.0
+        },
+        "tokens/s": {
+          "median": 3074863.5,
+          "min": 2921670.0,
+          "max": 3300003.0
+        },
+        "B/op": {
+          "median": 37521264.0,
+          "min": 37521264.0,
+          "max": 37521400.0
+        },
+        "allocs/op": {
+          "median": 124742.0,
+          "min": 124742.0,
+          "max": 124744.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 73501520.5,
+          "min": 70697875.0,
+          "max": 74719833.0
+        },
+        "MB/s": {
+          "median": 27.905,
+          "min": 27.45,
+          "max": 29.01
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 35.84,
+          "min": 34.47,
+          "max": 36.43
+        },
+        "pieces/op": {
+          "median": 62370.0,
+          "min": 62370.0,
+          "max": 62370.0
+        },
+        "pieces/s": {
+          "median": 848554.0,
+          "min": 834718.0,
+          "max": 882205.0
+        },
+        "tokens/op": {
+          "median": 262272.0,
+          "min": 262272.0,
+          "max": 262272.0
+        },
+        "tokens/s": {
+          "median": 3568253.0,
+          "min": 3510072.0,
+          "max": 3709758.0
+        },
+        "B/op": {
+          "median": 520.0,
+          "min": 520.0,
+          "max": 520.0
+        },
+        "allocs/op": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.9677169631576482
+  },
+  {
+    "model": "qwen3-8",
+    "corpus": "en-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 214979,
+      "operation_input_bytes_per_iteration": 1255917,
+      "pieces_per_iteration": 214979,
+      "tokens_per_iteration": 238137,
+      "oracle_checksum": 2551772961290836447,
+      "iteration_nanoseconds": [
+        101174416,
+        103921958,
+        106384500,
+        94795750,
+        92279917,
+        93766958,
+        94002917,
+        96851834,
+        98594000,
+        95779916
+      ],
+      "min_nanoseconds": 92279917,
+      "median_nanoseconds": 96315875,
+      "max_nanoseconds": 106384500,
+      "median_nanoseconds_per_operation_input_byte": 76.68968172259791,
+      "median_operation_mib_per_second": 12.435497122753526
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 59981396.0,
+          "min": 57554375.0,
+          "max": 61331250.0
+        },
+        "MB/s": {
+          "median": 20.94,
+          "min": 20.48,
+          "max": 21.82
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 47.760000000000005,
+          "min": 45.83,
+          "max": 48.83
+        },
+        "pieces/op": {
+          "median": 214979.0,
+          "min": 214979.0,
+          "max": 214979.0
+        },
+        "pieces/s": {
+          "median": 3584139.0,
+          "min": 3505211.0,
+          "max": 3735233.0
+        },
+        "tokens/op": {
+          "median": 238137.0,
+          "min": 238137.0,
+          "max": 238137.0
+        },
+        "tokens/s": {
+          "median": 3970230.5,
+          "min": 3882800.0,
+          "max": 4137600.0
+        },
+        "B/op": {
+          "median": 37057448.0,
+          "min": 37057448.0,
+          "max": 37057448.0
+        },
+        "allocs/op": {
+          "median": 429960.0,
+          "min": 429960.0,
+          "max": 429960.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 65807271.0,
+          "min": 64904000.0,
+          "max": 66838709.0
+        },
+        "MB/s": {
+          "median": 19.085,
+          "min": 18.79,
+          "max": 19.35
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 52.394999999999996,
+          "min": 51.68,
+          "max": 53.22
+        },
+        "pieces/op": {
+          "median": 214979.0,
+          "min": 214979.0,
+          "max": 214979.0
+        },
+        "pieces/s": {
+          "median": 3266813.0,
+          "min": 3216385.0,
+          "max": 3312261.0
+        },
+        "tokens/op": {
+          "median": 238137.0,
+          "min": 238137.0,
+          "max": 238137.0
+        },
+        "tokens/s": {
+          "median": 3618721.5,
+          "min": 3562861.0,
+          "max": 3669065.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.6057624767519583
+  },
+  {
+    "model": "qwen3-8",
+    "corpus": "ru-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 102571,
+      "operation_input_bytes_per_iteration": 2070465,
+      "pieces_per_iteration": 102571,
+      "tokens_per_iteration": 167721,
+      "oracle_checksum": 9606484969099872314,
+      "iteration_nanoseconds": [
+        80687750,
+        80948500,
+        81027333,
+        81342833,
+        84281917,
+        81310459,
+        82918875,
+        82517750,
+        85154792,
+        83268250
+      ],
+      "min_nanoseconds": 80687750,
+      "median_nanoseconds": 81930291,
+      "max_nanoseconds": 85154792,
+      "median_nanoseconds_per_operation_input_byte": 39.570961595583604,
+      "median_operation_mib_per_second": 24.100357382083097
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 70170187.5,
+          "min": 69061875.0,
+          "max": 72570000.0
+        },
+        "MB/s": {
+          "median": 29.505,
+          "min": 28.53,
+          "max": 29.98
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 33.89,
+          "min": 33.36,
+          "max": 35.05
+        },
+        "pieces/op": {
+          "median": 102571.0,
+          "min": 102571.0,
+          "max": 102571.0
+        },
+        "pieces/s": {
+          "median": 1461755.5,
+          "min": 1413408.0,
+          "max": 1485204.0
+        },
+        "tokens/op": {
+          "median": 167721.0,
+          "min": 167721.0,
+          "max": 167721.0
+        },
+        "tokens/s": {
+          "median": 2390218.5,
+          "min": 2311162.0,
+          "max": 2428561.0
+        },
+        "B/op": {
+          "median": 33678504.0,
+          "min": 33678504.0,
+          "max": 33678504.0
+        },
+        "allocs/op": {
+          "median": 205144.0,
+          "min": 205144.0,
+          "max": 205144.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 74283687.0,
+          "min": 72729208.0,
+          "max": 75314167.0
+        },
+        "MB/s": {
+          "median": 27.869999999999997,
+          "min": 27.49,
+          "max": 28.47
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 35.875,
+          "min": 35.13,
+          "max": 36.38
+        },
+        "pieces/op": {
+          "median": 102571.0,
+          "min": 102571.0,
+          "max": 102571.0
+        },
+        "pieces/s": {
+          "median": 1380807.0,
+          "min": 1361908.0,
+          "max": 1410314.0
+        },
+        "tokens/op": {
+          "median": 167721.0,
+          "min": 167721.0,
+          "max": 167721.0
+        },
+        "tokens/s": {
+          "median": 2257854.5,
+          "min": 2226952.0,
+          "max": 2306102.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.1675940227464834
+  },
+  {
+    "model": "qwen3-8",
+    "corpus": "ar-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 118768,
+      "operation_input_bytes_per_iteration": 2076500,
+      "pieces_per_iteration": 118768,
+      "tokens_per_iteration": 184556,
+      "oracle_checksum": 14794816518918290617,
+      "iteration_nanoseconds": [
+        80967500,
+        81168958,
+        80172750,
+        76410292,
+        79513000,
+        79359500,
+        77267541,
+        76762000,
+        75808875,
+        77937375
+      ],
+      "min_nanoseconds": 75808875,
+      "median_nanoseconds": 78648437,
+      "max_nanoseconds": 81168958,
+      "median_nanoseconds_per_operation_input_byte": 37.87548133879123,
+      "median_operation_mib_per_second": 25.179199912359074
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 64529916.5,
+          "min": 60737375.0,
+          "max": 67775541.0
+        },
+        "MB/s": {
+          "median": 32.18,
+          "min": 30.64,
+          "max": 34.19
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 31.075,
+          "min": 29.25,
+          "max": 32.64
+        },
+        "pieces/op": {
+          "median": 118768.0,
+          "min": 118768.0,
+          "max": 118768.0
+        },
+        "pieces/s": {
+          "median": 1840582.5,
+          "min": 1752373.0,
+          "max": 1955435.0
+        },
+        "tokens/op": {
+          "median": 184556.0,
+          "min": 184556.0,
+          "max": 184556.0
+        },
+        "tokens/s": {
+          "median": 2860118.0,
+          "min": 2723047.0,
+          "max": 3038590.0
+        },
+        "B/op": {
+          "median": 34503384.0,
+          "min": 34503384.0,
+          "max": 34503384.0
+        },
+        "allocs/op": {
+          "median": 237538.0,
+          "min": 237538.0,
+          "max": 237538.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 64409062.0,
+          "min": 63403625.0,
+          "max": 67252750.0
+        },
+        "MB/s": {
+          "median": 32.239999999999995,
+          "min": 30.88,
+          "max": 32.75
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 31.02,
+          "min": 30.53,
+          "max": 32.39
+        },
+        "pieces/op": {
+          "median": 118768.0,
+          "min": 118768.0,
+          "max": 118768.0
+        },
+        "pieces/s": {
+          "median": 1843965.0,
+          "min": 1765995.0,
+          "max": 1873205.0
+        },
+        "tokens/op": {
+          "median": 184556.0,
+          "min": 184556.0,
+          "max": 184556.0
+        },
+        "tokens/s": {
+          "median": 2865374.5,
+          "min": 2744215.0,
+          "max": 2910811.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.2187903187508387
+  },
+  {
+    "model": "qwen3-8",
+    "corpus": "ja-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 56746,
+      "operation_input_bytes_per_iteration": 2068095,
+      "pieces_per_iteration": 56746,
+      "tokens_per_iteration": 228978,
+      "oracle_checksum": 2704911529809044741,
+      "iteration_nanoseconds": [
+        80173291,
+        80944458,
+        80931125,
+        80177166,
+        78658667,
+        75331083,
+        75420333,
+        76364125,
+        77746958,
+        79616292
+      ],
+      "min_nanoseconds": 75331083,
+      "median_nanoseconds": 79137479,
+      "max_nanoseconds": 80944458,
+      "median_nanoseconds_per_operation_input_byte": 38.265881886470396,
+      "median_operation_mib_per_second": 24.922313805171676
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 89207687.0,
+          "min": 88169666.0,
+          "max": 90821666.0
+        },
+        "MB/s": {
+          "median": 23.18,
+          "min": 22.77,
+          "max": 23.46
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 43.135,
+          "min": 42.63,
+          "max": 43.92
+        },
+        "pieces/op": {
+          "median": 56746.0,
+          "min": 56746.0,
+          "max": 56746.0
+        },
+        "pieces/s": {
+          "median": 636112.5,
+          "min": 624807.0,
+          "max": 643600.0
+        },
+        "tokens/op": {
+          "median": 228978.0,
+          "min": 228978.0,
+          "max": 228978.0
+        },
+        "tokens/s": {
+          "median": 2566801.5,
+          "min": 2521183.0,
+          "max": 2597016.0
+        },
+        "B/op": {
+          "median": 36183256.0,
+          "min": 36183256.0,
+          "max": 36183256.0
+        },
+        "allocs/op": {
+          "median": 113494.0,
+          "min": 113494.0,
+          "max": 113494.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 78818354.5,
+          "min": 76556458.0,
+          "max": 90591791.0
+        },
+        "MB/s": {
+          "median": 26.240000000000002,
+          "min": 22.83,
+          "max": 27.01
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 38.115,
+          "min": 37.02,
+          "max": 43.8
+        },
+        "pieces/op": {
+          "median": 56746.0,
+          "min": 56746.0,
+          "max": 56746.0
+        },
+        "pieces/s": {
+          "median": 719959.5,
+          "min": 626392.0,
+          "max": 741231.0
+        },
+        "tokens/op": {
+          "median": 228978.0,
+          "min": 228978.0,
+          "max": 228978.0
+        },
+        "tokens/s": {
+          "median": 2905137.0,
+          "min": 2527580.0,
+          "max": 2990969.0
+        },
+        "B/op": {
+          "median": 520.0,
+          "min": 520.0,
+          "max": 520.0
+        },
+        "allocs/op": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.8871150251883563
+  },
+  {
+    "model": "qwen3-8",
+    "corpus": "zh-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048574,
+      "operation_items_per_iteration": 62370,
+      "operation_input_bytes_per_iteration": 2050845,
+      "pieces_per_iteration": 62370,
+      "tokens_per_iteration": 237119,
+      "oracle_checksum": 8227008178474816296,
+      "iteration_nanoseconds": [
+        77919459,
+        78604334,
+        78384209,
+        79954083,
+        81162542,
+        82683625,
+        81901125,
+        82618042,
+        82149708,
+        81589917
+      ],
+      "min_nanoseconds": 77919459,
+      "median_nanoseconds": 81376229,
+      "max_nanoseconds": 82683625,
+      "median_nanoseconds_per_operation_input_byte": 39.67936582238053,
+      "median_operation_mib_per_second": 24.034515084622267
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 91166416.5,
+          "min": 85459458.0,
+          "max": 113144042.0
+        },
+        "MB/s": {
+          "median": 22.494999999999997,
+          "min": 18.13,
+          "max": 24.0
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 44.455,
+          "min": 41.67,
+          "max": 55.17
+        },
+        "pieces/op": {
+          "median": 62370.0,
+          "min": 62370.0,
+          "max": 62370.0
+        },
+        "pieces/s": {
+          "median": 684152.5,
+          "min": 551244.0,
+          "max": 729820.0
+        },
+        "tokens/op": {
+          "median": 237119.0,
+          "min": 237119.0,
+          "max": 237119.0
+        },
+        "tokens/s": {
+          "median": 2601018.5,
+          "min": 2095727.0,
+          "max": 2774637.0
+        },
+        "B/op": {
+          "median": 36429280.0,
+          "min": 36429280.0,
+          "max": 36429280.0
+        },
+        "allocs/op": {
+          "median": 124742.0,
+          "min": 124742.0,
+          "max": 124742.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 74868021.0,
+          "min": 72954875.0,
+          "max": 76460542.0
+        },
+        "MB/s": {
+          "median": 27.395,
+          "min": 26.82,
+          "max": 28.11
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 36.510000000000005,
+          "min": 35.57,
+          "max": 37.28
+        },
+        "pieces/op": {
+          "median": 62370.0,
+          "min": 62370.0,
+          "max": 62370.0
+        },
+        "pieces/s": {
+          "median": 833066.0,
+          "min": 815715.0,
+          "max": 854912.0
+        },
+        "tokens/op": {
+          "median": 237119.0,
+          "min": 237119.0,
+          "max": 237119.0
+        },
+        "tokens/s": {
+          "median": 3167160.0,
+          "min": 3101194.0,
+          "max": 3250215.0
+        },
+        "B/op": {
+          "median": 520.0,
+          "min": 520.0,
+          "max": 520.0
+        },
+        "allocs/op": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.8926119137303153
+  },
+  {
+    "model": "bloom",
+    "corpus": "en-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 197470,
+      "operation_input_bytes_per_iteration": 1255917,
+      "pieces_per_iteration": 197470,
+      "tokens_per_iteration": 229878,
+      "oracle_checksum": 17436098237565361847,
+      "iteration_nanoseconds": [
+        67997209,
+        68506375,
+        69218750,
+        66308292,
+        69417750,
+        65885750,
+        64518500,
+        65476833,
+        68919000,
+        65676042
+      ],
+      "min_nanoseconds": 64518500,
+      "median_nanoseconds": 67152750,
+      "max_nanoseconds": 69417750,
+      "median_nanoseconds_per_operation_input_byte": 53.46909867451432,
+      "median_operation_mib_per_second": 17.83599013350888
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 59834646.0,
+          "min": 59031625.0,
+          "max": 60584333.0
+        },
+        "MB/s": {
+          "median": 20.990000000000002,
+          "min": 20.73,
+          "max": 21.28
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 47.644999999999996,
+          "min": 47.0,
+          "max": 48.24
+        },
+        "pieces/op": {
+          "median": 197470.0,
+          "min": 197470.0,
+          "max": 197470.0
+        },
+        "pieces/s": {
+          "median": 3300268.0,
+          "min": 3259424.0,
+          "max": 3345156.0
+        },
+        "tokens/op": {
+          "median": 229878.0,
+          "min": 229878.0,
+          "max": 229878.0
+        },
+        "tokens/s": {
+          "median": 3841895.0,
+          "min": 3794347.0,
+          "max": 3894150.0
+        },
+        "B/op": {
+          "median": 36570120.0,
+          "min": 36570120.0,
+          "max": 36570120.0
+        },
+        "allocs/op": {
+          "median": 394942.0,
+          "min": 394942.0,
+          "max": 394942.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 66026708.0,
+          "min": 64505000.0,
+          "max": 68289041.0
+        },
+        "MB/s": {
+          "median": 19.02,
+          "min": 18.39,
+          "max": 19.47
+        },
+        "input-bytes/op": {
+          "median": 1255917.0,
+          "min": 1255917.0,
+          "max": 1255917.0
+        },
+        "ns/input-byte": {
+          "median": 52.56999999999999,
+          "min": 51.36,
+          "max": 54.37
+        },
+        "pieces/op": {
+          "median": 197470.0,
+          "min": 197470.0,
+          "max": 197470.0
+        },
+        "pieces/s": {
+          "median": 2990787.0,
+          "min": 2891679.0,
+          "max": 3061313.0
+        },
+        "tokens/op": {
+          "median": 229878.0,
+          "min": 229878.0,
+          "max": 229878.0
+        },
+        "tokens/s": {
+          "median": 3481623.0,
+          "min": 3366250.0,
+          "max": 3563724.0
+        },
+        "B/op": {
+          "median": 136.0,
+          "min": 136.0,
+          "max": 136.0
+        },
+        "allocs/op": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 2.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 1.122305469978046
+  },
+  {
+    "model": "bloom",
+    "corpus": "ru-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 90897,
+      "operation_input_bytes_per_iteration": 2070465,
+      "pieces_per_iteration": 90897,
+      "tokens_per_iteration": 275755,
+      "oracle_checksum": 9523420569124734615,
+      "iteration_nanoseconds": [
+        48258125,
+        48114125,
+        48396333,
+        47300000,
+        47852792,
+        48843333,
+        48156917,
+        47481417,
+        48283208,
+        47219750
+      ],
+      "min_nanoseconds": 47219750,
+      "median_nanoseconds": 48135521,
+      "max_nanoseconds": 48843333,
+      "median_nanoseconds_per_operation_input_byte": 23.248652355871748,
+      "median_operation_mib_per_second": 41.02062785438775
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 58890625.0,
+          "min": 58158875.0,
+          "max": 61551208.0
+        },
+        "MB/s": {
+          "median": 35.16,
+          "min": 33.64,
+          "max": 35.6
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 28.445,
+          "min": 28.09,
+          "max": 29.73
+        },
+        "pieces/op": {
+          "median": 90897.0,
+          "min": 90897.0,
+          "max": 90897.0
+        },
+        "pieces/s": {
+          "median": 1543488.5,
+          "min": 1476770.0,
+          "max": 1562908.0
+        },
+        "tokens/op": {
+          "median": 275755.0,
+          "min": 275755.0,
+          "max": 275755.0
+        },
+        "tokens/s": {
+          "median": 4682494.5,
+          "min": 4480091.0,
+          "max": 4741409.0
+        },
+        "B/op": {
+          "median": 37874648.0,
+          "min": 37874648.0,
+          "max": 37874648.0
+        },
+        "allocs/op": {
+          "median": 181796.0,
+          "min": 181796.0,
+          "max": 181796.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 59594771.0,
+          "min": 58883625.0,
+          "max": 73897250.0
+        },
+        "MB/s": {
+          "median": 34.745000000000005,
+          "min": 28.02,
+          "max": 35.16
+        },
+        "input-bytes/op": {
+          "median": 2070465.0,
+          "min": 2070465.0,
+          "max": 2070465.0
+        },
+        "ns/input-byte": {
+          "median": 28.785,
+          "min": 28.44,
+          "max": 35.69
+        },
+        "pieces/op": {
+          "median": 90897.0,
+          "min": 90897.0,
+          "max": 90897.0
+        },
+        "pieces/s": {
+          "median": 1525257.0,
+          "min": 1230046.0,
+          "max": 1543672.0
+        },
+        "tokens/op": {
+          "median": 275755.0,
+          "min": 275755.0,
+          "max": 275755.0
+        },
+        "tokens/s": {
+          "median": 4627184.5,
+          "min": 3731600.0,
+          "max": 4683051.0
+        },
+        "B/op": {
+          "median": 264.0,
+          "min": 264.0,
+          "max": 264.0
+        },
+        "allocs/op": {
+          "median": 3.0,
+          "min": 3.0,
+          "max": 3.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.8173715425842398
+  },
+  {
+    "model": "bloom",
+    "corpus": "ar-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 108922,
+      "operation_input_bytes_per_iteration": 2076500,
+      "pieces_per_iteration": 108922,
+      "tokens_per_iteration": 156790,
+      "oracle_checksum": 3779311701795461132,
+      "iteration_nanoseconds": [
+        48874292,
+        48073916,
+        51308250,
+        51073875,
+        51028542,
+        51655458,
+        50239916,
+        50435667,
+        50551458,
+        51364458
+      ],
+      "min_nanoseconds": 48073916,
+      "median_nanoseconds": 50790000,
+      "max_nanoseconds": 51655458,
+      "median_nanoseconds_per_operation_input_byte": 24.45942692029858,
+      "median_operation_mib_per_second": 38.99005154592593
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 60704833.5,
+          "min": 59704625.0,
+          "max": 62323875.0
+        },
+        "MB/s": {
+          "median": 34.205,
+          "min": 33.32,
+          "max": 34.78
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 29.235,
+          "min": 28.75,
+          "max": 30.01
+        },
+        "pieces/op": {
+          "median": 108922.0,
+          "min": 108922.0,
+          "max": 108922.0
+        },
+        "pieces/s": {
+          "median": 1794290.5,
+          "min": 1747677.0,
+          "max": 1824348.0
+        },
+        "tokens/op": {
+          "median": 156790.0,
+          "min": 156790.0,
+          "max": 156790.0
+        },
+        "tokens/s": {
+          "median": 2582827.5,
+          "min": 2515729.0,
+          "max": 2626095.0
+        },
+        "B/op": {
+          "median": 33358800.0,
+          "min": 33358800.0,
+          "max": 33358800.0
+        },
+        "allocs/op": {
+          "median": 217846.0,
+          "min": 217846.0,
+          "max": 217846.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 62086708.0,
+          "min": 61433958.0,
+          "max": 62839541.0
+        },
+        "MB/s": {
+          "median": 33.445,
+          "min": 33.04,
+          "max": 33.8
+        },
+        "input-bytes/op": {
+          "median": 2076500.0,
+          "min": 2076500.0,
+          "max": 2076500.0
+        },
+        "ns/input-byte": {
+          "median": 29.895,
+          "min": 29.59,
+          "max": 30.26
+        },
+        "pieces/op": {
+          "median": 108922.0,
+          "min": 108922.0,
+          "max": 108922.0
+        },
+        "pieces/s": {
+          "median": 1754353.5,
+          "min": 1733335.0,
+          "max": 1772993.0
+        },
+        "tokens/op": {
+          "median": 156790.0,
+          "min": 156790.0,
+          "max": 156790.0
+        },
+        "tokens/s": {
+          "median": 2525339.5,
+          "min": 2495085.0,
+          "max": 2552172.0
+        },
+        "B/op": {
+          "median": 264.0,
+          "min": 264.0,
+          "max": 264.0
+        },
+        "allocs/op": {
+          "median": 3.0,
+          "min": 3.0,
+          "max": 3.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.8366714324321473
+  },
+  {
+    "model": "bloom",
+    "corpus": "ja-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048575,
+      "operation_items_per_iteration": 44928,
+      "operation_input_bytes_per_iteration": 2068095,
+      "pieces_per_iteration": 44928,
+      "tokens_per_iteration": 312464,
+      "oracle_checksum": 6275466817038346474,
+      "iteration_nanoseconds": [
+        43271917,
+        41360375,
+        42003250,
+        46831916,
+        44016833,
+        44120833,
+        44329917,
+        43334000,
+        45274500,
+        45565875
+      ],
+      "min_nanoseconds": 41360375,
+      "median_nanoseconds": 44068833,
+      "max_nanoseconds": 46831916,
+      "median_nanoseconds_per_operation_input_byte": 21.30890167037781,
+      "median_operation_mib_per_second": 44.75473823843222
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 75759937.5,
+          "min": 71630334.0,
+          "max": 79884667.0
+        },
+        "MB/s": {
+          "median": 27.295,
+          "min": 25.89,
+          "max": 28.87
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 36.629999999999995,
+          "min": 34.64,
+          "max": 38.63
+        },
+        "pieces/op": {
+          "median": 44928.0,
+          "min": 44928.0,
+          "max": 44928.0
+        },
+        "pieces/s": {
+          "median": 593031.5,
+          "min": 562411.0,
+          "max": 627220.0
+        },
+        "tokens/op": {
+          "median": 312464.0,
+          "min": 312464.0,
+          "max": 312464.0
+        },
+        "tokens/s": {
+          "median": 4124398.0,
+          "min": 3911439.0,
+          "max": 4362174.0
+        },
+        "B/op": {
+          "median": 40017360.0,
+          "min": 40017360.0,
+          "max": 40017360.0
+        },
+        "allocs/op": {
+          "median": 89858.0,
+          "min": 89858.0,
+          "max": 89858.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 65993458.0,
+          "min": 62459208.0,
+          "max": 68042417.0
+        },
+        "MB/s": {
+          "median": 31.34,
+          "min": 30.39,
+          "max": 33.11
+        },
+        "input-bytes/op": {
+          "median": 2068095.0,
+          "min": 2068095.0,
+          "max": 2068095.0
+        },
+        "ns/input-byte": {
+          "median": 31.909999999999997,
+          "min": 30.2,
+          "max": 32.9
+        },
+        "pieces/op": {
+          "median": 44928.0,
+          "min": 44928.0,
+          "max": 44928.0
+        },
+        "pieces/s": {
+          "median": 680813.0,
+          "min": 660294.0,
+          "max": 719317.0
+        },
+        "tokens/op": {
+          "median": 312464.0,
+          "min": 312464.0,
+          "max": 312464.0
+        },
+        "tokens/s": {
+          "median": 4734900.0,
+          "min": 4592194.0,
+          "max": 5002689.0
+        },
+        "B/op": {
+          "median": 1032.0,
+          "min": 1032.0,
+          "max": 1032.0
+        },
+        "allocs/op": {
+          "median": 5.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.5816904613998659
+  },
+  {
+    "model": "bloom",
+    "corpus": "zh-4k",
+    "hf_bpe": {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 257,
+      "source_utf8_bytes_per_iteration": 1048574,
+      "operation_items_per_iteration": 59523,
+      "operation_input_bytes_per_iteration": 2050845,
+      "pieces_per_iteration": 59523,
+      "tokens_per_iteration": 225979,
+      "oracle_checksum": 1847637477689083280,
+      "iteration_nanoseconds": [
+        52781167,
+        51878167,
+        49936875,
+        48556542,
+        51283250,
+        51047625,
+        49174167,
+        48808334,
+        50877708,
+        48819541
+      ],
+      "min_nanoseconds": 48556542,
+      "median_nanoseconds": 50407291,
+      "max_nanoseconds": 52781167,
+      "median_nanoseconds_per_operation_input_byte": 24.578791181196042,
+      "median_operation_mib_per_second": 38.80070054608124
+    },
+    "go": {
+      "ModelTokenize": {
+        "ns/op": {
+          "median": 79075104.5,
+          "min": 77354833.0,
+          "max": 86276792.0
+        },
+        "MB/s": {
+          "median": 25.935000000000002,
+          "min": 23.77,
+          "max": 26.51
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 38.56,
+          "min": 37.72,
+          "max": 42.07
+        },
+        "pieces/op": {
+          "median": 59523.0,
+          "min": 59523.0,
+          "max": 59523.0
+        },
+        "pieces/s": {
+          "median": 752740.5,
+          "min": 689907.0,
+          "max": 769480.0
+        },
+        "tokens/op": {
+          "median": 225979.0,
+          "min": 225979.0,
+          "max": 225979.0
+        },
+        "tokens/s": {
+          "median": 2857778.5,
+          "min": 2619233.0,
+          "max": 2921330.0
+        },
+        "B/op": {
+          "median": 36201712.0,
+          "min": 36201712.0,
+          "max": 36201712.0
+        },
+        "allocs/op": {
+          "median": 119048.0,
+          "min": 119048.0,
+          "max": 119048.0
+        }
+      },
+      "ModelAppendIDs": {
+        "ns/op": {
+          "median": 67933584.0,
+          "min": 65910750.0,
+          "max": 73458083.0
+        },
+        "MB/s": {
+          "median": 30.19,
+          "min": 27.92,
+          "max": 31.12
+        },
+        "input-bytes/op": {
+          "median": 2050845.0,
+          "min": 2050845.0,
+          "max": 2050845.0
+        },
+        "ns/input-byte": {
+          "median": 33.125,
+          "min": 32.14,
+          "max": 35.82
+        },
+        "pieces/op": {
+          "median": 59523.0,
+          "min": 59523.0,
+          "max": 59523.0
+        },
+        "pieces/s": {
+          "median": 876201.5,
+          "min": 810299.0,
+          "max": 903085.0
+        },
+        "tokens/op": {
+          "median": 225979.0,
+          "min": 225979.0,
+          "max": 225979.0
+        },
+        "tokens/s": {
+          "median": 3326496.5,
+          "min": 3076299.0,
+          "max": 3428561.0
+        },
+        "B/op": {
+          "median": 1032.0,
+          "min": 1032.0,
+          "max": 1032.0
+        },
+        "allocs/op": {
+          "median": 5.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "hf_over_go_ratio": 0.637460953339619
+  }
+]

@@ -1,0 +1,1025 @@
+{
+  "schema": 1,
+  "started_unix": 1789040759.3643231,
+  "complete": true,
+  "environment": "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread",
+  "suite": {
+    "schema": 1,
+    "models": [
+      {
+        "name": "gpt2",
+        "tokenizer": "testdata/gpt2/tokenizer.json",
+        "vocab": "testdata/gpt2/vocab.json",
+        "merges": "testdata/gpt2/merges.txt",
+        "pipeline": "gpt2"
+      },
+      {
+        "name": "qwen2-5",
+        "tokenizer": "testdata/qwen2.5/tokenizer.json",
+        "vocab": "testdata/qwen2.5/vocab.json",
+        "merges": "testdata/qwen2.5/merges.txt",
+        "pipeline": "model-only"
+      },
+      {
+        "name": "qwen3-8",
+        "tokenizer": "testdata/qwen3.8/tokenizer.json",
+        "vocab": "testdata/qwen3.8/vocab.json",
+        "merges": "testdata/qwen3.8/merges.txt",
+        "pipeline": "model-only"
+      },
+      {
+        "name": "bloom",
+        "tokenizer": "testdata/bloom/tokenizer.json",
+        "vocab": "testdata/bloom/vocab.json",
+        "merges": "testdata/bloom/merges.txt",
+        "pipeline": "model-only"
+      }
+    ],
+    "corpora": [
+      {
+        "name": "en-4k",
+        "pool": "en-wikitext2",
+        "request_bytes": 4096
+      },
+      {
+        "name": "ru-4k",
+        "pool": "ru-wikipedia",
+        "request_bytes": 4096
+      },
+      {
+        "name": "ar-4k",
+        "pool": "ar-wikipedia",
+        "request_bytes": 4096
+      },
+      {
+        "name": "ja-4k",
+        "pool": "ja-wikipedia",
+        "request_bytes": 4096
+      },
+      {
+        "name": "zh-4k",
+        "pool": "zh-wikipedia",
+        "request_bytes": 4096
+      }
+    ]
+  },
+  "samples": 10,
+  "hf_warmup": 3,
+  "go_benchtime": "1x",
+  "go_warmup": "untimed complete correctness pass; no separate fixed warmup",
+  "order": "catalogue order; alternating HF/Go and Go/HF per case; no concurrent measurements",
+  "go_version": "go version go1.27.0 darwin/arm64",
+  "go_settings": "darwin\narm64",
+  "git_head": "028371fa8235e390d12f70d991488cc3ad4b3b1c",
+  "git_status": "M AGENTS.md\n M Makefile\n M README.md\n M benchmarks/README.md\n M benchmarks/suite.json\n M internal/benchsuite/model_test.go\n M internal/benchsuite/suite_test.go\n M tools/hf-reference/README.md\n M tools/hf-reference/src/main.rs\n?? benchmarks/results/bpe-multilingual-2026-09-10/\n?? internal/model/workload_generated_test.go\n?? internal/model/workload_suite_test.go\n?? internal/model/workload_test.go\n?? scripts/benchmark_model_suite.py\n?? testdata/bloom/\n?? testdata/qwen2.5/\n?? testdata/qwen3.8/\n?? tools/workload-instrument/",
+  "commands": [
+    {
+      "argv": [
+        "go",
+        "test",
+        "-c",
+        "-o",
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "."
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/gpt2/tokenizer.json",
+        "--vocab",
+        "testdata/gpt2/vocab.json",
+        "--merges",
+        "testdata/gpt2/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/gpt2/en-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/en-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "gpt2",
+        "BPE_BENCH_CORPORA": "en-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "gpt2",
+        "BPE_BENCH_CORPORA": "ru-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/gpt2/tokenizer.json",
+        "--vocab",
+        "testdata/gpt2/vocab.json",
+        "--merges",
+        "testdata/gpt2/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/gpt2/ru-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/ru-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/gpt2/tokenizer.json",
+        "--vocab",
+        "testdata/gpt2/vocab.json",
+        "--merges",
+        "testdata/gpt2/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/gpt2/ar-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/ar-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "gpt2",
+        "BPE_BENCH_CORPORA": "ar-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "gpt2",
+        "BPE_BENCH_CORPORA": "ja-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/gpt2/tokenizer.json",
+        "--vocab",
+        "testdata/gpt2/vocab.json",
+        "--merges",
+        "testdata/gpt2/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/gpt2/ja-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/ja-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/gpt2/tokenizer.json",
+        "--vocab",
+        "testdata/gpt2/vocab.json",
+        "--merges",
+        "testdata/gpt2/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/gpt2/zh-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/gpt2/zh-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "gpt2",
+        "BPE_BENCH_CORPORA": "zh-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen2-5",
+        "BPE_BENCH_CORPORA": "en-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen2.5/tokenizer.json",
+        "--vocab",
+        "testdata/qwen2.5/vocab.json",
+        "--merges",
+        "testdata/qwen2.5/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen2-5/en-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/en-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen2.5/tokenizer.json",
+        "--vocab",
+        "testdata/qwen2.5/vocab.json",
+        "--merges",
+        "testdata/qwen2.5/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen2-5/ru-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/ru-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen2-5",
+        "BPE_BENCH_CORPORA": "ru-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen2-5",
+        "BPE_BENCH_CORPORA": "ar-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen2.5/tokenizer.json",
+        "--vocab",
+        "testdata/qwen2.5/vocab.json",
+        "--merges",
+        "testdata/qwen2.5/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen2-5/ar-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/ar-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen2.5/tokenizer.json",
+        "--vocab",
+        "testdata/qwen2.5/vocab.json",
+        "--merges",
+        "testdata/qwen2.5/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen2-5/ja-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/ja-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen2-5",
+        "BPE_BENCH_CORPORA": "ja-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen2-5",
+        "BPE_BENCH_CORPORA": "zh-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen2.5/tokenizer.json",
+        "--vocab",
+        "testdata/qwen2.5/vocab.json",
+        "--merges",
+        "testdata/qwen2.5/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen2-5/zh-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/zh-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen3.8/tokenizer.json",
+        "--vocab",
+        "testdata/qwen3.8/vocab.json",
+        "--merges",
+        "testdata/qwen3.8/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen3-8/en-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen3-8/en-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen3-8",
+        "BPE_BENCH_CORPORA": "en-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen3-8",
+        "BPE_BENCH_CORPORA": "ru-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen3.8/tokenizer.json",
+        "--vocab",
+        "testdata/qwen3.8/vocab.json",
+        "--merges",
+        "testdata/qwen3.8/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen3-8/ru-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen3-8/ru-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen3.8/tokenizer.json",
+        "--vocab",
+        "testdata/qwen3.8/vocab.json",
+        "--merges",
+        "testdata/qwen3.8/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen3-8/ar-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen3-8/ar-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen3-8",
+        "BPE_BENCH_CORPORA": "ar-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen3-8",
+        "BPE_BENCH_CORPORA": "ja-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen3.8/tokenizer.json",
+        "--vocab",
+        "testdata/qwen3.8/vocab.json",
+        "--merges",
+        "testdata/qwen3.8/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen3-8/ja-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen3-8/ja-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/qwen3.8/tokenizer.json",
+        "--vocab",
+        "testdata/qwen3.8/vocab.json",
+        "--merges",
+        "testdata/qwen3.8/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/qwen3-8/zh-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen3-8/zh-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "qwen3-8",
+        "BPE_BENCH_CORPORA": "zh-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "bloom",
+        "BPE_BENCH_CORPORA": "en-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/bloom/tokenizer.json",
+        "--vocab",
+        "testdata/bloom/vocab.json",
+        "--merges",
+        "testdata/bloom/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/bloom/en-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/en-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/bloom/tokenizer.json",
+        "--vocab",
+        "testdata/bloom/vocab.json",
+        "--merges",
+        "testdata/bloom/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/bloom/ru-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/ru-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "bloom",
+        "BPE_BENCH_CORPORA": "ru-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "bloom",
+        "BPE_BENCH_CORPORA": "ar-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/bloom/tokenizer.json",
+        "--vocab",
+        "testdata/bloom/vocab.json",
+        "--merges",
+        "testdata/bloom/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/bloom/ar-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/ar-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/bloom/tokenizer.json",
+        "--vocab",
+        "testdata/bloom/vocab.json",
+        "--merges",
+        "testdata/bloom/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/bloom/ja-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/ja-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "bloom",
+        "BPE_BENCH_CORPORA": "ja-4k"
+      }
+    },
+    {
+      "argv": [
+        "/Users/ax2/gosimd/bpe/testdata/generated/model-baseline.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkBPE/[^/]+/[^/]+/Model(Tokenize|AppendIDs)$",
+        "-test.benchmem",
+        "-test.benchtime=1x",
+        "-test.count=10",
+        "-test.cpu=1"
+      ],
+      "env": {
+        "BPE_BENCH_MODELS": "bloom",
+        "BPE_BENCH_CORPORA": "zh-4k"
+      }
+    },
+    {
+      "argv": [
+        "tools/hf-reference/target/release/hf-reference",
+        "benchmark",
+        "--tokenizer",
+        "testdata/bloom/tokenizer.json",
+        "--vocab",
+        "testdata/bloom/vocab.json",
+        "--merges",
+        "testdata/bloom/merges.txt",
+        "--corpus",
+        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl",
+        "--fixture",
+        "testdata/generated/suite/bloom/zh-4k.jsonl",
+        "--output",
+        "tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/zh-4k.json",
+        "--threads",
+        "1",
+        "--warmup",
+        "3",
+        "--iterations",
+        "10",
+        "--environment",
+        "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread"
+      ],
+      "env": {}
+    }
+  ],
+  "sha256": {
+    "Makefile": "e85c9cdf19a0a0b39d7e49ec1bd2907853dc0fae12a985c4035f3610f7a7d0ba",
+    "added_token.go": "37cdfee287b7cf23a4b5075f547add8ca576e5ccf778b4e2dc06248cea8f2dc8",
+    "append_ids_test.go": "c8c63226321ea7b1ec968a58753b047bc814794fa93097255227821d552efe59",
+    "benchmarks/suite.json": "2dcde8c4780471976640f864e12b5e27110a280a0f2b003153850415f6654612",
+    "corpus_benchmark_loader_test.go": "f61f71e6bd0efb2d83f946cecf45e870623ac7ee5beda92a6d8e9b38b012006f",
+    "corpus_benchmark_test.go": "b7ead7e22ce9a2915093ec0a3d5780f1e0535da00841ec3c776f5df3a286fd03",
+    "doc.go": "81bbade5cbf54486f60d2097a42f824ba1751f8a0669b7e0140819268990d863",
+    "encoding.go": "7fab594bcb740935688cc35dcc47940446a4177c0e7b42dc9111f46a76faaf75",
+    "errors.go": "2bcf7c0f4296ee8ddee44dd48e2c19cf59350a1210571765b1bcd83715deac06",
+    "go.mod": "7f02fd1a86d568b4cf8b0e495b22ee0022fcd20d06f5600e74b9a14defe38516",
+    "hf_reference_test.go": "8a045c44676612fb87b42ad94f63cb276042a7e33d782ecb8315934502f6995f",
+    "internal/addedtoken/matcher.go": "9985adf3ce3cc41449f1070e768c1b83225f42fc5031c911a1602ec6cbab1f45",
+    "internal/addedtoken/matcher_test.go": "623e6e89859436f5db125b53ce2969121d99ff663af32aef9549cc2169914270",
+    "internal/benchsuite/model.go": "30daf14409cb5716620265cf13762600853f7af90b94055b9f95062b1d39f260",
+    "internal/benchsuite/model_test.go": "438a12fe0e86ab50705bc4fc99754e907888b248de6312dc886b03033211aa08",
+    "internal/benchsuite/suite.go": "7fddffbf8e7c06f86c983154d68da11e449d1833a3f3eab93004437e582e9fe4",
+    "internal/benchsuite/suite_test.go": "03528a8159decd7ad605a1b383bb3b558836c754ed9622a6ca1a11528ba98855",
+    "internal/bytelevel/bytelevel.go": "db4f9fa28dc1ce0421c3a7b59f06b65bf40d7850f501537349faf5b8fd3ecf59",
+    "internal/bytelevel/bytelevel_test.go": "7e9baff4ce8aaffed0d45f9e39eb22f0d608c9532ab9d9554634f109d7b51328",
+    "internal/bytelevel/hf_reference_test.go": "31c4e0931da1f689827b57bd314935a01151ac1fc6b79b416675d6e9b42f9166",
+    "internal/hforacle/oracle.go": "9001c211582e12b59db35a58da515c5bde261e375c62d16de0cbdb1c74a8518c",
+    "internal/hforacle/oracle_test.go": "8f309faa84003c7d0b7a042bda9983c114a3ed5b8dd7f7f373a8c31624148bf7",
+    "internal/model/encode.go": "8e9ae44bf3f14731e09c3e67b9d5b61631a7984a87478f9c2e98af0e87b1eba7",
+    "internal/model/encode_test.go": "3b00973db497bbad4c67bf90d14d56c64d84daad2a519978047f5203e5b6a36b",
+    "internal/model/load.go": "e31e35e45b9282419df452ab16a9ad498048683eef442e9626c9ee6b235190a8",
+    "internal/model/load_test.go": "f2b60fa0b2158ba199891ed0196c93bb56d394e193d2f11f2557ff5a2b87679d",
+    "internal/model/merge.go": "a0efc517347bd25fcd2e5854eaac7b00e4660a225a74f207a554438c0d515d3d",
+    "internal/model/merge_minimum_test.go": "25b7152f8906e5ba9256ccdc770f732ba497b55bcef5b1a92d94388db7a751ac",
+    "internal/model/merge_test.go": "6bc0083307d5cb01c3ac54fe772851ff0854fcf0a619465599b275d44db4328a",
+    "internal/model/model.go": "37b05c69f1c6ce66f8d3a601cb01e508ba6886a93caa98ab639012055227d8d6",
+    "internal/model/workload_generated_test.go": "6ab1dfb352eecb51f1ae7df486d2199fa7dc570029f086d0161ca84d0b380340",
+    "internal/model/workload_suite_test.go": "71aa3c7275061a829a349ffa021e02389bf32954b423244b8a5e8b9fe45260cd",
+    "internal/model/workload_test.go": "293e9e410b6191494e10ed8d7956c36951076ca0535f00edc58f58fd3e617c17",
+    "internal/postprocess/bytelevel.go": "b43667c02369202af5abc46303b5bbfdf5ffab7cf2d62d80948df0419c595a26",
+    "internal/postprocess/bytelevel_test.go": "e22905ee84c091706047e79e010673b57724ac5c6457a6ef37d413a15891cd7a",
+    "internal/postprocess/postprocess.go": "651a406108cdb6732b896790e01075a34ceb919523414dc6cc8393d73b9c093f",
+    "internal/postprocess/template.go": "075db364e1abd88c4c4f21bd8558f97fd8d7c616ebde3380548530f66a1a7055",
+    "internal/postprocess/template_test.go": "4639c00231d20755f1bdd4a503a26fad1ec17926f66bf1389a17e210d9af1cc4",
+    "internal/tokenizer/tokenizer.go": "dbb5db3ba91d9637b5d66c69702492d78a43a415d3c8a9a9334f27dd2d476541",
+    "internal/tokenizer/tokenizer_test.go": "8821a07f69d65929df82590cf9e0d93fa03a7025247b0e0cf70d4059f5e17a63",
+    "model.go": "d20737b1def5bf3b3e4f2d4be590a4889d02011493e736b565d301f675b816fa",
+    "model_test.go": "ab63dd0e799396cd49680711f2972de842028ea33b1f37f6c9c5fee803431451",
+    "post_processor.go": "5c9cccb387220b30870200c0f70f119f2447bc7e633b1bfa4e45696a0e3b550f",
+    "scripts/benchmark_model_suite.py": "59cc1ce5dd9a66c8ce857f6aeedd46acd18d3826da98f7def691ed3fcbbcafc9",
+    "testdata/corpora/text/MANIFEST.json": "04887f41e631ca570c32f2da2805989c2132c9f878f56b84428926fee5a56e3d",
+    "token.go": "a78ce445f4f97ea21d210cac51df82513442daa05aff9feec10e8ad6a0333af3",
+    "tokenizer.go": "19ab0a2dd763c367f090a72471978e6e539794fc895c5d6787a6044226aeecef",
+    "tokenizer_test.go": "58290931f4959c8b383e1c487330ef177a1abfb1506ef04cddcd69b0f57962a4",
+    "tools/benchmark-suite/main.go": "5fc225094ec770d3ea6e6966abd948ee661f94689e4933e351f5a0b79e248147",
+    "tools/hf-reference/Cargo.lock": "1eb54ecbfe19d3b39a76207c9381cbafa635b3b5d60ae350a02978ac46a8f44c",
+    "tools/hf-reference/Cargo.toml": "ec3529a08b686c1a714a537864a72587a967eeb0e97bdb3ef8e0ceba9b63d071",
+    "tools/hf-reference/rust-toolchain.toml": "c910997cb152c6dc8ed13b1fdf9fa28a4ed30d6776123e27dd6170e5c66067a0",
+    "tools/hf-reference/src/benchmark.rs": "cb76040998d2a930d5459a67d4161d9872c618744d52ef0e2cc0c3bd0fecb79b",
+    "tools/hf-reference/src/main.rs": "446e9386a7387248f25b7c4f88310c50817e7bc7a379d7f2f7c7ea4541203cbc",
+    "tools/workload-instrument/main.go": "102f243836090e41b93c94a48bf8c49a091756b60d396775285b98bba32043ae",
+    "testdata/generated/model-baseline.test": "bdb0a7be57b0a5938e422791c15980890c0118e9c437cad960264e95602a5710",
+    "tools/hf-reference/target/release/hf-reference": "f16954c451612444760eaca0ffe1c6f45159812f68ab3672c76d6ab8c5903db2",
+    "testdata/generated/suite/gpt2/en-4k.jsonl": "f2af91f4780d1075162481d6205ed9eedc1d39bcdaf2a129b22b14e2dcdcdc8b",
+    "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl": "33ac3d405510db4324ba3ce0e41899904cd4bbf3ab7cb0ba903155258f9fb1c6",
+    "testdata/gpt2/tokenizer.json": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6",
+    "testdata/gpt2/vocab.json": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783",
+    "testdata/gpt2/merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+    "testdata/generated/suite/gpt2/ru-4k.jsonl": "f02cbf9be7fc13c4578ce3b18032afcd174ef86c8b044eee67cd585a08a62dd7",
+    "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl": "8709779706e0ee7b297b44616fb3fc51ea212c40309f32cdbd609467162b87cb",
+    "testdata/generated/suite/gpt2/ar-4k.jsonl": "5207acb8fa93bef480ceab1c0c16e8a30ac121a8ba2004078c79769f782eddf9",
+    "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl": "78fe483dff7e839bdd0fa8d94cc83ecc3001e719acdf03079ca4d11e7fd1234b",
+    "testdata/generated/suite/gpt2/ja-4k.jsonl": "f4d155b256869ebceb112b977b1c425faf5c24499b962c10c39c8cdc962b33cf",
+    "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl": "1f45dbbc97303cc43eb7e0d7bd29378c513cffe11d9a50d28d4540bcc4bf49f1",
+    "testdata/generated/suite/gpt2/zh-4k.jsonl": "9f597892d1412c9b545ff4fe039db37faeec1dc1e32069a557bc9a1ce81542e0",
+    "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl": "296b8aec1380bf54265d59346350a163734d6ca128fb4ea00559c9bc29da0fdc",
+    "testdata/generated/suite/qwen2-5/en-4k.jsonl": "f399383ff40fbd7b460a5834ea6ba5034a304c0c1b5016a2d450be86276f1d9c",
+    "testdata/qwen2.5/tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "testdata/qwen2.5/vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "testdata/qwen2.5/merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+    "testdata/generated/suite/qwen2-5/ru-4k.jsonl": "b2cf347b1d7eac248d96b110f2b817b806b6b5fd11bf4a0995811f241f0b1fad",
+    "testdata/generated/suite/qwen2-5/ar-4k.jsonl": "fdc5a34355118080afe561e0426a87c2531224920df69d21ccc84d740cf9441e",
+    "testdata/generated/suite/qwen2-5/ja-4k.jsonl": "59d8ef39597eb4424825644682a9c7f42ebe9082c062d16f7b61b6c1de449d84",
+    "testdata/generated/suite/qwen2-5/zh-4k.jsonl": "45d0ed0be80497aa91f17179f429bde5db14201f35601ed22c2fff7213df8038",
+    "testdata/generated/suite/qwen3-8/en-4k.jsonl": "18ac61ba0bdd252b28da97aa2a6b12132103aa2a41da119d9285254623687f69",
+    "testdata/qwen3.8/tokenizer.json": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3",
+    "testdata/qwen3.8/vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+    "testdata/qwen3.8/merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+    "testdata/generated/suite/qwen3-8/ru-4k.jsonl": "04e1899227e5c44b26828cdfb1b4accb1e540fa49aeded0e70e20c9bf98c7ad9",
+    "testdata/generated/suite/qwen3-8/ar-4k.jsonl": "065c956242d36690212dcb307e622631ec7939388acce036f2f4eff1635ba014",
+    "testdata/generated/suite/qwen3-8/ja-4k.jsonl": "a6c5dd03316b9408d81c221602f949c923e4e58439e4de380460e4ed6de236de",
+    "testdata/generated/suite/qwen3-8/zh-4k.jsonl": "92ca526d4717908b3df34c2aafee496ccd4bdedc90c288c9f8a0409d98ccdbe4",
+    "testdata/generated/suite/bloom/en-4k.jsonl": "5e7c0b8d14b22a781df35923f524ad5168a99d10f386eadf9a0d0c0263653244",
+    "testdata/bloom/tokenizer.json": "3fa39cd4b1500feb205bcce3b9703a4373414cafe4970e0657b413f7ddd2a9d3",
+    "testdata/bloom/vocab.json": "b3705506f42e29726d1c2c7888f28341fc8f499f0f88a341012b841702606211",
+    "testdata/bloom/merges.txt": "5a05c71fd652bd375c444212fe4d7718a16a8e33aae66a9cf676f1932fa91cdf",
+    "testdata/generated/suite/bloom/ru-4k.jsonl": "e294594868c77bf9a532365316fc687bc99277d43115f7a537d61d58ef39b952",
+    "testdata/generated/suite/bloom/ar-4k.jsonl": "77e9922b8ada6eb41e493d27403161d9e18ac0136b3b4db83fda662276bdd8b9",
+    "testdata/generated/suite/bloom/ja-4k.jsonl": "2cbd5e65c351c7e7b1240cd533be210efd1f8f9205edb6fabdb8411ad0b9bb75",
+    "testdata/generated/suite/bloom/zh-4k.jsonl": "10a516881ac7c84f60158edb9edd15cc3f45a65a02386f5f559fb95cc85bc0ef"
+  },
+  "finished_unix": 1789040929.942127
+}

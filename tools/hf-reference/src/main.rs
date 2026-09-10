@@ -25,6 +25,13 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Export vocab.json and merges.txt from a local BPE tokenizer (no training).
+    ExportModel {
+        #[arg(long)]
+        tokenizer: PathBuf,
+        #[arg(long)]
+        output_dir: PathBuf,
+    },
     /// Generate a line-oriented reference fixture for every corpus record.
     Generate {
         #[arg(long)]
@@ -188,6 +195,10 @@ impl Aggregate {
 
 fn main() -> Result<()> {
     match Cli::parse().command {
+        Command::ExportModel {
+            tokenizer,
+            output_dir,
+        } => export_model(&tokenizer, &output_dir),
         Command::Generate {
             tokenizer,
             corpus,
@@ -229,6 +240,19 @@ fn main() -> Result<()> {
             &tokenizer, &corpus, &vocab, &merges, &fixture, operation, seconds, threads,
         ),
     }
+}
+
+fn export_model(input: &Path, output_dir: &Path) -> Result<()> {
+    let tokenizer = load_tokenizer(input)?;
+    fs::create_dir_all(output_dir)?;
+    for path in tokenizer
+        .get_model()
+        .save(output_dir, None)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?
+    {
+        println!("exported {}", path.display());
+    }
+    Ok(())
 }
 
 fn load_tokenizer(path: &Path) -> Result<Tokenizer> {
@@ -465,6 +489,30 @@ fn write_json_line(writer: &mut impl Write, value: &impl Serialize) -> Result<()
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn model_export_is_deterministic_and_preserves_ids_and_ranks() {
+        let input = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../internal/benchsuite/testdata/tiny/tokenizer.json");
+        let first = tempfile::tempdir().unwrap();
+        let second = tempfile::tempdir().unwrap();
+        export_model(&input, first.path()).unwrap();
+        export_model(&input, second.path()).unwrap();
+        for name in ["vocab.json", "merges.txt"] {
+            assert_eq!(
+                fs::read(first.path().join(name)).unwrap(),
+                fs::read(second.path().join(name)).unwrap()
+            );
+        }
+        let vocab: serde_json::Value =
+            serde_json::from_slice(&fs::read(first.path().join("vocab.json")).unwrap()).unwrap();
+        assert_eq!(vocab["ab"], 399999);
+        assert_eq!(vocab["[UNK]"], 400000);
+        assert_eq!(
+            fs::read_to_string(first.path().join("merges.txt")).unwrap(),
+            "#version: 0.2\na b\n"
+        );
+    }
 
     #[test]
     fn corpus_loader_preserves_empty_records() {

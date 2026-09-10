@@ -30,6 +30,17 @@ line. An empty record is `{"text":""}`; a physically blank line is rejected.
 
 ## Generate an oracle fixture
 
+For a BPE tokenizer that does not publish separate `vocab.json`/`merges.txt`
+(such as BLOOM), export them without training or changing IDs/ranks:
+
+```sh
+cargo run --locked --release --manifest-path tools/hf-reference/Cargo.toml -- \
+  export-model --tokenizer testdata/bloom/tokenizer.json --output-dir testdata/bloom
+```
+
+This invokes upstream `Model::save` and writes/overwrites `vocab.json` and
+`merges.txt` in the selected directory. It runs explicitly, never from Go tests.
+
 From the repository root:
 
 ```sh

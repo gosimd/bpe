@@ -1,0 +1,187 @@
+{
+  "schema": "gosimd-bpe-hf-benchmark-v2",
+  "upstream": "huggingface/tokenizers",
+  "tokenizers_version": "0.23.2",
+  "rust_toolchain": "1.98.1",
+  "tool": {
+    "package_version": "0.1.0",
+    "main_source": {
+      "path": "tools/hf-reference/src/main.rs",
+      "sha256": "446e9386a7387248f25b7c4f88310c50817e7bc7a379d7f2f7c7ea4541203cbc"
+    },
+    "benchmark_source": {
+      "path": "tools/hf-reference/src/benchmark.rs",
+      "sha256": "cb76040998d2a930d5459a67d4161d9872c618744d52ef0e2cc0c3bd0fecb79b"
+    },
+    "cargo_lock": {
+      "path": "tools/hf-reference/Cargo.lock",
+      "sha256": "1eb54ecbfe19d3b39a76207c9381cbafa635b3b5d60ae350a02978ac46a8f44c"
+    }
+  },
+  "recorded_at_unix_seconds": 1789040766,
+  "tokenizer": {
+    "path": "testdata/gpt2/tokenizer.json",
+    "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6"
+  },
+  "vocab": {
+    "path": "testdata/gpt2/vocab.json",
+    "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+  },
+  "merges": {
+    "path": "testdata/gpt2/merges.txt",
+    "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+  },
+  "corpus": {
+    "path": "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
+    "sha256": "33ac3d405510db4324ba3ce0e41899904cd4bbf3ab7cb0ba903155258f9fb1c6",
+    "records": 256,
+    "utf8_bytes": 1048576
+  },
+  "fixture": {
+    "path": "testdata/generated/suite/gpt2/en-4k.jsonl",
+    "sha256": "f2af91f4780d1075162481d6205ed9eedc1d39bcdaf2a129b22b14e2dcdcdc8b"
+  },
+  "mode": {
+    "add_special_tokens": false,
+    "padding": false,
+    "truncation": false,
+    "offsets": "byte",
+    "records": "independent"
+  },
+  "workload": {
+    "pre_tokenized_pieces_per_iteration": 199960,
+    "bpe_model_pieces_per_iteration": 199960,
+    "bpe_cache_eligible_unique_pieces": 19794,
+    "bpe_default_cache_capacity": 10000
+  },
+  "environment": {
+    "description": "Apple M5; 32 GiB RAM; macOS 26.6.2 (25G83), darwin/arm64; AC power, battery 100%, lowpowermode=0; Go 1.27.0 scalar, GOMAXPROCS=1, CPU affinity and P/E core placement uncontrolled; desktop background load not isolated; no other benchmark or diagnostic jobs run concurrently; Rust 1.98.1, HF tokenizers 0.23.2, one thread",
+    "os": "macos",
+    "architecture": "aarch64",
+    "available_parallelism": 10
+  },
+  "configuration": {
+    "warmup_iterations": 3,
+    "measurement_iterations": 10,
+    "threads": 1,
+    "timing_scope": "operation plus output construction/destruction; input loading, fixture validation, model construction, and cache prefill excluded"
+  },
+  "measurements": [
+    {
+      "operation": "pretokenize_only",
+      "cache": "not_applicable",
+      "cache_capacity": null,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 256,
+      "operation_input_bytes_per_iteration": 1048576,
+      "pieces_per_iteration": 199960,
+      "tokens_per_iteration": null,
+      "oracle_checksum": 1192901131969745989,
+      "iteration_nanoseconds": [
+        87015292,
+        87014542,
+        86235125,
+        86984542,
+        87849000,
+        87354708,
+        87762917,
+        87669084,
+        87636208,
+        88019416
+      ],
+      "min_nanoseconds": 86235125,
+      "median_nanoseconds": 87495458,
+      "max_nanoseconds": 88019416,
+      "median_nanoseconds_per_operation_input_byte": 83.44217109680176,
+      "median_operation_mib_per_second": 11.429164700183637
+    },
+    {
+      "operation": "bpe_only_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 199960,
+      "operation_input_bytes_per_iteration": 1255917,
+      "pieces_per_iteration": 199960,
+      "tokens_per_iteration": 230158,
+      "oracle_checksum": 2398263660465998526,
+      "iteration_nanoseconds": [
+        85571292,
+        84139042,
+        84518125,
+        81470500,
+        81744750,
+        83625042,
+        87102625,
+        84720542,
+        86914542,
+        88629208
+      ],
+      "min_nanoseconds": 81470500,
+      "median_nanoseconds": 84619333,
+      "max_nanoseconds": 88629208,
+      "median_nanoseconds_per_operation_input_byte": 67.37653284412903,
+      "median_operation_mib_per_second": 14.154398811415687
+    },
+    {
+      "operation": "encode_full_uncached",
+      "cache": "disabled_at_model_construction",
+      "cache_capacity": 0,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 256,
+      "operation_input_bytes_per_iteration": 1048576,
+      "pieces_per_iteration": 199960,
+      "tokens_per_iteration": 230158,
+      "oracle_checksum": 12096753802131366996,
+      "iteration_nanoseconds": [
+        187130458,
+        185511125,
+        186439292,
+        187597041,
+        187752125,
+        183908000,
+        183547584,
+        177164667,
+        179246167,
+        184551916
+      ],
+      "min_nanoseconds": 177164667,
+      "median_nanoseconds": 185031520,
+      "max_nanoseconds": 187752125,
+      "median_nanoseconds_per_operation_input_byte": 176.45980834960938,
+      "median_operation_mib_per_second": 5.404484598083613
+    },
+    {
+      "operation": "encode_full_warm_cache",
+      "cache": "default_thread_local_cache_prefilled_once",
+      "cache_capacity": 10000,
+      "source_records_per_iteration": 256,
+      "source_utf8_bytes_per_iteration": 1048576,
+      "operation_items_per_iteration": 256,
+      "operation_input_bytes_per_iteration": 1048576,
+      "pieces_per_iteration": 199960,
+      "tokens_per_iteration": 230158,
+      "oracle_checksum": 12096753802131366996,
+      "iteration_nanoseconds": [
+        123103750,
+        124999625,
+        129223875,
+        130242708,
+        129261417,
+        125099042,
+        131069458,
+        129072000,
+        130317542,
+        128761375
+      ],
+      "min_nanoseconds": 123103750,
+      "median_nanoseconds": 129147937,
+      "max_nanoseconds": 131069458,
+      "median_nanoseconds_per_operation_input_byte": 123.16507053375244,
+      "median_operation_mib_per_second": 7.743058257291405
+    }
+  ]
+}

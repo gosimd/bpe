@@ -20,7 +20,8 @@ TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
 post-processor behavior have pinned Hugging Face 0.23.2 differential fixtures.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
 scratch pools; scratch-reuse tests and initial public allocation benchmarks
-cover short model and raw-text inputs. Exact-revision GPT-2 tokenizer assets and
+cover short model and raw-text inputs. Exact-revision GPT-2, Qwen2.5,
+Qwen3.8-Flash-Next and BLOOM tokenizer assets and
 five multilingual text pools are pinned in `testdata/`, with source hashes,
 licenses and exact UTF-8 request boundaries. The former WikiText-2 validation
 corpus is retired; the English pool uses train, not validation.
@@ -37,10 +38,20 @@ covers full uncached encoding. A symmetric single-thread Go corpus benchmark
 measures ByteLevel pre-tokenization, `Model.Tokenize`, `Model.AppendIDs`,
 `Tokenizer.Encode`, and `Tokenizer.AppendIDs`; its retained baseline compares
 only equivalent materializing APIs directly with HF.
+A retained four-model/five-language BPE baseline records all 20 combinations,
+including slower Go cases. `make analyze-model-workload` collects untimed
+piece/merge/lookup distributions through generated test-only instrumentation;
+it checks that the generated methods match current production source and
+verifies their output against production and HF. No tracing enters the library
+or timed benchmarks. Regenerate with `go run ./tools/workload-instrument` after
+intentional changes to the copied merge methods.
 `tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
 Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
-SIMD, and additional real-world tokenizer assets beyond GPT-2 are not implemented
-yet. The named benchmark catalogue supports multiple model/corpus entries and
+and SIMD are not implemented yet. Qwen2.5 (151,643 BPE entries),
+Qwen3.8-Flash-Next (248,044 BPE entries) and BLOOM
+(250,680 BPE entries) are registered as model-only benchmarks, with exact
+revisions, licenses and checked asset hashes. The named catalogue supports
+multiple model/corpus entries and
 includes vendored English, Russian, Arabic, Japanese and Chinese text pools
 with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
 full Go stages currently require the validated GPT-2 preset.
@@ -183,6 +194,8 @@ the upstream or intentional contract change in the same commit.
   boundaries. New model-only entries must use their own HF-transformed pieces,
   not GPT-2 pre-tokenization; do not enable full Go stages for unsupported
   pipelines. Keep generic corpus/catalogue implementation in `internal/benchsuite`.
+- Do not add a synthetic 400k benchmark model. The tiny existing loader fixture
+  is a targeted correctness test, not a representative performance workload.
 - Compare HF BPE only with `Model.Tokenize` and HF full encode only with
   `Tokenizer.Encode`. Report `Model.AppendIDs` and `Tokenizer.AppendIDs` as
   distinct ID-only inference paths, not as direct HF API speedups.

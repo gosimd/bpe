@@ -1,0 +1,5 @@
+pretokenize_only: median 112.550 ms, 8.88 MiB/s
+bpe_only_uncached: median 90.779 ms, 13.19 MiB/s
+encode_full_uncached: median 216.517 ms, 4.62 MiB/s
+encode_full_warm_cache: median 152.932 ms, 6.54 MiB/s
+wrote benchmark result to tools/hf-reference/results/bpe-multilingual-2026-09-10/qwen2-5/en-4k.json

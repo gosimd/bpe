@@ -30,3 +30,11 @@ stage timings. Review all result files before committing them.
 The retained `gpt2-wikitext2-*` reports measure the retired WikiText-2 validation
 corpus, not the current English train pool. Their commands require the original
 source revision and inputs; timings and metadata have not been relabeled.
+
+## Current multilingual baseline
+
+`bpe-multilingual-2026-09-10/` holds the four HF modes for each of the four
+models and five current language pools. See the
+[Go/HF BPE comparison and workload report](../../../benchmarks/results/bpe-multilingual-2026-09-10/README.md)
+for conditions and limits. Only uncached BPE is compared there; these files
+are not a claim that the Go tokenizer supports every full pipeline.

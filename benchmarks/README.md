@@ -3,8 +3,8 @@
 ## Named model/corpus suite
 
 `benchmarks/suite.json` defines two ordered lists. `BenchmarkBPE` measures their
-cross-product as `BenchmarkBPE/<model>/<corpus>/<operation>`. The default model
-is GPT-2; the corpora are five
+cross-product as `BenchmarkBPE/<model>/<corpus>/<operation>`. The default models
+are GPT-2, Qwen2.5, Qwen3.8-Flash-Next and BLOOM; the corpora are five
 vendored [language pools](../testdata/corpora/text/README.md): English,
 Russian, Arabic, Japanese and Chinese, each approximately 1 MiB. Default pool
 requests are approximately 4 KiB, with pinned UTF-8-safe request boundaries.
@@ -12,6 +12,8 @@ requests are approximately 4 KiB, with pinned UTF-8-safe request boundaries.
 ```sh
 make benchmark-suite
 make benchmark-suite MODELS=gpt2 CORPORA=ru-4k,ja-4k COUNT=10 BENCHTIME=1x
+make benchmark-suite MODELS=qwen2-5,bloom COUNT=10 BENCHTIME=1x
+make benchmark-suite MODELS=qwen3-8 COUNT=10 BENCHTIME=1x
 make benchmark-hf-suite MODELS=gpt2 CORPORA=ru-4k,ja-4k \
   HF_ENVIRONMENT='CPU/model; OS version; power mode; background load and affinity'
 ```
@@ -61,8 +63,20 @@ supports that model's normalizer, pre-tokenizer or post-processor. The `gpt2`
 preset additionally enables PreTokenizer, TokenizerEncode and TokenizerAppendIDs
 and validates the expected pipeline configuration. Other full Go pipelines
 need an explicit implementation and correctness gate, not a new label. This
-test tooling does not add a public `tokenizer.json` loader. Only GPT-2 assets
-are currently included; the catalogue can hold multiple independent models.
+test tooling does not add a public `tokenizer.json` loader.
+
+| Suite model | Pinned tokenizer source | BPE vocab / merges | Go operations |
+| --- | --- | ---: | --- |
+| gpt2 | openai-community/gpt2 | 50,257 / 50,000 | All five |
+| qwen2-5 | [Qwen/Qwen2.5-0.5B](../testdata/qwen2.5/MANIFEST.md) | 151,643 / 151,387 | Model only |
+| qwen3-8 | [Qwen/Qwen3.8-Flash-Next](../testdata/qwen3.8/MANIFEST.md) | 248,044 / 247,587 | Model only |
+| bloom | [bigscience/bloom-560m](../testdata/bloom/MANIFEST.md) | 250,680 / 250,434 | Model only |
+
+Model manifests pin exact revisions, upstream licenses, file sizes and
+SHA-256 checksums. BLOOM's vocab/merges are deterministic exports of its
+upstream tokenizer JSON using `hf-reference export-model`; other assets are
+downloaded unchanged. There is no synthetic 400k benchmark corpus/model. The
+tiny synthetic fixture under internal testdata is only a loader regression test.
 
 For a new JSONL corpus, add `{"name":"my-text","path":"testdata/my-text.jsonl"}`,
 one `{"text":"..."}` object per record, preserving empty records and order.
@@ -81,6 +95,54 @@ timers. Each operation is one sequential full-corpus pass, not parallel batch
 tokenization. The meaning of bytes, allocations and API pairs below is unchanged.
 
 ### Retaining results
+
+For an explicitly retained BPE-only comparison on all prepared cases:
+
+```sh
+make generate-suite-fixtures
+make analyze-model-workload WORKLOAD_DIR=benchmarks/results/my-run/workload
+python3 scripts/benchmark_model_suite.py \
+  --output benchmarks/results/my-run \
+  --hf-output tools/hf-reference/results/my-run \
+  --environment 'Actual CPU, RAM, OS, power mode, affinity and background load'
+```
+
+The orchestration script requires a prebuilt pinned Rust executable and local
+oracles. Python only orchestrates processes and summarizes output; it is not in
+either timed loop. Go runs ten one-pass samples of ModelTokenize and
+ModelAppendIDs (`GOMAXPROCS=1`, `-cpu=1`), with its existing untimed correctness
+pass and no separate fixed warm-up. HF runs three warm-up and ten measured
+passes with one thread. Its existing tool also records the other three HF
+operations, but this report compares only uncached BPE with ModelTokenize.
+Cases run sequentially; Go/HF order alternates by case. Raw samples, exact
+commands, source/input hashes and the executing harness are retained.
+
+### Untimed model workload analysis
+
+`make analyze-model-workload` uses already generated local oracles. It does not
+build Rust or measure performance. `MODELS`, `CORPORA`, `SUITE` and
+`WORKLOAD_DIR` select the cases and output directory, defaulting to the full
+suite and ignored `testdata/generated/model-workload`.
+
+The analyzer derives a **test-only** copy of the current production merge
+methods with counted map lookups; no observer, counter, branch or build tag is
+added to the library. The command checks that the generated copy is current.
+After intentional merge-code changes regenerate it with
+`go run ./tools/workload-instrument`. Each analyzed piece must agree with the
+unmodified implementation and HF IDs/local byte offsets before output is saved.
+
+JSON records vocabulary/rule counts, ID/rank ranges, initial symbol and
+transformed UTF-8 byte lengths, output lengths, merge counts, no-merge frequency,
+dispatch paths, lookup hits/misses, per-site counts, pair query frequency
+histograms/top pairs and query-weighted rule-group sizes by left ID. A hit
+means a rule exists, not a cache hit or an applied merge. Heap revalidation
+lookups are included. Applied merges equal initial minus final symbols;
+ignore-merges vocabulary shortcuts are counted separately. Added-token pieces
+are excluded. These are Model.Tokenize diagnostics, not AppendIDs or HF lookup
+traces. Full corpus oracles stay ignored; compact aggregate reports may be
+retained with baseline results.
+
+### Result metadata
 
 HF JSON results include hashes, corpus counts, modes, warm-up, iteration and
 thread counts and environment data. For a retained comparison, place those

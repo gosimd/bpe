@@ -1,0 +1,5 @@
+pretokenize_only: median 35.039 ms, 28.54 MiB/s
+bpe_only_uncached: median 50.407 ms, 38.80 MiB/s
+encode_full_uncached: median 89.110 ms, 11.22 MiB/s
+encode_full_warm_cache: median 73.856 ms, 13.54 MiB/s
+wrote benchmark result to tools/hf-reference/results/bpe-multilingual-2026-09-10/bloom/zh-4k.json
