@@ -193,6 +193,19 @@ func Map(input string, offset int, rawAt func(int) int) MappedPiece {
 	return MappedPiece{Text: builder.String(), alignments: alignments}
 }
 
+// MapWithPrefixSpace maps a non-empty isolated regexp piece after prepending
+// an ASCII space. HF NormalizedString.prepend aligns the inserted space with
+// the first original scalar, not with an empty range. Real input bytes retain
+// their own ranges. This is distinct from the legacy GPT-2 working-input path.
+func MapWithPrefixSpace(input string) MappedPiece {
+	mapped := Map(" "+input, 0, func(offset int) int { return max(0, offset-1) })
+	_, size := utf8.DecodeRuneInString(input)
+	for i := range utf8.RuneLen(byteToRune(' ')) {
+		mapped.alignments[i] = alignment{start: 0, end: size}
+	}
+	return mapped
+}
+
 // RawRange maps a non-empty range in Text to Hugging Face-compatible byte
 // offsets in the original input. Every transformed byte carries the complete
 // source UTF-8 scalar's alignment, so adjacent model tokens may overlap.

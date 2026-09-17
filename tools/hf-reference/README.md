@@ -10,6 +10,16 @@ dependency to the Go package.
 fixtures and measuring the upstream Hugging Face tokenizer implementation. It
 is not a Go package, is never linked through FFI, and is not run by `go test`.
 
+`make generate-regexp-fixtures` explicitly runs `examples/regexp.rs` and
+`examples/regexp_pipeline.rs` with the locked dependencies. Commit their compact
+outputs `testdata/hf_regexp_v0.23.2.json` and
+`testdata/hf_regexp_pipeline_v0.23.2.json`. The latter pins the GPT-2 model hash
+and overrides the pipeline to test isolated regexp splitting followed by
+ByteLevel with `use_regex=false`, without normalization. Its 92 cases cover
+pieces, IDs, tokens, byte offsets, AddedToken strips, prefix spaces, pairs and
+post-processors. They do not establish full Qwen support or universal Go-regexp
+equivalence with HF. See [the adapter contract](../../docs/RegexpPreTokenizer.md).
+
 The tool loads a local `tokenizer.json`; it contains no Hub or HTTP client. The
 Rust dependency is exactly `tokenizers = "=0.23.2"`, the complete dependency
 graph is recorded in `Cargo.lock`, and `rust-toolchain.toml` selects Rust
@@ -73,6 +83,15 @@ serializable normalizer, pre-tokenizer, AddedToken set, and post-processor.
 Full-corpus oracle output is not committed; rerun the tool whenever it is
 needed. Small fixtures for specific compatibility edge cases remain suitable
 repository artifacts.
+
+The reference tool's ability to execute upstream normalizers does not make
+normalization a goal of the Go library. NFC and other runtime normalization
+are out of scope for gosimd/bpe, as is full Qwen tokenizer compatibility.
+For dedicated Qwen pre-tokenization tests, we will prepare NFC text outside
+timed regions and compare HF/Go boundaries on that identical prepared input,
+with offsets relative to it and source/prepared hashes recorded. This separate
+prepared-text workflow is not yet implemented; existing full-pipeline timings
+still include the stages described below and must not be relabeled.
 
 ## Run the Go differential suite
 

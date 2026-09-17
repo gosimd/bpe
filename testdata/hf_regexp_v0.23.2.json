@@ -1,0 +1,1972 @@
+{
+  "behavior": "Isolated",
+  "cases": [
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [],
+      "text": ""
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "abc"
+        }
+      ],
+      "text": "abc"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            1,
+            2
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "4"
+        },
+        {
+          "offsets": [
+            4,
+            5
+          ],
+          "value": "5"
+        },
+        {
+          "offsets": [
+            5,
+            6
+          ],
+          "value": "6"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "7"
+        }
+      ],
+      "text": "1234567"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "α"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            4,
+            7
+          ],
+          "value": "猫"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            8,
+            9
+          ],
+          "value": "z"
+        }
+      ],
+      "text": "α12猫3z"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            15
+          ],
+          "value": "  hello world  "
+        }
+      ],
+      "text": "  hello world  "
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            15
+          ],
+          "value": "I'm WE'RE he'll"
+        }
+      ],
+      "text": "I'm WE'RE he'll"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            6
+          ],
+          "value": "é é"
+        }
+      ],
+      "text": "é é"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            21
+          ],
+          "value": "Привет, мир!"
+        }
+      ],
+      "text": "Привет, мир!"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            31
+          ],
+          "value": "العَرَبِيَّة ١٢٣"
+        }
+      ],
+      "text": "العَرَبِيَّة ١٢٣"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            21
+          ],
+          "value": "日本語。中文！"
+        }
+      ],
+      "text": "日本語。中文！"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            8
+          ],
+          "value": "x\r\n  y\n\t"
+        }
+      ],
+      "text": "x\r\n  y\n\t"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            8
+          ],
+          "value": "a  b "
+        }
+      ],
+      "text": "a  b "
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            11
+          ],
+          "value": "👩‍💻"
+        },
+        {
+          "offsets": [
+            11,
+            12
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            12,
+            16
+          ],
+          "value": "🙂"
+        }
+      ],
+      "text": "👩‍💻1🙂"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "\u0000a"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "\u0000"
+        }
+      ],
+      "text": "\u0000a1\u0000"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "áb"
+        }
+      ],
+      "text": "áb"
+    },
+    {
+      "name": "ascii-digit",
+      "pattern": "[0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            5
+          ],
+          "value": "   \r\n"
+        }
+      ],
+      "text": "   \r\n"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [],
+      "text": ""
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "abc"
+        }
+      ],
+      "text": "abc"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "123"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": "456"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "7"
+        }
+      ],
+      "text": "1234567"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            9
+          ],
+          "value": "α12猫3z"
+        }
+      ],
+      "text": "α12猫3z"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            15
+          ],
+          "value": "  hello world  "
+        }
+      ],
+      "text": "  hello world  "
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            15
+          ],
+          "value": "I'm WE'RE he'll"
+        }
+      ],
+      "text": "I'm WE'RE he'll"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            6
+          ],
+          "value": "é é"
+        }
+      ],
+      "text": "é é"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            21
+          ],
+          "value": "Привет, мир!"
+        }
+      ],
+      "text": "Привет, мир!"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            31
+          ],
+          "value": "العَرَبِيَّة ١٢٣"
+        }
+      ],
+      "text": "العَرَبِيَّة ١٢٣"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            21
+          ],
+          "value": "日本語。中文！"
+        }
+      ],
+      "text": "日本語。中文！"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            8
+          ],
+          "value": "x\r\n  y\n\t"
+        }
+      ],
+      "text": "x\r\n  y\n\t"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            8
+          ],
+          "value": "a  b "
+        }
+      ],
+      "text": "a  b "
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            16
+          ],
+          "value": "👩‍💻1🙂"
+        }
+      ],
+      "text": "👩‍💻1🙂"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "\u0000a1\u0000"
+        }
+      ],
+      "text": "\u0000a1\u0000"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "áb"
+        }
+      ],
+      "text": "áb"
+    },
+    {
+      "name": "ascii-triplet",
+      "pattern": "[0-9][0-9][0-9]",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            5
+          ],
+          "value": "   \r\n"
+        }
+      ],
+      "text": "   \r\n"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [],
+      "text": ""
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "abc"
+        }
+      ],
+      "text": "abc"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            1,
+            2
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "4"
+        },
+        {
+          "offsets": [
+            4,
+            5
+          ],
+          "value": "5"
+        },
+        {
+          "offsets": [
+            5,
+            6
+          ],
+          "value": "6"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "7"
+        }
+      ],
+      "text": "1234567"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "α"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            4,
+            7
+          ],
+          "value": "猫"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            8,
+            9
+          ],
+          "value": "z"
+        }
+      ],
+      "text": "α12猫3z"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            1,
+            7
+          ],
+          "value": " hello"
+        },
+        {
+          "offsets": [
+            7,
+            13
+          ],
+          "value": " world"
+        },
+        {
+          "offsets": [
+            13,
+            15
+          ],
+          "value": "  "
+        }
+      ],
+      "text": "  hello world  "
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "I"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": "'m"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": " WE"
+        },
+        {
+          "offsets": [
+            6,
+            9
+          ],
+          "value": "'RE"
+        },
+        {
+          "offsets": [
+            9,
+            12
+          ],
+          "value": " he"
+        },
+        {
+          "offsets": [
+            12,
+            15
+          ],
+          "value": "'ll"
+        }
+      ],
+      "text": "I'm WE'RE he'll"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "e"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": "́"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": " é"
+        }
+      ],
+      "text": "é é"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            12
+          ],
+          "value": "Привет"
+        },
+        {
+          "offsets": [
+            12,
+            13
+          ],
+          "value": ","
+        },
+        {
+          "offsets": [
+            13,
+            20
+          ],
+          "value": " мир"
+        },
+        {
+          "offsets": [
+            20,
+            21
+          ],
+          "value": "!"
+        }
+      ],
+      "text": "Привет, мир!"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            6
+          ],
+          "value": "الع"
+        },
+        {
+          "offsets": [
+            6,
+            10
+          ],
+          "value": "َر"
+        },
+        {
+          "offsets": [
+            10,
+            14
+          ],
+          "value": "َب"
+        },
+        {
+          "offsets": [
+            14,
+            18
+          ],
+          "value": "ِي"
+        },
+        {
+          "offsets": [
+            18,
+            22
+          ],
+          "value": "َّ"
+        },
+        {
+          "offsets": [
+            22,
+            24
+          ],
+          "value": "ة"
+        },
+        {
+          "offsets": [
+            24,
+            25
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            25,
+            27
+          ],
+          "value": "١"
+        },
+        {
+          "offsets": [
+            27,
+            29
+          ],
+          "value": "٢"
+        },
+        {
+          "offsets": [
+            29,
+            31
+          ],
+          "value": "٣"
+        }
+      ],
+      "text": "العَرَبِيَّة ١٢٣"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            9
+          ],
+          "value": "日本語"
+        },
+        {
+          "offsets": [
+            9,
+            18
+          ],
+          "value": "。中文"
+        },
+        {
+          "offsets": [
+            18,
+            21
+          ],
+          "value": "！"
+        }
+      ],
+      "text": "日本語。中文！"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "x"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": "\r\n"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            4,
+            6
+          ],
+          "value": " y"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "\n"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": "\t"
+        }
+      ],
+      "text": "x\r\n  y\n\t"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "a"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            3,
+            7
+          ],
+          "value": " b"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": " "
+        }
+      ],
+      "text": "a  b "
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            11
+          ],
+          "value": "👩‍💻"
+        },
+        {
+          "offsets": [
+            11,
+            12
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            12,
+            16
+          ],
+          "value": "🙂"
+        }
+      ],
+      "text": "👩‍💻1🙂"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "\u0000a"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "\u0000"
+        }
+      ],
+      "text": "\u0000a1\u0000"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "a"
+        },
+        {
+          "offsets": [
+            1,
+            4
+          ],
+          "value": "́b"
+        }
+      ],
+      "text": "áb"
+    },
+    {
+      "name": "qwen2.5",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            5
+          ],
+          "value": "   \r\n"
+        }
+      ],
+      "text": "   \r\n"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [],
+      "text": ""
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "abc"
+        }
+      ],
+      "text": "abc"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            1,
+            2
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "4"
+        },
+        {
+          "offsets": [
+            4,
+            5
+          ],
+          "value": "5"
+        },
+        {
+          "offsets": [
+            5,
+            6
+          ],
+          "value": "6"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "7"
+        }
+      ],
+      "text": "1234567"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "α"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "2"
+        },
+        {
+          "offsets": [
+            4,
+            7
+          ],
+          "value": "猫"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": "3"
+        },
+        {
+          "offsets": [
+            8,
+            9
+          ],
+          "value": "z"
+        }
+      ],
+      "text": "α12猫3z"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            1,
+            7
+          ],
+          "value": " hello"
+        },
+        {
+          "offsets": [
+            7,
+            13
+          ],
+          "value": " world"
+        },
+        {
+          "offsets": [
+            13,
+            15
+          ],
+          "value": "  "
+        }
+      ],
+      "text": "  hello world  "
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "I"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": "'m"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": " WE"
+        },
+        {
+          "offsets": [
+            6,
+            9
+          ],
+          "value": "'RE"
+        },
+        {
+          "offsets": [
+            9,
+            12
+          ],
+          "value": " he"
+        },
+        {
+          "offsets": [
+            12,
+            15
+          ],
+          "value": "'ll"
+        }
+      ],
+      "text": "I'm WE'RE he'll"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "é"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": " é"
+        }
+      ],
+      "text": "é é"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            12
+          ],
+          "value": "Привет"
+        },
+        {
+          "offsets": [
+            12,
+            13
+          ],
+          "value": ","
+        },
+        {
+          "offsets": [
+            13,
+            20
+          ],
+          "value": " мир"
+        },
+        {
+          "offsets": [
+            20,
+            21
+          ],
+          "value": "!"
+        }
+      ],
+      "text": "Привет, мир!"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            24
+          ],
+          "value": "العَرَبِيَّة"
+        },
+        {
+          "offsets": [
+            24,
+            25
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            25,
+            27
+          ],
+          "value": "١"
+        },
+        {
+          "offsets": [
+            27,
+            29
+          ],
+          "value": "٢"
+        },
+        {
+          "offsets": [
+            29,
+            31
+          ],
+          "value": "٣"
+        }
+      ],
+      "text": "العَرَبِيَّة ١٢٣"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            9
+          ],
+          "value": "日本語"
+        },
+        {
+          "offsets": [
+            9,
+            18
+          ],
+          "value": "。中文"
+        },
+        {
+          "offsets": [
+            18,
+            21
+          ],
+          "value": "！"
+        }
+      ],
+      "text": "日本語。中文！"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "x"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": "\r\n"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            4,
+            6
+          ],
+          "value": " y"
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "\n"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": "\t"
+        }
+      ],
+      "text": "x\r\n  y\n\t"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "a"
+        },
+        {
+          "offsets": [
+            1,
+            3
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            3,
+            7
+          ],
+          "value": " b"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": " "
+        }
+      ],
+      "text": "a  b "
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            11
+          ],
+          "value": "👩‍💻"
+        },
+        {
+          "offsets": [
+            11,
+            12
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            12,
+            16
+          ],
+          "value": "🙂"
+        }
+      ],
+      "text": "👩‍💻1🙂"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            2
+          ],
+          "value": "\u0000a"
+        },
+        {
+          "offsets": [
+            2,
+            3
+          ],
+          "value": "1"
+        },
+        {
+          "offsets": [
+            3,
+            4
+          ],
+          "value": "\u0000"
+        }
+      ],
+      "text": "\u0000a1\u0000"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "áb"
+        }
+      ],
+      "text": "áb"
+    },
+    {
+      "name": "qwen3.8",
+      "pattern": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?[\\p{L}\\p{M}]+|\\p{N}| ?[^\\s\\p{L}\\p{M}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            5
+          ],
+          "value": "   \r\n"
+        }
+      ],
+      "text": "   \r\n"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [],
+      "text": ""
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "abc"
+        }
+      ],
+      "text": "abc"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            7
+          ],
+          "value": "1234567"
+        }
+      ],
+      "text": "1234567"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            9
+          ],
+          "value": "α12猫3z"
+        }
+      ],
+      "text": "α12猫3z"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": " "
+        },
+        {
+          "offsets": [
+            1,
+            7
+          ],
+          "value": " hello"
+        },
+        {
+          "offsets": [
+            7,
+            13
+          ],
+          "value": " world"
+        },
+        {
+          "offsets": [
+            13,
+            15
+          ],
+          "value": "  "
+        }
+      ],
+      "text": "  hello world  "
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "I'm"
+        },
+        {
+          "offsets": [
+            3,
+            9
+          ],
+          "value": " WE'RE"
+        },
+        {
+          "offsets": [
+            9,
+            15
+          ],
+          "value": " he'll"
+        }
+      ],
+      "text": "I'm WE'RE he'll"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            3
+          ],
+          "value": "é"
+        },
+        {
+          "offsets": [
+            3,
+            6
+          ],
+          "value": " é"
+        }
+      ],
+      "text": "é é"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            12
+          ],
+          "value": "Привет"
+        },
+        {
+          "offsets": [
+            12,
+            13
+          ],
+          "value": ","
+        },
+        {
+          "offsets": [
+            13,
+            20
+          ],
+          "value": " мир"
+        },
+        {
+          "offsets": [
+            20,
+            21
+          ],
+          "value": "!"
+        }
+      ],
+      "text": "Привет, мир!"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            24
+          ],
+          "value": "العَرَبِيَّة"
+        },
+        {
+          "offsets": [
+            24,
+            31
+          ],
+          "value": " ١٢٣"
+        }
+      ],
+      "text": "العَرَبِيَّة ١٢٣"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            9
+          ],
+          "value": "日本語"
+        },
+        {
+          "offsets": [
+            9,
+            12
+          ],
+          "value": "。"
+        },
+        {
+          "offsets": [
+            12,
+            21
+          ],
+          "value": "中文！"
+        }
+      ],
+      "text": "日本語。中文！"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "x"
+        },
+        {
+          "offsets": [
+            1,
+            4
+          ],
+          "value": "\r\n "
+        },
+        {
+          "offsets": [
+            4,
+            6
+          ],
+          "value": " y"
+        },
+        {
+          "offsets": [
+            6,
+            8
+          ],
+          "value": "\n\t"
+        }
+      ],
+      "text": "x\r\n  y\n\t"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            1
+          ],
+          "value": "a"
+        },
+        {
+          "offsets": [
+            1,
+            6
+          ],
+          "value": "  "
+        },
+        {
+          "offsets": [
+            6,
+            7
+          ],
+          "value": "b"
+        },
+        {
+          "offsets": [
+            7,
+            8
+          ],
+          "value": " "
+        }
+      ],
+      "text": "a  b "
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            16
+          ],
+          "value": "👩‍💻1🙂"
+        }
+      ],
+      "text": "👩‍💻1🙂"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "\u0000a1\u0000"
+        }
+      ],
+      "text": "\u0000a1\u0000"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            4
+          ],
+          "value": "áb"
+        }
+      ],
+      "text": "áb"
+    },
+    {
+      "name": "bloom",
+      "pattern": " ?[^(\\s|[.,!?…。，、।۔،])]+",
+      "pieces": [
+        {
+          "offsets": [
+            0,
+            5
+          ],
+          "value": "   \r\n"
+        }
+      ],
+      "text": "   \r\n"
+    }
+  ],
+  "invert": false,
+  "normalization": false,
+  "offsets": "byte",
+  "rust_toolchain": "1.98.1",
+  "sources": [
+    {
+      "path": "testdata/qwen2.5/tokenizer.json",
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    {
+      "path": "testdata/qwen3.8/tokenizer.json",
+      "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3"
+    },
+    {
+      "path": "testdata/bloom/tokenizer.json",
+      "sha256": "3fa39cd4b1500feb205bcce3b9703a4373414cafe4970e0657b413f7ddd2a9d3"
+    }
+  ],
+  "tokenizers_version": "0.23.2"
+}

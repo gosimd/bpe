@@ -65,6 +65,18 @@ and validates the expected pipeline configuration. Other full Go pipelines
 need an explicit implementation and correctness gate, not a new label. This
 test tooling does not add a public `tokenizer.json` loader.
 
+Full Qwen tokenization is not a project goal. These models provide large
+merge lists and interesting pre-tokenization configurations. NFC and all
+other runtime normalization are out of scope. For dedicated pre-tokenization
+comparisons we will prepare NFC-normalized Qwen text outside both libraries'
+timed regions, then compare the same prepared input and prepared-text byte
+offsets. Record source/prepared hashes, preparation settings, HF version and
+record boundaries. Do not introduce normalization into the Go pipeline or
+claim original-text offsets after external normalization. Existing model-only
+cases still use HF-prepared pieces; existing HF full-pipeline measurements
+keep their original scope and metadata. The prepared-text comparison is not
+yet implemented by this policy change.
+
 | Suite model | Pinned tokenizer source | BPE vocab / merges | Go operations |
 | --- | --- | ---: | --- |
 | gpt2 | openai-community/gpt2 | 50,257 / 50,000 | All five |

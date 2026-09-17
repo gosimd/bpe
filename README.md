@@ -31,14 +31,14 @@ this package is for deterministic inference rather than research workflows.
 
 Hugging Face Tokenizers is a pipeline: normalization, pre-tokenization, the BPE
 model, post-processing, and decoding are distinct stages. The initial scope is
-the **BPE model stage** plus a narrow raw-text facade for the standard GPT-2
-ByteLevel pre-tokenizer.
+the **BPE model stage** plus a narrow raw-text ByteLevel facade with GPT-2 or
+explicit regexp splitting.
 
 The following are not goals of the current implementation:
 
 - training a BPE vocabulary;
 - a complete `tokenizer.json` pipeline runtime;
-- normalizers, arbitrary pre-tokenizers or post-processors, processor
+- text normalization (including NFC/NFKC), arbitrary pre-tokenizers or post-processors, processor
   composition, or decoders;
 - network access or model downloads;
 - silently emulating unsupported Hugging Face options.
@@ -46,6 +46,16 @@ The following are not goals of the current implementation:
 Additional pipeline components may be added later through explicit facade
 configuration or integrations. They must not be folded into the BPE merge
 kernel.
+
+**Text normalization is out of scope for the project, not deferred work.**
+Full Qwen tokenizer compatibility is not a project goal. Qwen vocabularies
+and merge lists are representative large BPE workloads with interesting
+pre-tokenization configurations, not a commitment to reproduce their complete
+pipelines. For dedicated Qwen pre-tokenization tests, we will prepare
+NFC-normalized text outside the library and benchmark timers. HF and Go will
+receive the same prepared text; offsets will refer to that text, not to the
+original pre-normalization input. Existing fixtures/results are not relabeled
+as measurements of this future prepared-text workflow.
 
 ## Design
 
@@ -64,7 +74,7 @@ The public API has two layers:
 
 - `Model` loads or compiles `vocab.json` and `merges.txt`, then tokenizes one
   pre-tokenized piece. See [docs/Model.md](docs/Model.md).
-- `Tokenizer` performs standard GPT-2 ByteLevel splitting and byte mapping
+- `Tokenizer` performs GPT-2 splitting (or configured regexp splitting) and ByteLevel mapping
   before delegating each piece to `Model`, then optionally applies
   TemplateProcessing or ByteLevel offset trimming. See
   [docs/Tokenizer.md](docs/Tokenizer.md).
@@ -73,7 +83,7 @@ The public API has two layers:
 ByteLevel pre-tokenization. `TokenizerOptions.PostProcessor` selects one
 supported immutable post-processor; see
 [docs/PostProcessors.md](docs/PostProcessors.md). The configurable tokenizer
-facade may later add normalizers and model-specific pre-tokenization.
+facade supports `TokenizerOptions.PreTokenizer`, but not normalization.
 
 ## Compatibility testing
 
@@ -128,6 +138,17 @@ on HF-prepared pieces; full Go pipeline measurements currently require the
 GPT-2 preset. Corpus conversion and full-corpus oracles remain local and ignored.
 
 ## Development status
+
+[`RegexpPreTokenizer`](docs/RegexpPreTokenizer.md) adapts
+`gosimd/pretok v0.1.0` for regexp-based boundary detection. Compile once with
+`NewRegexpPreTokenizer`, then call `Split(text, dst)` to obtain reusable
+`bpe.Offset` ranges, including unmatched gaps. Unsupported patterns fall back
+to Go `regexp` without rewriting; this is not general HF regexp compatibility.
+Set `TokenizerOptions.PreTokenizer` to use regexp → ByteLevel(`use_regex=false`)
+in `Encode`, pair encoding and `AppendIDs`; nil keeps GPT-2 splitting. Compact
+HF 0.23.2 fixtures cover the adapter and this integration. The model catalogue
+remains model-only outside the validated GPT-2 preset; no full Qwen claim or
+normalization is added.
 
 The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
 TemplateProcessing, and ByteLevel offset post-processing are implemented and

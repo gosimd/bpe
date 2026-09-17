@@ -13,6 +13,13 @@ WORKLOAD_DIR ?= testdata/generated/model-workload
 
 HF_REFERENCE_MANIFEST := tools/hf-reference/Cargo.toml
 
+.PHONY: generate-regexp-fixtures
+generate-regexp-fixtures:
+	$(CARGO) run --locked --release --manifest-path $(HF_REFERENCE_MANIFEST) \
+		--example regexp -- testdata/hf_regexp_v0.23.2.json
+	$(CARGO) run --locked --release --manifest-path $(HF_REFERENCE_MANIFEST) \
+		--example regexp_pipeline -- testdata/hf_regexp_pipeline_v0.23.2.json
+
 .PHONY: benchmark-go-reference generate-fixtures test-reference
 generate-fixtures: generate-suite-fixtures
 

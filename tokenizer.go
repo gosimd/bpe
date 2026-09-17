@@ -5,6 +5,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/gosimd/bpe/internal/addedtoken"
+	"github.com/gosimd/bpe/internal/pretokenize"
 	internaltokenizer "github.com/gosimd/bpe/internal/tokenizer"
 )
 
@@ -14,6 +15,13 @@ type TokenizerOptions struct {
 	// add_prefix_space option. NewTokenizer uses true, matching the Hugging
 	// Face ByteLevel default. NewTokenizerWithOptions permits false.
 	AddPrefixSpace bool
+
+	// PreTokenizer optionally replaces GPT-2 regex splitting. Its isolated
+	// matches and unmatched gaps pass through ByteLevel with use_regex=false;
+	// AddPrefixSpace applies separately to each piece. Nil keeps GPT-2 behavior.
+	// Construct it with NewRegexpPreTokenizer. The compiled state is immutable
+	// and shared, not copied; dependency types remain internal.
+	PreTokenizer *RegexpPreTokenizer
 
 	// AddedTokens are immutable definitions matched before ByteLevel and BPE.
 	// The constructor validates and copies the slice.
@@ -25,7 +33,8 @@ type TokenizerOptions struct {
 }
 
 // Tokenizer extracts configured AddedTokens, then tokenizes remaining raw
-// UTF-8 input with the GPT-2 ByteLevel pre-tokenizer and an immutable BPE Model.
+// UTF-8 input with ByteLevel and an immutable BPE Model. The default splitter
+// is GPT-2; TokenizerOptions.PreTokenizer selects regexp splitting instead.
 //
 // It is safe for concurrent use. This API intentionally does not load
 // tokenizer.json or implement normalizers, padding, truncation, or decoding.
@@ -39,11 +48,18 @@ func NewTokenizer(model *Model) (*Tokenizer, error) {
 	return NewTokenizerWithOptions(model, TokenizerOptions{AddPrefixSpace: true})
 }
 
-// NewTokenizerWithOptions constructs a GPT-2 ByteLevel tokenizer with explicit
+// NewTokenizerWithOptions constructs a ByteLevel tokenizer with explicit
 // pre-tokenizer options.
 func NewTokenizerWithOptions(model *Model, options TokenizerOptions) (*Tokenizer, error) {
 	if model == nil || model.impl == nil {
 		return nil, ErrNilModel
+	}
+	var splitter *pretokenize.Regexp
+	if options.PreTokenizer != nil {
+		if options.PreTokenizer.impl == nil {
+			return nil, ErrUninitializedPreTokenizer
+		}
+		splitter = options.PreTokenizer.impl
 	}
 	definitions, err := validateAddedTokens(model, options.AddedTokens)
 	if err != nil {
@@ -53,7 +69,7 @@ func NewTokenizerWithOptions(model *Model, options TokenizerOptions) (*Tokenizer
 	if err != nil {
 		return nil, err
 	}
-	return &Tokenizer{impl: internaltokenizer.New(model.impl, options.AddPrefixSpace, definitions, processor)}, nil
+	return &Tokenizer{impl: internaltokenizer.New(model.impl, options.AddPrefixSpace, definitions, processor, splitter)}, nil
 }
 
 func validateAddedTokens(model *Model, tokens []AddedToken) ([]addedtoken.Definition, error) {
@@ -126,7 +142,10 @@ func (t *Tokenizer) encode(first, second string, pair, addSpecialTokens bool) (E
 	if !utf8.ValidString(first) || pair && !utf8.ValidString(second) {
 		return Encoding{}, ErrInvalidUTF8
 	}
-	result := t.impl.Encode(first, second, pair, addSpecialTokens)
+	result, err := t.impl.Encode(first, second, pair, addSpecialTokens)
+	if err != nil {
+		return Encoding{}, err
+	}
 	encoding := Encoding{
 		IDs:               make([]uint32, len(result)),
 		TypeIDs:           make([]uint32, len(result)),
@@ -163,5 +182,5 @@ func (t *Tokenizer) AppendIDsWithOptions(dst []uint32, text string, options Enco
 	if !utf8.ValidString(text) {
 		return dst, ErrInvalidUTF8
 	}
-	return t.impl.AppendIDs(dst, text, options.AddSpecialTokens), nil
+	return t.impl.AppendIDs(dst, text, options.AddSpecialTokens)
 }

@@ -3,7 +3,26 @@ package bytelevel
 import (
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
+
+// Native HF cases in hf_regexp_pipeline_v0.23.2.json exercise this through
+// public Tokenizer. Check the inserted symbol and every byte of its first rune.
+func TestMapWithPrefixSpaceAlignment(t *testing.T) {
+	for _, text := range []string{"a", "猫", "\u0301", "🙂"} {
+		mapped := MapWithPrefixSpace(text)
+		_, size := utf8.DecodeRuneInString(text)
+		if mapped.Text != string(AppendMap(nil, " "+text)) {
+			t.Fatal("wrong mapped text")
+		}
+		for i := range len(mapped.Text) {
+			start, end := mapped.RawRange(i, i+1)
+			if start != 0 || end != size {
+				t.Fatalf("%q byte %d: [%d,%d), want [0,%d)", text, i, start, end, size)
+			}
+		}
+	}
+}
 
 func TestSplitMatchesGPT2Pattern(t *testing.T) {
 	tests := []struct {

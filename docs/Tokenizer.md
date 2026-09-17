@@ -1,11 +1,15 @@
 # Tokenizer
 
 `bpe.Tokenizer` is the raw-text inference facade over `bpe.Model`. It supports
-AddedToken matching, followed by the standard GPT-2 ByteLevel pre-tokenizer,
+AddedToken matching, followed by a configurable ByteLevel pre-tokenizer,
 the deterministic BPE model, and an optional supported post-processor.
 
 It is intentionally a small, immutable inference API. It is not a general
 Hugging Face pipeline runtime and it does not load `tokenizer.json` yet.
+
+[RegexpPreTokenizer](RegexpPreTokenizer.md) can replace GPT-2 splitting through
+`TokenizerOptions.PreTokenizer`. It prefers `gosimd/pretok`, with Go `regexp`
+fallback only for unsupported patterns. A nil option preserves GPT-2 splitting.
 
 ## Constructing a tokenizer
 
@@ -42,6 +46,13 @@ tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
 ```
 
 The model and tokenizer are immutable and safe to share between goroutines.
+
+For regexp splitting, construct `splitter` with `NewRegexpPreTokenizer(pattern)`
+and pass `PreTokenizer: splitter`. Both `Encode` and `AppendIDs` then use
+AddedTokens → regexp → ByteLevel(`use_regex=false`) → BPE → post-processing.
+No second GPT-2 split is applied. `AddPrefixSpace` acts separately on each regexp
+piece; see [the integration contract](RegexpPreTokenizer.md#tokenizer-integration).
+Zero-value non-nil splitters are rejected during construction.
 
 ## Added tokens
 
@@ -82,13 +93,14 @@ mask := bpe.AddedToken{
   including letters, marks, decimal digits, connector punctuation, and join
   controls.
 - `LStrip` and `RStrip` absorb all adjacent Unicode whitespace into the added
-  token. Its returned offset includes the absorbed whitespace.
+  token. Its token string and initial offset include that whitespace; a
+  configured ByteLevel post-processor may then trim the offset.
 - Matching is leftmost-longest. Non-normalized tokens are extracted first;
   normalized tokens are then extracted from the remaining spans.
 - `Special` is retained for compatibility and future decoding. It does not
   disable recognition during `Encode`.
 
-There is no configurable normalizer yet. Therefore a token with
+Normalization, including NFC/NFKC, is outside the project scope. A token with
 `Normalized: true` is matched against unchanged input during the normalized
 phase. This is the Hugging Face behavior when its tokenizer has no normalizer;
 case folding, NFC/NFKC, and other transformations are not implied.
@@ -162,7 +174,8 @@ and validation.
 
 ## ByteLevel behavior
 
-The tokenizer applies the standard Hugging Face ByteLevel/GPT-2 split pattern:
+With a nil `PreTokenizer`, the tokenizer applies the standard Hugging Face
+ByteLevel/GPT-2 split pattern:
 
 ```text
 's|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+
@@ -188,7 +201,9 @@ When prefix space is enabled, the tokenizer inserts one synthetic ASCII space
 before each ordinary span that does not already begin with an ASCII space. An
 AddedToken divides the input into separate spans, matching Hugging Face's
 pre-tokenizer pipeline. Each synthetic byte has a zero-width source span: it
-never moves offsets beyond the original input.
+never moves offsets beyond the original input. With `RegexpPreTokenizer`,
+prefix insertion instead follows HF's per-piece alignment to the first source
+scalar; a standalone prefix-space token can overlap that scalar's token offsets.
 
 ## Scope and compatibility
 
@@ -200,13 +215,19 @@ reproducible differential fixtures generated with Hugging Face Tokenizers
 release-level conformance claim. The following are deliberately not supported:
 
 - `tokenizer.json` parsing;
-- configurable normalizers;
-- custom `Split` sequences, including Qwen's configured pre-tokenization
-  regex;
+- normalizers (outside the project scope, not a planned feature);
+- arbitrary pre-tokenizer sequences and HF Split modes other than isolated,
+  non-inverted regexp splitting followed by ByteLevel;
 - arbitrary post-processors or processor composition, padding, and truncation;
 - decoders and BPE dropout.
 
-In particular, Qwen-style pre-tokenization must not be approximated with Go
-RE2: its configured pattern relies on semantics such as negative lookahead.
-It will be added as a separate mode only with pinned Hugging Face differential
-fixtures for both pieces and offsets.
+Registered Qwen expressions run through `pretok`; unsupported expressions fall
+back to Go regexp without rewriting. Go syntax/Unicode semantics are not a
+general HF substitute; unsupported lookaround still fails construction. The
+regexp integration has pinned HF fixtures for pieces, IDs and offsets, but
+this is not full Qwen tokenizer compatibility, which is not a goal: these
+assets supply large BPE merge lists and interesting pre-tokenization options.
+Dedicated tests will use NFC-normalized text prepared outside the library and
+timed regions. HF and Go must receive identical prepared text, and offsets
+refer to that text. No runtime normalization or mapping back to the original
+pre-normalization input is promised.

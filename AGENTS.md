@@ -45,8 +45,20 @@ it checks that the generated methods match current production source and
 verifies their output against production and HF. No tracing enters the library
 or timed benchmarks. Regenerate with `go run ./tools/workload-instrument` after
 intentional changes to the copied merge methods.
-`tokenizer.json` loading, normalizers, model-specific pre-tokenizers such as
-Qwen, arbitrary processor composition, broader pipeline fixtures, caches,
+Normalization, including NFC/NFKC, is outside the project scope, not a pending
+feature. Full Qwen tokenizer compatibility is not a goal. Qwen assets are
+large vocabulary/merge-list workloads with useful pre-tokenization options.
+Do not add runtime normalizers or normalization/alignment APIs as part of
+regexp integration. For dedicated Qwen pre-tokenization tests, prepare NFC
+text outside the library and timing, then feed identical prepared text to HF
+and Go. Offsets refer to the prepared text; mapping them back to the original
+pre-normalization input is not a library responsibility. Record source and
+prepared hashes, preparation configuration, reference version and record
+boundaries. Do not claim that this preparation is already implemented or
+rewrite historical benchmark metadata to imply it.
+
+`tokenizer.json` loading, complete model-specific pipelines such as
+Qwen, arbitrary processor composition, caches,
 and SIMD are not implemented yet. Qwen2.5 (151,643 BPE entries),
 Qwen3.8-Flash-Next (248,044 BPE entries) and BLOOM
 (250,680 BPE entries) are registered as model-only benchmarks, with exact
@@ -55,6 +67,23 @@ multiple model/corpus entries and
 includes vendored English, Russian, Arabic, Japanese and Chinese text pools
 with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
 full Go stages currently require the validated GPT-2 preset.
+
+`RegexpPreTokenizer` is a facade over `internal/pretokenize`, adapting the public
+`gosimd/pretok v0.1.0` API. It compiles once, falling back to standard Go `regexp`
+only on `pretok.ErrUnsupportedPattern`; never rewrite unsupported syntax or
+silently approximate lookaround. Fallback uses Go semantics, not a universal HF
+regexp contract. It returns BPE-owned byte offsets for isolated matches and gaps;
+empty matches create boundaries, never empty pieces. Standalone Split performs
+no normalization or ByteLevel transformation. `TokenizerOptions.PreTokenizer`
+connects AddedTokens -> regexp -> ByteLevel(use_regex=false) -> BPE -> supported
+post-processing for Encode, pairs and AppendIDs. Prefix space is per regexp
+piece and aligns with its first original scalar. Nil preserves GPT-2 splitting;
+a non-nil uninitialized wrapper is rejected at construction. Keep dependency
+types internal and recheck semantics when a dependency update moves a pattern
+from fallback to pretok. Compact HF 0.23.2 boundary and integration fixtures
+(including stripped AddedToken values and ByteLevel trimming) are regenerated with
+`make generate-regexp-fixtures`; ordinary Go tests never execute Rust.
+Check dependency updates with `GOWORK=off` and no local `replace`.
 
 `Model.Tokenize` uses a direct two-symbol path, a scalar current-pair array
 for up to 32 initial symbols when merge ranks fit its packed priority, and
