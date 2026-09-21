@@ -4,7 +4,7 @@ SIMD-accelerated Byte-Pair Encoding for Go, designed for semantic compatibility
 with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 
 > [!IMPORTANT]
-> `Model` and the GPT-2 ByteLevel `Tokenizer` API are available for
+> `Model` and the configurable `Tokenizer` API are available for
 > deterministic inference, including AddedTokens, TemplateProcessing, and
 > ByteLevel offset post-processing. A complete arbitrary `tokenizer.json`
 > pipeline is not implemented; the JSON loader supports the encoding subset described below.
@@ -83,7 +83,8 @@ ByteLevel pre-tokenization. `TokenizerOptions.PostProcessor` selects one
 supported immutable post-processor; see
 [docs/PostProcessors.md](docs/PostProcessors.md). `OpenTokenizer(path)` and
 `ParseTokenizer(data)` load the supported `tokenizer.json` encoding subset;
-`NewTokenizer` retains the manually configured GPT-2 ByteLevel preset.
+`NewTokenizer` constructs a ByteLevel pipeline with `use_regex=true` and
+`add_prefix_space=true`.
 Pre-tokenizer JSON is delegated to pretok, without a separate public BPE
 pre-tokenizer interface. Normalization remains out of scope.
 
@@ -136,8 +137,9 @@ Russian, Arabic, Japanese and Chinese
 [text pools](testdata/corpora/text/README.md), using exact 4 KiB request
 boundaries. `make benchmark-hf-suite` measures the same selected inputs with
 HF 0.23.2. Qwen2.5, Qwen3.8 and BLOOM use model-only measurements
-on HF-prepared pieces; full Go pipeline measurements currently require the
-GPT-2 preset. Corpus conversion and full-corpus oracles remain local and ignored.
+on HF-prepared pieces; the catalogue currently enables full Go pipeline
+measurements only for GPT-2. This is benchmark coverage, not a model restriction
+in the library. Corpus conversion and full-corpus oracles remain local and ignored.
 
 ## Development status
 
@@ -154,10 +156,10 @@ components are rejected. Metaspace `first` with AddedTokens is explicitly
 rejected until segment context can be preserved. Decoder metadata is accepted
 but never executed. See [the loader contract](docs/Tokenizer.md#loading-tokenizerjson).
 AddedTokens, BPE and post-processing remain in BPE.
-The model catalogue remains model-only outside the validated GPT-2 preset;
+The benchmark catalogue remains model-only for Qwen and BLOOM;
 no full Qwen claim or normalization is added.
 
-The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
+The scalar `Model`, AddedToken matcher, configurable `Tokenizer`,
 TemplateProcessing, and ByteLevel offset post-processing are implemented and
 covered by unit, race, fuzz, and pinned Hugging Face 0.23.2 differential tests.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use reusable internal scratch and

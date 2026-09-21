@@ -82,7 +82,7 @@ returns `bpe.ErrInvalidUTF8`; `AppendIDs` leaves its destination unchanged in
 that case.
 
 The methods process exactly one piece. Calling `Tokenize("a")` and then
-`Tokenize("b")` can never apply an `a b` merge. The GPT-2 ByteLevel
+`Tokenize("b")` can never apply an `a b` merge. The
 [`Tokenizer`](Tokenizer.md) facade is responsible for producing its pieces
 from raw text.
 

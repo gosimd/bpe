@@ -95,7 +95,7 @@ func parseModelOptions(data []byte, pipeline string) (model.Options, error) {
 		return model.Options{}, err
 	}
 	m := config.Model
-	// Older GPT-2 JSON uses the untagged BPE representation.
+	// Legacy tokenizer JSON may use the untagged BPE representation.
 	if (m.Type != "BPE" && m.Type != "") || len(m.Vocab) == 0 || len(m.Merges) == 0 {
 		return model.Options{}, fmt.Errorf("benchmark requires a BPE model with vocab and merges")
 	}

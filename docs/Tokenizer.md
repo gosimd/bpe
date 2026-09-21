@@ -33,14 +33,15 @@ The loader builds BPE from `model`, validates `added_tokens`, compiles
 `post_processor`, and passes the **unmodified raw `pre_tokenizer` value** to
 `pretok.CompileJSON`. Execution is AddedTokens → Pipeline → BPE for each final
 piece → post-processing. Missing or null `pre_tokenizer` means an identity
-pipeline; no ByteLevel mapping or default GPT-2 splitting is inserted. Missing
+pipeline; no implicit ByteLevel mapping or splitting is inserted. Missing
 or null `post_processor` means ordinary sequence assembly without special tokens.
 
 Supported configuration:
 
 - BPE `vocab`, ordered `merges` (legacy string list or modern two-string arrays),
   unknown token, subword prefix, word suffix, unknown fusion, byte fallback and
-  ignored merges. Missing `model.type` is accepted for legacy GPT-2 JSON.
+  ignored merges. Missing `model.type` is accepted for the legacy untagged BPE
+  representation.
   Dropout must be absent, null or zero. IDs retain the full uint32 range.
 - The components and exact regexp strings supported by the pinned pretok
   release, including Sequence, ByteLevel, Split, Whitespace/WhitespaceSplit,
@@ -93,7 +94,7 @@ explicitly with `make generate-tokenizer-fixtures` (pinned Rust and HF 0.23.2).
 Ordinary Go tests never build or run Rust. The GPT-2 corpus suite also loads the
 actual tokenizer JSON and checks all five languages against the saved oracle.
 
-## Constructing the GPT-2 ByteLevel preset manually
+## Constructing a ByteLevel tokenizer manually
 
 Build or load a [`Model`](Model.md), then attach the default ByteLevel
 pre-tokenizer:
@@ -131,7 +132,7 @@ The model and tokenizer are immutable and safe to share between goroutines.
 
 ## Added tokens
 
-Added tokens are recognized in the original input before ByteLevel splitting
+Added tokens are recognized in the original input before pre-tokenization
 and BPE. They are emitted directly as one ID, so their content does not need a
 BPE decomposition:
 
@@ -253,13 +254,13 @@ and validation.
 ## ByteLevel behavior
 
 The manual `NewTokenizer` / `NewTokenizerWithOptions` preset applies the standard Hugging Face
-ByteLevel/GPT-2 split pattern:
+ByteLevel split pattern (`use_regex=true`):
 
 ```text
 's|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+
 ```
 
-Each isolated piece is then mapped byte-for-byte to the GPT-2 visible-Unicode
+Each isolated piece is then mapped byte-for-byte to the ByteLevel visible-Unicode
 alphabet before passing to `Model`. For example, byte `0x20` becomes `Ġ`,
 while `0x00` becomes `Ā`. Consequently, the vocabulary must contain ByteLevel
 token strings, not the original UTF-8 bytes.
@@ -286,8 +287,8 @@ to `pretok v0.2.0` corrects the former default path's zero-width prefix offset;
 
 ## Scope and compatibility
 
-The implementation follows AddedToken extraction, the deterministic BPE model,
-the standard GPT-2 ByteLevel pre-tokenizer, TemplateProcessing, and ByteLevel
+The implementation supports AddedToken extraction, compiled pretok pipelines,
+the deterministic BPE model, TemplateProcessing, and ByteLevel
 post-processing. AddedToken and post-processor results are covered by
 reproducible differential fixtures generated with Hugging Face Tokenizers
 0.23.2. Broader pinned fixtures are still required before making a

@@ -28,8 +28,8 @@ and ordered merges with `tokenizer.json`.
 The BPE model contains **151,643 vocabulary entries and 151,387 merge rules**.
 The JSON also defines 22 added tokens; they are not part of the BPE-only workload.
 HF applies NFC normalization, its configured Split regex, then ByteLevel with
-`use_regex=false`. Do not substitute GPT-2 splitting or raw byte spans. The
-benchmark consumes transformed pieces from the pinned HF 0.23.2 oracle and
+`use_regex=false`. Do not substitute another split configuration or raw byte
+spans. The benchmark consumes transformed pieces from the pinned HF 0.23.2 oracle and
 validates Model IDs and piece-local byte offsets before timing.
 
 Go does not yet implement this complete raw-text pipeline. ModelTokenize and

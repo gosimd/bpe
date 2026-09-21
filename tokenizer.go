@@ -25,7 +25,7 @@ type TokenizerOptions struct {
 }
 
 // Tokenizer extracts configured AddedTokens, then tokenizes remaining raw
-// UTF-8 input with GPT-2 ByteLevel and an immutable BPE Model.
+// UTF-8 input with a compiled pre-tokenizer pipeline and an immutable BPE Model.
 //
 // It is safe for concurrent use. OpenTokenizer and ParseTokenizer load supported
 // tokenizer.json pipelines. Normalization, padding, truncation and decoding
@@ -34,7 +34,7 @@ type Tokenizer struct {
 	impl *internaltokenizer.Tokenizer
 }
 
-// NewTokenizer constructs a GPT-2 ByteLevel tokenizer with Hugging Face's
+// NewTokenizer constructs a ByteLevel tokenizer with Hugging Face's
 // default AddPrefixSpace behavior enabled.
 func NewTokenizer(model *Model) (*Tokenizer, error) {
 	return NewTokenizerWithOptions(model, TokenizerOptions{AddPrefixSpace: true})

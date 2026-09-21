@@ -15,7 +15,7 @@ These instructions apply to the entire repository.
 The module is `github.com/gosimd/bpe` and declares Go 1.27. `Model` compiles or
 loads `vocab.json` and `merges.txt`, then tokenizes one pre-tokenized UTF-8
 piece with the deterministic scalar BPE oracle. `Tokenizer` adds immutable
-AddedToken matching, the standard GPT-2 ByteLevel pre-tokenizer, pair encoding,
+AddedToken matching, a compiled pre-tokenizer pipeline, pair encoding,
 TemplateProcessing, and ByteLevel offset post-processing. AddedToken and
 post-processor behavior have pinned Hugging Face 0.23.2 differential fixtures.
 `Model.AppendIDs` and `Tokenizer.AppendIDs` use concurrency-safe internal
@@ -65,7 +65,8 @@ revisions, licenses and checked asset hashes. The named catalogue supports
 multiple model/corpus entries and
 includes vendored English, Russian, Arabic, Japanese and Chinese text pools
 with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
-full Go stages currently require the validated GPT-2 preset.
+full Go benchmark stages are currently enabled only for the GPT-2 catalogue
+entry. This is benchmark coverage, not a model restriction in the library.
 
 `internal/pretokenize` adapts the public `gosimd/pretok v0.2.0` Pipeline API.
 All pre-tokenization lives in that dependency: splitting, transformations and
@@ -83,7 +84,7 @@ The dependency owns its scratch pool; do not inspect its internal layouts.
 subset of tokenizer.json through `internal/tokenizer`. Model/AddedToken and
 post-processor configuration is validated in BPE; the raw pre_tokenizer field
 is passed unchanged to pretok. Missing/null pre_tokenizer means identity.
-Manual NewTokenizer constructors retain the GPT-2 ByteLevel preset.
+Manual NewTokenizer constructors use ByteLevel with `use_regex=true`.
 Metaspace(first) anywhere in a pipeline with nonempty AddedTokens is rejected:
 v0.2.0 cannot receive the original segment position. Do not remove this guard
 without a dependency contract and HF integration tests preserving context.
@@ -247,8 +248,9 @@ the upstream or intentional contract change in the same commit.
   `make benchmark-suite` explicitly; ordinary Go tests must not invoke Rust.
   Preserve vendored corpus hashes, source/license notices and exact request
   boundaries. New model-only entries must use their own HF-transformed pieces,
-  not GPT-2 pre-tokenization; do not enable full Go stages for unsupported
-  pipelines. Keep generic corpus/catalogue implementation in `internal/benchsuite`.
+  not pieces produced by another tokenizer; do not enable full Go stages for
+  unsupported pipelines. Keep generic corpus/catalogue implementation in
+  `internal/benchsuite`.
 - Do not add a synthetic 400k benchmark model. The tiny existing loader fixture
   is a targeted correctness test, not a representative performance workload.
 - Compare HF BPE only with `Model.Tokenize` and HF full encode only with
@@ -285,6 +287,9 @@ rendered Markdown and state that Go tests were not applicable.
 
 ## Change discipline
 
+- Keep API and implementation documentation model-neutral. Model names belong
+  in specific test/benchmark cases, assets and source provenance; describe
+  pre-tokenization by its configured components and options.
 - Keep public API changes small and deliberate; document ownership, lifetime,
   concurrency, offset units, and error behavior.
 - Keep generated fixtures reproducible. Commit the generator or exact command

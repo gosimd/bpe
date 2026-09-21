@@ -1,7 +1,7 @@
 # Synthetic benchmark loader fixture
 
 Original tiny BPE data under the repository MIT license, not a performance
-workload. It tests a non-GPT-2 model, Lowercase + WhitespaceSplit HF pieces,
+workload. It tests a tiny BPE model, Lowercase + WhitespaceSplit HF pieces,
 unknown-token fusion, ignored merges, empty records and IDs above 65,535.
 It is not a test of a 400k-entry vocabulary: there are four sparse IDs.
 

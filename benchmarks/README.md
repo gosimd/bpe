@@ -195,7 +195,7 @@ in memory and records and pieces retain their original order.
 
 The five cases are:
 
-- `PreTokenizer`: AddedToken matching plus GPT-2 regex splitting and ByteLevel
+- `PreTokenizer`: AddedToken matching plus ByteLevel regex splitting and byte
   mapping, including output construction;
 - `ModelTokenize`: public token/ID/offset output for each prepared BPE piece;
 - `ModelAppendIDs`: ID-only model path with a caller-owned destination reused
