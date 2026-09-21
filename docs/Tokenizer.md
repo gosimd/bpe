@@ -1,17 +1,99 @@
 # Tokenizer
 
 `bpe.Tokenizer` is the raw-text inference facade over `bpe.Model`. It supports
-AddedToken matching, followed by a configurable ByteLevel pre-tokenizer,
+AddedToken matching, followed by a compiled pre-tokenizer pipeline,
 the deterministic BPE model, and an optional supported post-processor.
 
-It is intentionally a small, immutable inference API. It is not a general
-Hugging Face pipeline runtime and it does not load `tokenizer.json` yet.
+It is intentionally a small, immutable inference API. `OpenTokenizer` and
+`ParseTokenizer` load a supported encoding subset of Hugging Face `tokenizer.json`.
 
-[RegexpPreTokenizer](RegexpPreTokenizer.md) can replace GPT-2 splitting through
-`TokenizerOptions.PreTokenizer`. It prefers `gosimd/pretok`, with Go `regexp`
-fallback only for unsupported patterns. A nil option preserves GPT-2 splitting.
+All pre-tokenization runs through
+[`gosimd/pretok v0.2.0` Pipeline](https://github.com/gosimd/pretok/blob/v0.2.0/docs/Pipeline.md).
+The constructor compiles the configuration once; each ordinary AddedToken
+segment is processed when encoding. There is no separate public pre-tokenizer
+interface and no BPE-local scanner or regexp fallback.
 
-## Constructing a tokenizer
+## Loading tokenizer.json
+
+```go
+tokenizer, err := bpe.OpenTokenizer("tokenizer.json")
+if err != nil {
+    return err
+}
+encoding, err := tokenizer.Encode("Hello, world!")
+```
+
+For an in-memory file use `bpe.ParseTokenizer(data)`. Parsing/validation and
+compilation happen at construction, not for each Encode call. The tokenizer
+owns its state: the caller may change or release `data` after construction.
+`OpenTokenizer` reads only the specified local file: no network, weights,
+adjacent `vocab.json`, `merges.txt`, or `tokenizer_config.json` are required.
+
+The loader builds BPE from `model`, validates `added_tokens`, compiles
+`post_processor`, and passes the **unmodified raw `pre_tokenizer` value** to
+`pretok.CompileJSON`. Execution is AddedTokens → Pipeline → BPE for each final
+piece → post-processing. Missing or null `pre_tokenizer` means an identity
+pipeline; no ByteLevel mapping or default GPT-2 splitting is inserted. Missing
+or null `post_processor` means ordinary sequence assembly without special tokens.
+
+Supported configuration:
+
+- BPE `vocab`, ordered `merges` (legacy string list or modern two-string arrays),
+  unknown token, subword prefix, word suffix, unknown fusion, byte fallback and
+  ignored merges. Missing `model.type` is accepted for legacy GPT-2 JSON.
+  Dropout must be absent, null or zero. IDs retain the full uint32 range.
+- The components and exact regexp strings supported by the pinned pretok
+  release, including Sequence, ByteLevel, Split, Whitespace/WhitespaceSplit,
+  Digits, Punctuation, BertPreTokenizer, CharDelimiterSplit, UnicodeScripts
+  and Metaspace, subject to the segment-context restriction below.
+- Serialized AddedTokens with explicit ID, content and all five boolean flags.
+  Duplicate/conflicting tokens are rejected. IDs must agree with HF allocation:
+  existing model tokens keep their IDs; new contents get consecutive IDs starting
+  at model vocabulary size, in serialized order. The loader rejects mismatches
+  instead of silently reassigning inference IDs. The manual constructor's
+  explicit-ID contract is unchanged.
+- ByteLevel and TemplateProcessing post-processors. Templates use the serialized
+  arrays of `Sequence` / `SpecialToken` entries and the `special_tokens` map;
+  identifiers are not round-tripped through string shorthand. Single templates
+  cannot reference B; pair templates must include both A and B.
+
+Limitations and errors:
+
+- Non-null `normalizer`, `padding`, or `truncation` is rejected. In particular,
+  loading an NFC-configured Qwen asset does not silently omit normalization.
+- `Metaspace(prepend_scheme="first")` anywhere in a pipeline combined with
+  nonempty AddedTokens is rejected. HF requires the original segment position;
+  pretok v0.2.0 cannot receive it. Without AddedTokens this configuration is
+  supported. The loader checks this constraint without rewriting the pipeline.
+- Other model/post-processor types, processor composition, nonzero dropout and
+  explicit empty `unk_token` are rejected. Empty `unk_token` is distinct from
+  null in HF but cannot be represented by the existing BPE model options.
+- `decoder` is accepted as unused decoding metadata (null or an object with a
+  nonempty string `type`). Its type/options are not interpreted or validated as
+  a decoder. It has no effect on encoding; no Decode API is provided.
+- Unknown configuration fields outside decoder metadata are rejected, as are
+  duplicate JSON keys, trailing values, invalid UTF-8/unpaired surrogates,
+  incorrectly typed values and nesting beyond 80 levels. pretok additionally
+  enforces its own pipeline limits. A specified `version` must be `"1.0"`.
+
+Parse failures wrap `ErrInvalidTokenizer`; unsupported components/combinations
+also wrap `ErrUnsupportedConfiguration`. Model/AddedToken error causes remain
+available through `errors.Is`. Error text identifies the failing stage.
+File-read errors from `OpenTokenizer` retain their underlying `os` error.
+
+The pinned GPT-2 asset loads unchanged, including its unused decoder metadata.
+The BLOOM asset also passes construction validation; that alone is not a full
+pipeline compatibility claim. Qwen assets with normalizers are rejected;
+their model-only benchmark status is unchanged.
+
+`testdata/hf_tokenizer_json_v0.23.2.json` contains 224 native HF cases across
+28 pipeline configurations, with IDs, strings, byte offsets, type/sequence IDs,
+special-token masks, pairs and special-token enable/disable behavior. Regenerate
+explicitly with `make generate-tokenizer-fixtures` (pinned Rust and HF 0.23.2).
+Ordinary Go tests never build or run Rust. The GPT-2 corpus suite also loads the
+actual tokenizer JSON and checks all five languages against the saved oracle.
+
+## Constructing the GPT-2 ByteLevel preset manually
 
 Build or load a [`Model`](Model.md), then attach the default ByteLevel
 pre-tokenizer:
@@ -46,13 +128,6 @@ tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
 ```
 
 The model and tokenizer are immutable and safe to share between goroutines.
-
-For regexp splitting, construct `splitter` with `NewRegexpPreTokenizer(pattern)`
-and pass `PreTokenizer: splitter`. Both `Encode` and `AppendIDs` then use
-AddedTokens → regexp → ByteLevel(`use_regex=false`) → BPE → post-processing.
-No second GPT-2 split is applied. `AddPrefixSpace` acts separately on each regexp
-piece; see [the integration contract](RegexpPreTokenizer.md#tokenizer-integration).
-Zero-value non-nil splitters are rejected during construction.
 
 ## Added tokens
 
@@ -152,9 +227,12 @@ destination unchanged on that error.
 
 `AppendIDs` is a separate ID-only pipeline. It does not construct offsets,
 token strings, type IDs, or the other parallel slices in `Encoding`. One
-borrowed scratch value is reused for AddedToken segments, ByteLevel pieces,
-byte mapping, BPE symbols, merge candidates, and any temporary template ID
-sequence. Scratch values belong to an internal concurrency-safe pool, so
+borrowed BPE scratch value is reused for AddedToken segments, BPE symbols,
+merge candidates, and any temporary template ID sequence. The compiled
+`pretok.Pipeline` owns its separate pre-tokenization scratch pool. `Encode`
+consumes `Piece.Text()` and `Piece.OriginalRange()` inside `Walk`; `AppendIDs`
+consumes borrowed strings synchronously through `WalkTextUnsafe`, without
+requesting alignment or retaining those strings. Scratch pools are concurrency-safe, so
 simultaneous calls never share mutable buffers. The Go runtime may discard a
 pooled value during garbage collection.
 
@@ -174,7 +252,7 @@ and validation.
 
 ## ByteLevel behavior
 
-With a nil `PreTokenizer`, the tokenizer applies the standard Hugging Face
+The manual `NewTokenizer` / `NewTokenizerWithOptions` preset applies the standard Hugging Face
 ByteLevel/GPT-2 split pattern:
 
 ```text
@@ -200,10 +278,11 @@ must not be assumed to partition the input.
 When prefix space is enabled, the tokenizer inserts one synthetic ASCII space
 before each ordinary span that does not already begin with an ASCII space. An
 AddedToken divides the input into separate spans, matching Hugging Face's
-pre-tokenizer pipeline. Each synthetic byte has a zero-width source span: it
-never moves offsets beyond the original input. With `RegexpPreTokenizer`,
-prefix insertion instead follows HF's per-piece alignment to the first source
-scalar; a standalone prefix-space token can overlap that scalar's token offsets.
+pre-tokenizer pipeline. The synthetic byte aligns with the first original
+Unicode scalar, as in HF: a standalone prefix-space token can overlap that
+scalar's token offsets. The migration
+to `pretok v0.2.0` corrects the former default path's zero-width prefix offset;
+`hf_bytelevel_prefix_v0.23.2.json` records the unmerged-prefix regression cases.
 
 ## Scope and compatibility
 
@@ -214,18 +293,14 @@ reproducible differential fixtures generated with Hugging Face Tokenizers
 0.23.2. Broader pinned fixtures are still required before making a
 release-level conformance claim. The following are deliberately not supported:
 
-- `tokenizer.json` parsing;
 - normalizers (outside the project scope, not a planned feature);
-- arbitrary pre-tokenizer sequences and HF Split modes other than isolated,
-  non-inverted regexp splitting followed by ByteLevel;
+- arbitrary user-supplied Go pre-tokenizer implementations;
+- components unsupported by the pinned pretok release and the segment-context
+  combination described above;
 - arbitrary post-processors or processor composition, padding, and truncation;
 - decoders and BPE dropout.
 
-Registered Qwen expressions run through `pretok`; unsupported expressions fall
-back to Go regexp without rewriting. Go syntax/Unicode semantics are not a
-general HF substitute; unsupported lookaround still fails construction. The
-regexp integration has pinned HF fixtures for pieces, IDs and offsets, but
-this is not full Qwen tokenizer compatibility, which is not a goal: these
+Full Qwen tokenizer compatibility is not a goal: these
 assets supply large BPE merge lists and interesting pre-tokenization options.
 Dedicated tests will use NFC-normalized text prepared outside the library and
 timed regions. HF and Go must receive identical prepared text, and offsets

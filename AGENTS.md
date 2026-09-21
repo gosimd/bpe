@@ -29,7 +29,7 @@ The pinned Rust reference tool generates a local three-level
 oracle—pre-tokenized pieces, per-piece BPE output, and final Encoding—for each
 selected model/corpus and records self-describing upstream benchmarks without
 participating in the Go build. `make test-reference` regenerates ignored oracles
-and checks every selected record against internal ByteLevel, public Model, public
+and checks every selected record against the Pipeline adapter, public Model, public
 Tokenizer, and public AppendIDs behavior. Ordinary `go test` skips the
 full-corpus tests when the opt-in oracle environment is absent. A retained
 historical single-thread Apple M5 baseline measures HF pre-tokenization, uncached BPE,
@@ -57,8 +57,7 @@ prepared hashes, preparation configuration, reference version and record
 boundaries. Do not claim that this preparation is already implemented or
 rewrite historical benchmark metadata to imply it.
 
-`tokenizer.json` loading, complete model-specific pipelines such as
-Qwen, arbitrary processor composition, caches,
+Complete model-specific pipelines such as Qwen, arbitrary processor composition, caches,
 and SIMD are not implemented yet. Qwen2.5 (151,643 BPE entries),
 Qwen3.8-Flash-Next (248,044 BPE entries) and BLOOM
 (250,680 BPE entries) are registered as model-only benchmarks, with exact
@@ -68,22 +67,49 @@ includes vendored English, Russian, Arabic, Japanese and Chinese text pools
 with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
 full Go stages currently require the validated GPT-2 preset.
 
-`RegexpPreTokenizer` is a facade over `internal/pretokenize`, adapting the public
-`gosimd/pretok v0.1.0` API. It compiles once, falling back to standard Go `regexp`
-only on `pretok.ErrUnsupportedPattern`; never rewrite unsupported syntax or
-silently approximate lookaround. Fallback uses Go semantics, not a universal HF
-regexp contract. It returns BPE-owned byte offsets for isolated matches and gaps;
-empty matches create boundaries, never empty pieces. Standalone Split performs
-no normalization or ByteLevel transformation. `TokenizerOptions.PreTokenizer`
-connects AddedTokens -> regexp -> ByteLevel(use_regex=false) -> BPE -> supported
-post-processing for Encode, pairs and AppendIDs. Prefix space is per regexp
-piece and aligns with its first original scalar. Nil preserves GPT-2 splitting;
-a non-nil uninitialized wrapper is rejected at construction. Keep dependency
-types internal and recheck semantics when a dependency update moves a pattern
-from fallback to pretok. Compact HF 0.23.2 boundary and integration fixtures
-(including stripped AddedToken values and ByteLevel trimming) are regenerated with
-`make generate-regexp-fixtures`; ordinary Go tests never execute Rust.
+`internal/pretokenize` adapts the public `gosimd/pretok v0.2.0` Pipeline API.
+All pre-tokenization lives in that dependency: splitting, transformations and
+alignment. The adapter compiles JSON once and contains no scanner, mapping or
+alignment implementation. There is no public regexp pre-tokenizer interface or
+local regexp fallback. The public Tokenizer uses
+AddedTokens -> pretok Pipeline -> BPE -> supported post-processing for Encode,
+pairs and AppendIDs. Prefix space aligns with the first original scalar of each
+ordinary AddedToken segment (the former zero-width prefix offset was corrected
+with an HF fixture). Keep dependency types internal.
+`Encode` consumes `Piece.Text` and `OriginalRange` within `Walk`;
+`AppendIDs` uses `WalkTextUnsafe` synchronously without retaining borrowed strings.
+The dependency owns its scratch pool; do not inspect its internal layouts.
+`OpenTokenizer(path)` and `ParseTokenizer(data)` load the supported encoding
+subset of tokenizer.json through `internal/tokenizer`. Model/AddedToken and
+post-processor configuration is validated in BPE; the raw pre_tokenizer field
+is passed unchanged to pretok. Missing/null pre_tokenizer means identity.
+Manual NewTokenizer constructors retain the GPT-2 ByteLevel preset.
+Metaspace(first) anywhere in a pipeline with nonempty AddedTokens is rejected:
+v0.2.0 cannot receive the original segment position. Do not remove this guard
+without a dependency contract and HF integration tests preserving context.
+Non-null normalizer/padding/truncation, unsupported model/post-processor types,
+nonzero dropout and unknown fields are rejected. Decoder metadata is explicitly
+accepted but not interpreted or executed; there is no Decode API. BPE merges
+accept legacy strings or modern pairs, without reordering or narrowing IDs.
+Serialized AddedToken IDs must match HF assignment (existing model IDs or new
+consecutive IDs from model vocabulary size in entry order). Do not silently
+remap them. Parse errors wrap ErrInvalidTokenizer, unsupported features also
+wrap ErrUnsupportedConfiguration. Strict JSON validation rejects duplicate keys,
+malformed UTF-8, unpaired surrogates and trailing data. Parsing is internal;
+root tokenizer_json.go remains a thin facade. No runtime normalizer is added.
 Check dependency updates with `GOWORK=off` and no local `replace`.
+The 28-case HF 0.23.2 byte-alphabet prefix fixture checks ByteLevel alignment,
+AddedTokens and trimming without hiding a prefix token inside a BPE merge;
+regenerate with `make generate-bytelevel-fixtures`. Ordinary Go tests never
+execute Rust. Fixtures and generators exclusive to the removed regexp facade
+have been removed; shared ByteLevel and full-corpus checks remain.
+The loader has 224 native HF 0.23.2 cases covering 28 pipeline configurations,
+including nested Sequence, source alignment, AddedTokens, pairs, processor
+metadata and special-token toggles. Regenerate explicitly with
+`make generate-tokenizer-fixtures`. GPT-2 corpus tests/benchmarks now construct
+the Tokenizer from the pinned tokenizer.json outside timing. Qwen and BLOOM
+benchmark catalogue entries remain model-only; construction acceptance alone
+does not justify enabling new full-pipeline benchmark cases.
 
 `Model.Tokenize` uses a direct two-symbol path, a scalar current-pair array
 for up to 32 initial symbols when merge ranks fit its packed priority, and

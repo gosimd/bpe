@@ -10,15 +10,21 @@ dependency to the Go package.
 fixtures and measuring the upstream Hugging Face tokenizer implementation. It
 is not a Go package, is never linked through FFI, and is not run by `go test`.
 
-`make generate-regexp-fixtures` explicitly runs `examples/regexp.rs` and
-`examples/regexp_pipeline.rs` with the locked dependencies. Commit their compact
-outputs `testdata/hf_regexp_v0.23.2.json` and
-`testdata/hf_regexp_pipeline_v0.23.2.json`. The latter pins the GPT-2 model hash
-and overrides the pipeline to test isolated regexp splitting followed by
-ByteLevel with `use_regex=false`, without normalization. Its 92 cases cover
-pieces, IDs, tokens, byte offsets, AddedToken strips, prefix spaces, pairs and
-post-processors. They do not establish full Qwen support or universal Go-regexp
-equivalence with HF. See [the adapter contract](../../docs/RegexpPreTokenizer.md).
+`make generate-bytelevel-fixtures` explicitly runs `examples/bytelevel_prefix.rs`
+with the locked dependencies. Commit its compact output,
+`testdata/hf_bytelevel_prefix_v0.23.2.json`: 28 cases using the GPT-2 byte alphabet
+without merges. It checks standalone synthetic-prefix offsets with AddedTokens
+and trimming, with no normalization. These fixtures do not establish full
+Qwen support. See [the Tokenizer contract](../../docs/Tokenizer.md).
+
+`make generate-tokenizer-fixtures` runs `examples/tokenizer_json.rs`. Its
+committed `testdata/hf_tokenizer_json_v0.23.2.json` contains a shared tiny BPE
+model and 224 encodings across 28 pre-tokenizer configurations. It checks the
+JSON loader, identity and transformed pieces, nested sequences, AddedTokens,
+pairs, TemplateProcessing and ByteLevel trimming. Both special-token modes are
+recorded; normalizer, padding and truncation are disabled. Metaspace(first) is
+tested without AddedTokens; the unsupported combination is rejected by Go tests.
+This is bounded integration coverage, not complete model-specific conformance.
 
 The tool loads a local `tokenizer.json`; it contains no Hub or HTTP client. The
 Rust dependency is exactly `tokenizers = "=0.23.2"`, the complete dependency

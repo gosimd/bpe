@@ -13,12 +13,15 @@ WORKLOAD_DIR ?= testdata/generated/model-workload
 
 HF_REFERENCE_MANIFEST := tools/hf-reference/Cargo.toml
 
-.PHONY: generate-regexp-fixtures
-generate-regexp-fixtures:
+.PHONY: generate-tokenizer-fixtures
+generate-tokenizer-fixtures:
 	$(CARGO) run --locked --release --manifest-path $(HF_REFERENCE_MANIFEST) \
-		--example regexp -- testdata/hf_regexp_v0.23.2.json
+		--example tokenizer_json -- testdata/hf_tokenizer_json_v0.23.2.json
+
+.PHONY: generate-bytelevel-fixtures
+generate-bytelevel-fixtures:
 	$(CARGO) run --locked --release --manifest-path $(HF_REFERENCE_MANIFEST) \
-		--example regexp_pipeline -- testdata/hf_regexp_pipeline_v0.23.2.json
+		--example bytelevel_prefix -- testdata/hf_bytelevel_prefix_v0.23.2.json
 
 .PHONY: benchmark-go-reference generate-fixtures test-reference
 generate-fixtures: generate-suite-fixtures
@@ -26,7 +29,7 @@ generate-fixtures: generate-suite-fixtures
 test-reference: generate-fixtures
 	BPE_BENCH_SUITE=$(abspath $(SUITE)) BPE_HF_REPOSITORY=$(CURDIR) \
 	BPE_BENCH_MODELS='$(MODELS)' BPE_BENCH_CORPORA='$(CORPORA)' \
-	$(GO) test -count=1 -run '^TestHFSuite' ./internal/bytelevel .
+	$(GO) test -count=1 -run '^TestHFSuite' ./internal/pretokenize .
 
 benchmark-go-reference: benchmark-suite
 

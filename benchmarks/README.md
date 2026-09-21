@@ -63,7 +63,9 @@ supports that model's normalizer, pre-tokenizer or post-processor. The `gpt2`
 preset additionally enables PreTokenizer, TokenizerEncode and TokenizerAppendIDs
 and validates the expected pipeline configuration. Other full Go pipelines
 need an explicit implementation and correctness gate, not a new label. This
-test tooling does not add a public `tokenizer.json` loader.
+test tooling does not enable new pipeline presets automatically. The GPT-2
+Tokenizer is constructed through the public `OpenTokenizer` JSON loader outside
+timing; model-only cases retain their independent model construction.
 
 Full Qwen tokenization is not a project goal. These models provide large
 merge lists and interesting pre-tokenization configurations. NFC and all
@@ -105,6 +107,13 @@ pre-tokenized values/ranges and final Tokenizer IDs/offsets and AppendIDs IDs.
 Loading, decompression, JSON parsing, compilation and verification are outside
 timers. Each operation is one sequential full-corpus pass, not parallel batch
 tokenization. The meaning of bytes, allocations and API pairs below is unchanged.
+
+PreTokenizer now executes `gosimd/pretok v0.2.0` Pipeline and materializes owned
+piece strings and source ranges, copying callback-borrowed text before retaining
+it. Compilation remains outside timing. TokenizerEncode uses aligned `Walk`;
+TokenizerAppendIDs uses synchronous `WalkTextUnsafe` callbacks. Record the
+resolved dependency version (`GOWORK=off go list -m all`) beside new results;
+historical results measured the former BPE-local scanner and are not relabeled.
 
 ### Retaining results
 

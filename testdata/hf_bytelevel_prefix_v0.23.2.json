@@ -1,0 +1,875 @@
+{
+  "cases": [
+    {
+      "add_prefix_space": false,
+      "ids": [
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "text": "🙂",
+      "tokens": [
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        256,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "text": "<tag>é",
+      "tokens": [
+        "<tag>",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        64,
+        256,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "text": "a<tag>🙂",
+      "tokens": [
+        "a",
+        "<tag>",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        68,
+        136,
+        223
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "e",
+        "Ì",
+        "ģ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        188,
+        64
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "text": "\u0000a",
+      "tokens": [
+        "Ā",
+        "a"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [],
+      "offsets": [],
+      "text": "",
+      "tokens": [],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "text": "🙂",
+      "tokens": [
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        256,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "text": "<tag>é",
+      "tokens": [
+        "<tag>",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        64,
+        256,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "text": "a<tag>🙂",
+      "tokens": [
+        "a",
+        "<tag>",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        68,
+        136,
+        223
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "e",
+        "Ì",
+        "ģ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [
+        188,
+        64
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "text": "\u0000a",
+      "tokens": [
+        "Ā",
+        "a"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": false,
+      "ids": [],
+      "offsets": [],
+      "text": "",
+      "tokens": [],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ġ",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "text": "🙂",
+      "tokens": [
+        "Ġ",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        256,
+        220,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "text": "<tag>é",
+      "tokens": [
+        "<tag>",
+        "Ġ",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        64,
+        256,
+        220,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "text": "a<tag>🙂",
+      "tokens": [
+        "Ġ",
+        "a",
+        "<tag>",
+        "Ġ",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        68,
+        136,
+        223
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ġ",
+        "e",
+        "Ì",
+        "ģ"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        188,
+        64
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "text": "\u0000a",
+      "tokens": [
+        "Ġ",
+        "Ā",
+        "a"
+      ],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [],
+      "offsets": [],
+      "text": "",
+      "tokens": [],
+      "trim_offsets": false
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ġ",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "text": "🙂",
+      "tokens": [
+        "Ġ",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        256,
+        220,
+        127,
+        102
+      ],
+      "offsets": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "text": "<tag>é",
+      "tokens": [
+        "<tag>",
+        "Ġ",
+        "Ã",
+        "©"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        64,
+        256,
+        220,
+        172,
+        253,
+        247,
+        224
+      ],
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "text": "a<tag>🙂",
+      "tokens": [
+        "Ġ",
+        "a",
+        "<tag>",
+        "Ġ",
+        "ð",
+        "Ł",
+        "Ļ",
+        "Ĥ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        68,
+        136,
+        223
+      ],
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "text": "é",
+      "tokens": [
+        "Ġ",
+        "e",
+        "Ì",
+        "ģ"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [
+        220,
+        188,
+        64
+      ],
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "text": "\u0000a",
+      "tokens": [
+        "Ġ",
+        "Ā",
+        "a"
+      ],
+      "trim_offsets": true
+    },
+    {
+      "add_prefix_space": true,
+      "ids": [],
+      "offsets": [],
+      "text": "",
+      "tokens": [],
+      "trim_offsets": true
+    }
+  ],
+  "model": "GPT-2 byte alphabet (IDs < 256), no merges; AddedToken <tag> = 256",
+  "normalization": false,
+  "offsets": "byte",
+  "padding": false,
+  "rust_toolchain": "1.98.1",
+  "source": {
+    "path": "testdata/gpt2/tokenizer.json",
+    "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6"
+  },
+  "tokenizers_version": "0.23.2",
+  "truncation": false
+}

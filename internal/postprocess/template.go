@@ -49,6 +49,44 @@ func NewTemplate(single, pair string, specialTokens []SpecialToken) (*Template, 
 	if err != nil {
 		return nil, fmt.Errorf("pair template: %w", err)
 	}
+	return newTemplate(parsedSingle, parsedPair, specialTokens)
+}
+
+// TemplatePiece represents a serialized template entry without round-tripping
+// identifiers through the string shorthand (identifiers can contain : or $).
+type TemplatePiece struct {
+	SequenceID int // NoSequence for a special token, otherwise 0 or 1.
+	Identifier string
+	TypeID     uint32
+}
+
+func NewTemplatePieces(single, pair []TemplatePiece, specials []SpecialToken) (*Template, error) {
+	convert := func(items []TemplatePiece) ([]piece, error) {
+		out := make([]piece, len(items))
+		for i, item := range items {
+			out[i] = piece{special: item.Identifier, typeID: item.TypeID}
+			if item.SequenceID != NoSequence {
+				if item.SequenceID != 0 && item.SequenceID != 1 {
+					return nil, fmt.Errorf("invalid sequence %d", item.SequenceID)
+				}
+				s := sequence(item.SequenceID)
+				out[i].sequence = &s
+			}
+		}
+		return out, nil
+	}
+	a, err := convert(single)
+	if err != nil {
+		return nil, err
+	}
+	b, err := convert(pair)
+	if err != nil {
+		return nil, err
+	}
+	return newTemplate(a, b, specials)
+}
+
+func newTemplate(parsedSingle, parsedPair []piece, specialTokens []SpecialToken) (*Template, error) {
 	for _, item := range parsedSingle {
 		if item.sequence != nil && *item.sequence == sequenceB {
 			return nil, fmt.Errorf("single template cannot reference sequence B")

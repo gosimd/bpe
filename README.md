@@ -7,14 +7,14 @@ with the BPE model in [Hugging Face Tokenizers][hf-bpe].
 > `Model` and the GPT-2 ByteLevel `Tokenizer` API are available for
 > deterministic inference, including AddedTokens, TemplateProcessing, and
 > ByteLevel offset post-processing. A complete arbitrary `tokenizer.json`
-> pipeline is not implemented yet.
+> pipeline is not implemented; the JSON loader supports the encoding subset described below.
 
 ## Goals
 
 - Produce the same tokens and token IDs as Hugging Face's BPE model for the
   same vocabulary, ordered merge rules, input pieces, and supported options.
-- Load the conventional `vocab.json` and `merges.txt` representation; add the
-  BPE model section of `tokenizer.json` with a future configurable facade.
+- Load conventional `vocab.json` and `merges.txt` model files or a supported
+  BPE encoding pipeline from `tokenizer.json`.
 - Keep a small, idiomatic Go API that does not expose CPU features or SIMD
   implementation details.
 - Use runtime-selected SIMD kernels on supported CPUs and a portable scalar
@@ -31,14 +31,13 @@ this package is for deterministic inference rather than research workflows.
 
 Hugging Face Tokenizers is a pipeline: normalization, pre-tokenization, the BPE
 model, post-processing, and decoding are distinct stages. The initial scope is
-the **BPE model stage** plus a narrow raw-text ByteLevel facade with GPT-2 or
-explicit regexp splitting.
+the **BPE model stage** plus an inference Tokenizer using `gosimd/pretok` pipelines.
 
 The following are not goals of the current implementation:
 
 - training a BPE vocabulary;
 - a complete `tokenizer.json` pipeline runtime;
-- text normalization (including NFC/NFKC), arbitrary pre-tokenizers or post-processors, processor
+- text normalization (including NFC/NFKC), arbitrary user-provided processors, processor
   composition, or decoders;
 - network access or model downloads;
 - silently emulating unsupported Hugging Face options.
@@ -74,7 +73,7 @@ The public API has two layers:
 
 - `Model` loads or compiles `vocab.json` and `merges.txt`, then tokenizes one
   pre-tokenized piece. See [docs/Model.md](docs/Model.md).
-- `Tokenizer` performs GPT-2 splitting (or configured regexp splitting) and ByteLevel mapping
+- `Tokenizer` executes a compiled pre-tokenizer pipeline
   before delegating each piece to `Model`, then optionally applies
   TemplateProcessing or ByteLevel offset trimming. See
   [docs/Tokenizer.md](docs/Tokenizer.md).
@@ -82,8 +81,11 @@ The public API has two layers:
 `TokenizerOptions.AddedTokens` configures immutable AddedToken matching before
 ByteLevel pre-tokenization. `TokenizerOptions.PostProcessor` selects one
 supported immutable post-processor; see
-[docs/PostProcessors.md](docs/PostProcessors.md). The configurable tokenizer
-facade supports `TokenizerOptions.PreTokenizer`, but not normalization.
+[docs/PostProcessors.md](docs/PostProcessors.md). `OpenTokenizer(path)` and
+`ParseTokenizer(data)` load the supported `tokenizer.json` encoding subset;
+`NewTokenizer` retains the manually configured GPT-2 ByteLevel preset.
+Pre-tokenizer JSON is delegated to pretok, without a separate public BPE
+pre-tokenizer interface. Normalization remains out of scope.
 
 ## Compatibility testing
 
@@ -139,16 +141,21 @@ GPT-2 preset. Corpus conversion and full-corpus oracles remain local and ignored
 
 ## Development status
 
-[`RegexpPreTokenizer`](docs/RegexpPreTokenizer.md) adapts
-`gosimd/pretok v0.1.0` for regexp-based boundary detection. Compile once with
-`NewRegexpPreTokenizer`, then call `Split(text, dst)` to obtain reusable
-`bpe.Offset` ranges, including unmatched gaps. Unsupported patterns fall back
-to Go `regexp` without rewriting; this is not general HF regexp compatibility.
-Set `TokenizerOptions.PreTokenizer` to use regexp → ByteLevel(`use_regex=false`)
-in `Encode`, pair encoding and `AppendIDs`; nil keeps GPT-2 splitting. Compact
-HF 0.23.2 fixtures cover the adapter and this integration. The model catalogue
-remains model-only outside the validated GPT-2 preset; no full Qwen claim or
-normalization is added.
+All pre-tokenization belongs to `gosimd/pretok v0.2.0` Pipeline: splitting,
+transformations and source alignment. The pipeline is
+compiled once at Tokenizer construction. `internal/pretokenize` is only an adapter; `Encode` maps
+model offsets through `Piece.OriginalRange`, and `AppendIDs` consumes borrowed
+text during `WalkTextUnsafe` callbacks. See the pinned upstream
+[Pipeline contract](https://github.com/gosimd/pretok/blob/v0.2.0/docs/Pipeline.md).
+The JSON loader passes the original `pre_tokenizer` field to pretok and builds
+the model, AddedTokens and supported post-processor once. `Encode` runs the
+pipeline before BPE. Non-null normalizers, padding/truncation and unsupported
+components are rejected. Metaspace `first` with AddedTokens is explicitly
+rejected until segment context can be preserved. Decoder metadata is accepted
+but never executed. See [the loader contract](docs/Tokenizer.md#loading-tokenizerjson).
+AddedTokens, BPE and post-processing remain in BPE.
+The model catalogue remains model-only outside the validated GPT-2 preset;
+no full Qwen claim or normalization is added.
 
 The scalar `Model`, AddedToken matcher, GPT-2 ByteLevel `Tokenizer`,
 TemplateProcessing, and ByteLevel offset post-processing are implemented and

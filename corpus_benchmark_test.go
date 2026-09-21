@@ -5,13 +5,14 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/gosimd/bpe"
 	"github.com/gosimd/bpe/internal/addedtoken"
 	"github.com/gosimd/bpe/internal/benchsuite"
-	"github.com/gosimd/bpe/internal/bytelevel"
 	"github.com/gosimd/bpe/internal/hforacle"
+	"github.com/gosimd/bpe/internal/pretokenize"
 )
 
 type corpusBenchmarkPiece struct {
@@ -32,16 +33,17 @@ type corpusBenchmarkRecord struct {
 }
 
 type corpusBenchmarkData struct {
-	model       *bpe.Model
-	tokenizer   *bpe.Tokenizer
-	addedTokens *addedtoken.Matcher
-	records     []corpusBenchmarkRecord
-	modelPieces []corpusBenchmarkPiece
-	sourceBytes int64
-	modelBytes  int64
-	pieceCount  int64
-	tokenCount  int64
-	modelTokens int64
+	model        *bpe.Model
+	tokenizer    *bpe.Tokenizer
+	addedTokens  *addedtoken.Matcher
+	preTokenizer *pretokenize.Pipeline
+	records      []corpusBenchmarkRecord
+	modelPieces  []corpusBenchmarkPiece
+	sourceBytes  int64
+	modelBytes   int64
+	pieceCount   int64
+	tokenCount   int64
+	modelTokens  int64
 }
 
 type corpusPretokenizedPiece struct {
@@ -103,7 +105,7 @@ func runCorpusBenchmark(b *testing.B, data *corpusBenchmarkData) {
 			for range b.N {
 				pieces := 0
 				for _, record := range data.records {
-					got := pretokenizeGPT2(data.addedTokens, record.text)
+					got := pretokenizeGPT2(b, data.preTokenizer, data.addedTokens, record.text)
 					pieces += len(got)
 					corpusBenchmarkPretokenizedSink = got
 				}
@@ -218,19 +220,16 @@ func loadCorpusBenchmarkData(b testing.TB, repository string, spec benchsuite.Mo
 	if spec.Pipeline == "gpt2" {
 		endOfText := bpe.NewAddedToken("<|endoftext|>", 50256, true)
 		endOfText.Normalized = true
-		tokenizer, err := bpe.NewTokenizerWithOptions(model, bpe.TokenizerOptions{
-			AddPrefixSpace: false,
-			AddedTokens:    []bpe.AddedToken{endOfText},
-			PostProcessor: bpe.ByteLevelPostProcessor{
-				AddPrefixSpace: true,
-				TrimOffsets:    false,
-			},
-		})
+		tokenizer, err := bpe.OpenTokenizer(filepath.Join(repository, spec.Tokenizer))
 		if err != nil {
 			b.Fatal(err)
 		}
 
 		data.tokenizer = tokenizer
+		data.preTokenizer, err = pretokenize.NewByteLevel(false, true)
+		if err != nil {
+			b.Fatal(err)
+		}
 		data.addedTokens = addedtoken.New([]addedtoken.Definition{{
 			ID: endOfText.ID, Content: endOfText.Content, Normalized: endOfText.Normalized,
 		}})
@@ -296,7 +295,7 @@ func (data *corpusBenchmarkData) verify(b testing.TB) {
 	b.Helper()
 	if data.tokenizer != nil {
 		for recordIndex, record := range data.records {
-			gotPieces := pretokenizeGPT2(data.addedTokens, record.text)
+			gotPieces := pretokenizeGPT2(b, data.preTokenizer, data.addedTokens, record.text)
 			if len(gotPieces) != len(record.pieces) {
 				b.Fatalf("pre-tokenizer record %d produced %d pieces, want %d", recordIndex, len(gotPieces), len(record.pieces))
 			}
@@ -360,7 +359,7 @@ func (data *corpusBenchmarkData) verify(b testing.TB) {
 	}
 }
 
-func pretokenizeGPT2(matcher *addedtoken.Matcher, text string) []corpusPretokenizedPiece {
+func pretokenizeGPT2(b testing.TB, pipeline *pretokenize.Pipeline, matcher *addedtoken.Matcher, text string) []corpusPretokenizedPiece {
 	segments := matcher.Split(text)
 	result := make([]corpusPretokenizedPiece, 0, len(segments))
 	for _, segment := range segments {
@@ -373,13 +372,19 @@ func pretokenizeGPT2(matcher *addedtoken.Matcher, text string) []corpusPretokeni
 			continue
 		}
 		ordinary := text[segment.Start:segment.End]
-		for _, piece := range bytelevel.Split(ordinary) {
-			mapped := bytelevel.Map(ordinary[piece.Start:piece.End], piece.Start, func(offset int) int { return offset })
-			start, end := mapped.RawRange(0, len(mapped.Text))
+		err := pipeline.Walk(ordinary, func(piece pretokenize.Piece) error {
+			start, end, err := piece.OriginalRange(0, len(piece.Text()))
+			if err != nil {
+				return err
+			}
 			result = append(result, corpusPretokenizedPiece{
-				value:   mapped.Text,
+				value:   strings.Clone(piece.Text()),
 				offsets: [2]int{segment.Start + start, segment.Start + end},
 			})
+			return nil
+		})
+		if err != nil {
+			b.Fatal(err)
 		}
 	}
 	return result

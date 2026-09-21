@@ -3,12 +3,9 @@
 package tokenizer
 
 import (
-	"strings"
 	"sync"
-	"unsafe"
 
 	"github.com/gosimd/bpe/internal/addedtoken"
-	"github.com/gosimd/bpe/internal/bytelevel"
 	"github.com/gosimd/bpe/internal/model"
 	"github.com/gosimd/bpe/internal/postprocess"
 	"github.com/gosimd/bpe/internal/pretokenize"
@@ -19,20 +16,17 @@ type Token = postprocess.Token
 
 // Tokenizer is immutable and safe for concurrent use.
 type Tokenizer struct {
-	model          *model.Model
-	addPrefixSpace bool
-	addedTokens    *addedtoken.Matcher
-	postProcessor  postprocess.Processor
-	preTokenizer   *pretokenize.Regexp
-	scratchPool    sync.Pool
+	model         *model.Model
+	addedTokens   *addedtoken.Matcher
+	postProcessor postprocess.Processor
+	preTokenizer  *pretokenize.Pipeline
+	scratchPool   sync.Pool
 }
 
-// Scratch owns all temporary storage used by ID-only tokenization. A value is
-// borrowed for one AppendIDs call and reused for every pre-tokenized piece.
+// Scratch owns BPE, AddedToken and template storage for ID-only tokenization.
+// It is borrowed for one AppendIDs call and reused for every piece. The
+// pre-tokenization dependency owns its separate scratch pool.
 type Scratch struct {
-	working     []byte
-	pieces      []bytelevel.Piece
-	mapped      []byte
 	segments    []addedtoken.Segment
 	spare       []addedtoken.Segment
 	sequenceIDs []uint32
@@ -40,13 +34,12 @@ type Scratch struct {
 }
 
 // New constructs a ByteLevel tokenizer.
-func New(model *model.Model, addPrefixSpace bool, definitions []addedtoken.Definition, processor postprocess.Processor, splitter *pretokenize.Regexp) *Tokenizer {
+func New(model *model.Model, definitions []addedtoken.Definition, processor postprocess.Processor, pipeline *pretokenize.Pipeline) *Tokenizer {
 	tokenizer := &Tokenizer{
-		model:          model,
-		addPrefixSpace: addPrefixSpace,
-		addedTokens:    addedtoken.New(definitions),
-		postProcessor:  processor,
-		preTokenizer:   splitter,
+		model:         model,
+		addedTokens:   addedtoken.New(definitions),
+		postProcessor: processor,
+		preTokenizer:  pipeline,
 	}
 	tokenizer.scratchPool.New = func() any { return new(Scratch) }
 	return tokenizer
@@ -141,93 +134,30 @@ func (t *Tokenizer) appendSequenceIDs(dst []uint32, text string, scratch *Scratc
 }
 
 func (t *Tokenizer) encodeOrdinary(dst []Token, text string, base int) ([]Token, error) {
-	if text == "" {
-		return dst, nil
-	}
-	if t.preTokenizer != nil {
-		err := t.preTokenizer.Split(text, func(start, end int) {
-			piece := text[start:end]
-			var mapped bytelevel.MappedPiece
-			if t.addPrefixSpace && !strings.HasPrefix(piece, " ") {
-				mapped = bytelevel.MapWithPrefixSpace(piece)
-			} else {
-				mapped = bytelevel.Map(piece, 0, func(offset int) int { return offset })
+	err := t.preTokenizer.Walk(text, func(piece pretokenize.Piece) error {
+		for _, token := range t.model.Tokenize(piece.Text()) {
+			value, _ := t.model.IDToToken(token.ID)
+			start, end, err := piece.OriginalRange(token.Start, token.End)
+			if err != nil {
+				return err
 			}
-			dst = t.encodeMapped(dst, mapped, base+start)
-		})
-		return dst, err
-	}
-	working, rawAt := t.workingInput(text)
-	for _, piece := range bytelevel.Split(working) {
-		mapped := bytelevel.Map(working[piece.Start:piece.End], piece.Start, rawAt)
-		dst = t.encodeMapped(dst, mapped, base)
-	}
-	return dst, nil
-}
-
-func (t *Tokenizer) encodeMapped(dst []Token, mapped bytelevel.MappedPiece, base int) []Token {
-	for _, token := range t.model.Tokenize(mapped.Text) {
-		value, _ := t.model.IDToToken(token.ID)
-		start, end := mapped.RawRange(token.Start, token.End)
-		dst = append(dst, Token{
-			ID:         token.ID,
-			Value:      value,
-			Start:      base + start,
-			End:        base + end,
-			SequenceID: postprocess.NoSequence,
-		})
-	}
-	return dst
+			dst = append(dst, Token{
+				ID:         token.ID,
+				Value:      value,
+				Start:      base + start,
+				End:        base + end,
+				SequenceID: postprocess.NoSequence,
+			})
+		}
+		return nil
+	})
+	return dst, err
 }
 
 func (t *Tokenizer) appendOrdinary(dst []uint32, text string, scratch *Scratch) ([]uint32, error) {
-	if text == "" {
-		return dst, nil
-	}
-	if t.preTokenizer != nil {
-		err := t.preTokenizer.Split(text, func(start, end int) {
-			working := t.appendWorkingInput(text[start:end], scratch)
-			dst = t.appendMapped(dst, working, scratch)
-		})
-		return dst, err
-	}
-	working := t.appendWorkingInput(text, scratch)
-	scratch.pieces = bytelevel.AppendSplit(scratch.pieces[:0], working)
-	for _, piece := range scratch.pieces {
-		dst = t.appendMapped(dst, working[piece.Start:piece.End], scratch)
-	}
-	return dst, nil
-}
-
-func (t *Tokenizer) appendWorkingInput(text string, scratch *Scratch) string {
-	working := text
-	if t.addPrefixSpace && !strings.HasPrefix(text, " ") {
-		scratch.working = append(scratch.working[:0], ' ')
-		scratch.working = append(scratch.working, text...)
-		working = bytesString(scratch.working)
-	}
-	return working
-}
-
-func (t *Tokenizer) appendMapped(dst []uint32, working string, scratch *Scratch) []uint32 {
-	scratch.mapped = bytelevel.AppendMap(scratch.mapped[:0], working)
-	return t.model.AppendIDsWithScratch(dst, bytesString(scratch.mapped), &scratch.model)
-}
-
-// bytesString creates a call-scoped view. Model tokenization never retains its
-// input, and the backing slice is not changed until that call returns.
-func bytesString(value []byte) string {
-	return unsafe.String(unsafe.SliceData(value), len(value))
-}
-
-func (t *Tokenizer) workingInput(text string) (string, func(int) int) {
-	if !t.addPrefixSpace || strings.HasPrefix(text, " ") {
-		return text, func(offset int) int { return offset }
-	}
-	return " " + text, func(offset int) int {
-		if offset <= 1 {
-			return 0
-		}
-		return offset - 1
-	}
+	err := t.preTokenizer.WalkTextUnsafe(text, func(piece string) error {
+		dst = t.model.AppendIDsWithScratch(dst, piece, &scratch.model)
+		return nil
+	})
+	return dst, err
 }

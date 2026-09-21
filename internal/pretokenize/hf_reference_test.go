@@ -1,4 +1,4 @@
-package bytelevel
+package pretokenize
 
 import (
 	"fmt"
@@ -59,6 +59,10 @@ func checkHFReference(t *testing.T, reader *hforacle.Reader) {
 			t.Error(err)
 		}
 	}()
+	pipeline, err := NewByteLevel(false, true)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	for {
 		fixture, ok, err := reader.Next()
@@ -80,32 +84,41 @@ func checkHFReference(t *testing.T, reader *hforacle.Reader) {
 		if hasAddedToken {
 			continue
 		}
-		compareByteLevelRecord(t, fixture)
+		compareByteLevelRecord(t, pipeline, fixture)
 	}
 }
 
-func compareByteLevelRecord(t *testing.T, fixture hforacle.Case) {
+func compareByteLevelRecord(t *testing.T, pipeline *Pipeline, fixture hforacle.Case) {
 	t.Helper()
 	want := fixture.Record.PreTokenization
-	got := Split(fixture.Text)
-	common := min(len(got), len(want))
-	for pieceIndex := range common {
+	pieceIndex := 0
+	err := pipeline.Walk(fixture.Text, func(piece Piece) error {
+		if pieceIndex >= len(want) {
+			failByteLevel(t, fixture, pieceIndex, "extra piece", piece.Text(), "end of input")
+		}
 		if want[pieceIndex].Model.Source != "bpe" {
 			failByteLevel(t, fixture, pieceIndex, "piece source", want[pieceIndex].Model.Source, "bpe")
 		}
-		piece := got[pieceIndex]
-		mapped := Map(fixture.Text[piece.Start:piece.End], piece.Start, func(offset int) int { return offset })
-		if mapped.Text != want[pieceIndex].Value {
-			byteIndex := firstDifferentByte(mapped.Text, want[pieceIndex].Value)
-			failByteLevel(t, fixture, pieceIndex, fmt.Sprintf("transformed piece byte %d", byteIndex), mapped.Text, want[pieceIndex].Value)
+		if piece.Text() != want[pieceIndex].Value {
+			byteIndex := firstDifferentByte(piece.Text(), want[pieceIndex].Value)
+			failByteLevel(t, fixture, pieceIndex, fmt.Sprintf("transformed piece byte %d", byteIndex), piece.Text(), want[pieceIndex].Value)
 		}
-		gotOffsets := [2]int{piece.Start, piece.End}
+		start, end, err := piece.OriginalRange(0, len(piece.Text()))
+		if err != nil {
+			return err
+		}
+		gotOffsets := [2]int{start, end}
 		if gotOffsets != want[pieceIndex].Offsets {
 			failByteLevel(t, fixture, pieceIndex, "record-relative byte offset", gotOffsets, want[pieceIndex].Offsets)
 		}
+		pieceIndex++
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
 	}
-	if len(got) != len(want) {
-		failByteLevel(t, fixture, common, "piece count", len(got), len(want))
+	if pieceIndex != len(want) {
+		failByteLevel(t, fixture, pieceIndex, "piece count", pieceIndex, len(want))
 	}
 }
 
