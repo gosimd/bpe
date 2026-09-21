@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gosimd/bpe/internal/addedtoken"
+	"github.com/gosimd/bpe/internal/jsoncheck"
 	"github.com/gosimd/bpe/internal/model"
 	"github.com/gosimd/bpe/internal/pretokenize"
 )
@@ -22,7 +23,7 @@ func ParseJSON(data []byte) (*Tokenizer, error) {
 }
 
 func parseJSON(data []byte) (*Tokenizer, error) {
-	if err := validateJSON(data); err != nil {
+	if err := jsoncheck.Validate(data); err != nil {
 		return nil, err
 	}
 	o, err := readObject(data)

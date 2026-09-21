@@ -39,6 +39,15 @@ for simultaneous calls from multiple goroutines.
 `ParseModel` is the byte-slice equivalent of `OpenModel` and is useful when a
 model is embedded or loaded by the caller.
 
+`ParseModel` and `OpenModel` use the same strict JSON validation as
+`ParseTokenizer`: invalid UTF-8, unpaired Unicode surrogates, duplicate decoded
+object keys (including `"a"` and `"\u0061"`), trailing values and nesting beyond
+80 levels are rejected. Vocabulary JSON failures wrap `ErrInvalidVocabulary`;
+tokenizer JSON failures wrap `ErrInvalidTokenizer`. These are the library's
+validation rules, not a claim that every upstream loader rejects the same inputs.
+Valid surrogate pairs are decoded normally; literal `�` and escaped backslash
+text are preserved. No malformed vocabulary token is silently replaced by `�`.
+
 ## Encoding a piece
 
 ```go

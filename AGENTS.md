@@ -100,6 +100,10 @@ remap them. Parse errors wrap ErrInvalidTokenizer, unsupported features also
 wrap ErrUnsupportedConfiguration. Strict JSON validation rejects duplicate keys,
 malformed UTF-8, unpaired surrogates and trailing data. Parsing is internal;
 root tokenizer_json.go remains a thin facade. No runtime normalizer is added.
+Both tokenizer.json and vocab.json loaders use `internal/jsoncheck` for strict
+JSON validation, including duplicate decoded keys and the 80-level nesting
+limit. Do not silently repair malformed vocabulary strings. Vocabulary JSON
+failures wrap ErrInvalidVocabulary; tokenizer JSON failures wrap ErrInvalidTokenizer.
 Check dependency updates with `GOWORK=off` and no local `replace`.
 The 28-case HF 0.23.2 byte-alphabet prefix fixture checks ByteLevel alignment,
 AddedTokens and trimming without hiding a prefix token inside a BPE merge;

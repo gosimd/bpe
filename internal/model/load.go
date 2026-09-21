@@ -7,11 +7,16 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/gosimd/bpe/internal/jsoncheck"
 )
 
 // ParseVocabulary parses the object used by Hugging Face vocab.json files.
 // IDs must be unsigned decimal integers that fit uint32.
 func ParseVocabulary(data []byte) (map[string]uint32, error) {
+	if err := jsoncheck.Validate(data); err != nil {
+		return nil, fmt.Errorf("%w: parse JSON: %v", ErrInvalidVocabulary, err)
+	}
 	var raw map[string]json.RawMessage
 	if err := json.Unmarshal(data, &raw); err != nil {
 		return nil, fmt.Errorf("%w: parse JSON: %v", ErrInvalidVocabulary, err)

@@ -2,8 +2,23 @@ package model
 
 import (
 	"errors"
+	"strings"
 	"testing"
 )
+
+func TestParseVocabularyRejectsMalformedJSON(t *testing.T) {
+	for _, data := range []string{
+		`{"a":0,"a":1}`, `{"a":0,"\u0061":1}`, `{"\ud800":0}`,
+		`{"\udc00":0}`, "{\"\xff\":0}", `{"a":0} null`,
+		`null`, `[]`, `{"a":null}`, `{"a":-1}`, `{"a":4294967296}`,
+		strings.Repeat("[", 81) + "0" + strings.Repeat("]", 81),
+	} {
+		vocab, err := ParseVocabulary([]byte(data))
+		if vocab != nil || !errors.Is(err, ErrInvalidVocabulary) {
+			t.Errorf("ParseVocabulary(%q) = %v, %v", data, vocab, err)
+		}
+	}
+}
 
 func TestParseMergesRejectsWhitespaceAmbiguity(t *testing.T) {
 	_, err := ParseMerges([]byte("a  b\n"))

@@ -67,6 +67,9 @@ func NewModel(vocab map[string]uint32, merges []Merge, options ModelOptions) (*M
 
 // ParseModel parses a Hugging Face-style vocab.json and merges.txt, then
 // compiles them as if passed to NewModel.
+// Vocabulary JSON must contain unique decoded keys and valid UTF-8/Unicode
+// escapes; malformed text is rejected, never replaced. Vocabulary JSON failures
+// wrap ErrInvalidVocabulary. The JSON validation rules match ParseTokenizer.
 func ParseModel(vocabJSON, mergesText []byte, options ModelOptions) (*Model, error) {
 	vocab, err := internalmodel.ParseVocabulary(vocabJSON)
 	if err != nil {
