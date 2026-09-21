@@ -8,7 +8,7 @@ It is intentionally a small, immutable inference API. `OpenTokenizer` and
 `ParseTokenizer` load a supported encoding subset of Hugging Face `tokenizer.json`.
 
 All pre-tokenization runs through
-[`gosimd/pretok v0.2.0` Pipeline](https://github.com/gosimd/pretok/blob/v0.2.0/docs/Pipeline.md).
+[`gosimd/pretok v0.2.1` Pipeline](https://github.com/gosimd/pretok/blob/v0.2.1/docs/Pipeline.md).
 The constructor compiles the configuration once; each ordinary AddedToken
 segment is processed when encoding. There is no separate public pre-tokenizer
 interface and no BPE-local scanner or regexp fallback.
@@ -43,10 +43,14 @@ Supported configuration:
   ignored merges. Missing `model.type` is accepted for the legacy untagged BPE
   representation.
   Dropout must be absent, null or zero. IDs retain the full uint32 range.
-- The components and exact regexp strings supported by the pinned pretok
+- The components and regexp patterns supported by the pinned pretok
   release, including Sequence, ByteLevel, Split, Whitespace/WhitespaceSplit,
   Digits, Punctuation, BertPreTokenizer, CharDelimiterSplit, UnicodeScripts
-  and Metaspace, subject to the segment-context restriction below.
+  and Metaspace, subject to the segment-context restriction below. Registered
+  Split patterns use specialized scanners; unregistered patterns are compiled
+  once using Go `regexp`. Fallback follows Go syntax and matching semantics,
+  not a general HF/Oniguruma contract. Unsupported syntax such as unregistered
+  lookaround is rejected. There is no additional fallback in BPE.
 - Serialized AddedTokens with explicit ID, content and all five boolean flags.
   Duplicate/conflicting tokens are rejected. IDs must agree with HF allocation:
   existing model tokens keep their IDs; new contents get consecutive IDs starting
@@ -64,7 +68,7 @@ Limitations and errors:
   loading an NFC-configured Qwen asset does not silently omit normalization.
 - `Metaspace(prepend_scheme="first")` anywhere in a pipeline combined with
   nonempty AddedTokens is rejected. HF requires the original segment position;
-  pretok v0.2.0 cannot receive it. Without AddedTokens this configuration is
+  pretok v0.2.1 cannot receive it. Without AddedTokens this configuration is
   supported. The loader checks this constraint without rewriting the pipeline.
 - Other model/post-processor types, processor composition, nonzero dropout and
   explicit empty `unk_token` are rejected. Empty `unk_token` is distinct from

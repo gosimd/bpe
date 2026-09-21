@@ -1,4 +1,4 @@
-github.com/gosimd/pretok v0.2.0 h1:4Y4xudPBPmYlu3hbefLVR3qC66LTKxz/VHvviZRdYoU=
-github.com/gosimd/pretok v0.2.0/go.mod h1:VgAn1Q99gk5nahQKRFDcxw4yQVkRWvS1zKI9poDnmls=
+github.com/gosimd/pretok v0.2.1 h1:sqlGzlKeLHBsOq4BzzFYTYsNT8HJXL34bSvisyi4WR8=
+github.com/gosimd/pretok v0.2.1/go.mod h1:VgAn1Q99gk5nahQKRFDcxw4yQVkRWvS1zKI9poDnmls=
 github.com/gosimd/unicode v0.1.2 h1:HhQ2z1BxmELBAdkyqjzZaPPuxb2gKzziAmIj4MRiC04=
 github.com/gosimd/unicode v0.1.2/go.mod h1:WEGdCCWVfiuppf+8E5vJHf844YLIXFkiZoL67zOXAOs=

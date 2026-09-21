@@ -68,11 +68,13 @@ with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
 full Go benchmark stages are currently enabled only for the GPT-2 catalogue
 entry. This is benchmark coverage, not a model restriction in the library.
 
-`internal/pretokenize` adapts the public `gosimd/pretok v0.2.0` Pipeline API.
+`internal/pretokenize` adapts the public `gosimd/pretok v0.2.1` Pipeline API.
 All pre-tokenization lives in that dependency: splitting, transformations and
 alignment. The adapter compiles JSON once and contains no scanner, mapping or
 alignment implementation. There is no public regexp pre-tokenizer interface or
-local regexp fallback. The public Tokenizer uses
+local regexp fallback. In pretok, registered Split patterns use specialized
+scanners; other patterns fall back to Go regexp semantics, not general HF
+regexp compatibility. Unsupported Go syntax still fails. The public Tokenizer uses
 AddedTokens -> pretok Pipeline -> BPE -> supported post-processing for Encode,
 pairs and AppendIDs. Prefix space aligns with the first original scalar of each
 ordinary AddedToken segment (the former zero-width prefix offset was corrected
@@ -86,7 +88,7 @@ post-processor configuration is validated in BPE; the raw pre_tokenizer field
 is passed unchanged to pretok. Missing/null pre_tokenizer means identity.
 Manual NewTokenizer constructors use ByteLevel with `use_regex=true`.
 Metaspace(first) anywhere in a pipeline with nonempty AddedTokens is rejected:
-v0.2.0 cannot receive the original segment position. Do not remove this guard
+v0.2.1 cannot receive the original segment position. Do not remove this guard
 without a dependency contract and HF integration tests preserving context.
 Non-null normalizer/padding/truncation, unsupported model/post-processor types,
 nonzero dropout and unknown fields are rejected. Decoder metadata is explicitly

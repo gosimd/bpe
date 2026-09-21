@@ -108,7 +108,7 @@ Loading, decompression, JSON parsing, compilation and verification are outside
 timers. Each operation is one sequential full-corpus pass, not parallel batch
 tokenization. The meaning of bytes, allocations and API pairs below is unchanged.
 
-PreTokenizer now executes `gosimd/pretok v0.2.0` Pipeline and materializes owned
+PreTokenizer now executes `gosimd/pretok v0.2.1` Pipeline and materializes owned
 piece strings and source ranges, copying callback-borrowed text before retaining
 it. Compilation remains outside timing. TokenizerEncode uses aligned `Walk`;
 TokenizerAppendIDs uses synchronous `WalkTextUnsafe` callbacks. Record the

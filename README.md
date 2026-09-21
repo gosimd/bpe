@@ -143,12 +143,14 @@ in the library. Corpus conversion and full-corpus oracles remain local and ignor
 
 ## Development status
 
-All pre-tokenization belongs to `gosimd/pretok v0.2.0` Pipeline: splitting,
+All pre-tokenization belongs to `gosimd/pretok v0.2.1` Pipeline: splitting,
 transformations and source alignment. The pipeline is
 compiled once at Tokenizer construction. `internal/pretokenize` is only an adapter; `Encode` maps
 model offsets through `Piece.OriginalRange`, and `AppendIDs` consumes borrowed
 text during `WalkTextUnsafe` callbacks. See the pinned upstream
-[Pipeline contract](https://github.com/gosimd/pretok/blob/v0.2.0/docs/Pipeline.md).
+[Pipeline contract](https://github.com/gosimd/pretok/blob/v0.2.1/docs/Pipeline.md).
+Split patterns outside its specialized registry use Go `regexp` fallback;
+this does not imply general HF/Oniguruma regexp compatibility.
 The JSON loader passes the original `pre_tokenizer` field to pretok and builds
 the model, AddedTokens and supported post-processor once. `Encode` runs the
 pipeline before BPE. Non-null normalizers, padding/truncation and unsupported

@@ -72,7 +72,7 @@ func parseJSON(data []byte) (*Tokenizer, error) {
 		return nil, fmt.Errorf("pre_tokenizer: %w", err)
 	}
 	if len(added) > 0 && needsOriginalContext(pre) {
-		return nil, fmt.Errorf("%w: pre_tokenizer Metaspace(first) with added_tokens requires segment context unavailable in pretok v0.2.0", ErrUnsupportedConfiguration)
+		return nil, fmt.Errorf("%w: pre_tokenizer Metaspace(first) with added_tokens requires segment context unavailable in pretok v0.2.1", ErrUnsupportedConfiguration)
 	}
 	processor, err := parsePostProcessor(o.take("post_processor"))
 	if err != nil {

@@ -66,6 +66,34 @@ func TestParseTokenizerIdentityAndModelFormats(t *testing.T) {
 	}
 }
 
+// These cases exercise pretok's Go-regexp fallback, not an HF regexp oracle.
+func TestParseTokenizerRegexpFallback(t *testing.T) {
+	for _, c := range []struct {
+		pattern string
+		ids     []uint32
+		offsets []bpe.Offset
+	}{
+		{"[a-z]+", []uint32{2, 3, 4, 2}, []bpe.Offset{{0, 2}, {2, 5}, {5, 6}, {6, 8}}},
+		{"a", []uint32{0, 1, 3, 4, 0, 1}, []bpe.Offset{{0, 1}, {1, 2}, {2, 5}, {5, 6}, {6, 7}, {7, 8}}},
+	} {
+		t.Run(c.pattern, func(t *testing.T) {
+			config := fmt.Sprintf(`{"type":"Split","pattern":{"Regex":%q},"behavior":"Isolated","invert":false}`, c.pattern)
+			tok, err := bpe.ParseTokenizer(tokenizerJSON(t, map[string]json.RawMessage{"pre_tokenizer": json.RawMessage(config)}))
+			if err != nil {
+				t.Fatal(err)
+			}
+			encoding, err := tok.Encode("ab猫 ab")
+			if err != nil || !slices.Equal(encoding.IDs, c.ids) || !slices.Equal(encoding.Offsets, c.offsets) {
+				t.Fatalf("Encode: %+v, %v", encoding, err)
+			}
+			ids, err := tok.AppendIDs([]uint32{99}, "ab猫 ab")
+			if err != nil || !slices.Equal(ids, append([]uint32{99}, c.ids...)) {
+				t.Fatalf("AppendIDs: %v, %v", ids, err)
+			}
+		})
+	}
+}
+
 func TestOpenTokenizerGPT2(t *testing.T) {
 	loaded, err := bpe.OpenTokenizer("testdata/gpt2/tokenizer.json")
 	if err != nil {
@@ -209,7 +237,7 @@ func TestParseTokenizerRejectsInvalidConfiguration(t *testing.T) {
 		{"model", `{"type":"WordPiece","vocab":{},"merges":[]}`, true},
 		{"model", `{"type":"BPE","vocab":{},"merges":[],"dropout":0.1}`, true},
 		{"model", `{"type":"BPE","vocab":{},"merges":[],"unk_token":""}`, true},
-		{"pre_tokenizer", `{"type":"Split","pattern":{"Regex":"[a-z]+"},"behavior":"Isolated","invert":false}`, false},
+		{"pre_tokenizer", `{"type":"Split","pattern":{"Regex":"(?=a)"},"behavior":"Isolated","invert":false}`, false},
 		{"pre_tokenizer", `{"type":"ByteLevel","unknown":true}`, false},
 		{"pre_tokenizer", `{"type":"Unknown"}`, false},
 		{"post_processor", `{"type":"Sequence","processors":[]}`, true},
