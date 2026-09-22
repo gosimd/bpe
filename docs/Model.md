@@ -11,6 +11,12 @@ tokens, pre-tokenize text, add template tokens, truncate, pad, or decode.
 
 ## Constructing a model
 
+Use a successfully returned `NewModel`, `ParseModel`, or `OpenModel` result.
+The zero value (`var model bpe.Model`) and nil receivers are not usable;
+method calls may panic. Check constructor errors before invoking methods.
+See the [v0.1.0 release contract](../README.md#v010-release-contract) for
+ownership and versioning guarantees.
+
 Load conventional Hugging Face files:
 
 ```go

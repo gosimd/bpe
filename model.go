@@ -33,6 +33,8 @@ type ModelOptions struct {
 //
 // Construct it with NewModel, ParseModel, or OpenModel. Its methods accept one
 // already pre-tokenized piece; merges never cross a call boundary.
+// The zero value and nil receiver are not usable; method calls may panic.
+// Only use a model returned by a constructor that succeeded.
 type Model struct {
 	impl *internalmodel.Model
 }

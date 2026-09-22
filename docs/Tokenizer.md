@@ -7,6 +7,13 @@ the deterministic BPE model, and an optional supported post-processor.
 It is intentionally a small, immutable inference API. `OpenTokenizer` and
 `ParseTokenizer` load a supported encoding subset of Hugging Face `tokenizer.json`.
 
+Use only a successful constructor result (`NewTokenizer`,
+`NewTokenizerWithOptions`, `OpenTokenizer` or `ParseTokenizer`). The zero value
+(`var tokenizer bpe.Tokenizer`) and nil receivers are not usable; method calls
+may panic. Check constructor errors before invoking methods. See the
+[v0.1.0 release contract](../README.md#v010-release-contract) for ownership and
+versioning guarantees.
+
 All pre-tokenization runs through
 [`gosimd/pretok v0.2.1` Pipeline](https://github.com/gosimd/pretok/blob/v0.2.1/docs/Pipeline.md).
 The constructor compiles the configuration once; each ordinary AddedToken

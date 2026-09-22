@@ -1,13 +1,142 @@
 # gosimd/bpe
 
-SIMD-accelerated Byte-Pair Encoding for Go, designed for semantic compatibility
+Inference-oriented Byte-Pair Encoding for Go, designed for semantic compatibility
 with the BPE model in [Hugging Face Tokenizers][hf-bpe].
+
+The first release uses scalar BPE. SIMD acceleration is planned, not a feature
+or performance guarantee of `v0.1.0`.
 
 > [!IMPORTANT]
 > `Model` and the configurable `Tokenizer` API are available for
 > deterministic inference, including AddedTokens, TemplateProcessing, and
 > ByteLevel offset post-processing. A complete arbitrary `tokenizer.json`
 > pipeline is not implemented; the JSON loader supports the encoding subset described below.
+
+## Installation
+
+Requires **Go 1.27.0 or newer**. No Rust toolchain or FFI is needed to use the
+Go library.
+
+Run this command in your Go module:
+
+```sh
+go get github.com/gosimd/bpe@v0.1.0
+```
+
+See [CHANGELOG.md](CHANGELOG.md) for the release notes and the
+[release contract](#v010-release-contract) for supported behavior.
+
+## Quick start
+
+This self-contained example compiles a tiny tokenizer once, then uses both the
+full Encoding and ID-only APIs. It needs no model download or external files.
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gosimd/bpe"
+)
+
+func main() {
+    tokenizer, err := bpe.ParseTokenizer([]byte(`{
+        "model": {
+            "type": "BPE",
+            "vocab": {"h": 0, "i": 1, "hi": 2},
+            "merges": [["h", "i"]]
+        },
+        "pre_tokenizer": {"type": "WhitespaceSplit"}
+    }`))
+    if err != nil {
+        panic(err)
+    }
+
+    encoding, err := tokenizer.Encode("hi hi")
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(encoding.IDs) // [2 2]
+
+    // Reuse the destination for independent inputs when only IDs are needed.
+    ids := make([]uint32, 0, 32)
+    ids, err = tokenizer.AppendIDs(ids[:0], "hi")
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(ids) // [2]
+}
+```
+
+For your own supported local `tokenizer.json`, replace construction with
+`bpe.OpenTokenizer("tokenizer.json")`. The loader does not download model files
+and rejects unsupported pipeline options; see [Tokenizer](docs/Tokenizer.md).
+For already pre-tokenized pieces, use [Model](docs/Model.md) directly.
+The quick-start calls and output are covered by `ExampleParseTokenizer` in
+ordinary Go tests.
+
+## v0.1.0 release contract
+
+This section defines the public contract for v0.1.0.
+
+- **Requirements:** Go 1.27.0 or newer. The module requires `gosimd/pretok v0.2.1`
+  and indirectly `gosimd/unicode v0.1.2`. Rust is repository-only reference
+  tooling, not a runtime dependency; no FFI is used. The BPE implementation is
+  scalar; SIMD acceleration and a particular throughput are not release guarantees.
+- **Model API:** `NewModel`, `ParseModel`, `OpenModel`; `Tokenize`, `AppendIDs`,
+  `TokenToID`, `IDToToken`, `VocabSize`. Deterministic ordered BPE processes one
+  piece per call with uint32 IDs and the six documented
+  [ModelOptions](docs/Model.md#supported-options). Merges never cross pieces.
+- **Tokenizer API:** `NewTokenizer`, `NewTokenizerWithOptions`, `ParseTokenizer`,
+  `OpenTokenizer`; `Encode`, `EncodePair`, their `WithOptions` variants, and
+  `AppendIDs` / `AppendIDsWithOptions`. Supported configuration is defined by
+  [Tokenizer](docs/Tokenizer.md) and [Post-processors](docs/PostProcessors.md):
+  AddedTokens, compiled pretok pipelines, TemplateProcessing or ByteLevel
+  post-processing. Constructors validate and compile once, before encoding.
+- **Defaults:** manual constructors use ByteLevel with `use_regex=true`.
+  `NewTokenizer` enables prefix space; zero `TokenizerOptions` disables it.
+  Missing/null JSON `pre_tokenizer` means identity, not the manual preset.
+  Encode/AppendIDs convenience methods enable template special tokens;
+  zero `EncodeOptions` disables their insertion, not AddedToken matching.
+- **Initialization:** only successfully constructed `Model` and `Tokenizer`
+  values are usable. Their zero values and nil receivers are unsupported;
+  calling methods on them may panic. Manual Tokenizer constructors reject a
+  nil/uninitialized model with `ErrNilModel`. There is no promise of panic type
+  or message for violating these preconditions.
+- **Data and concurrency:** constructors copy mutable configuration; successful
+  objects are immutable and safe for concurrent calls. Returned token/Encoding
+  slices belong to the caller and remain valid across later calls. Strings are
+  immutable and may share backing storage. AppendIDs may reuse or grow `dst`;
+  always use the returned slice. The library does not retain `dst`. Concurrent
+  callers must not share writable destination storage without synchronization.
+- **Text and offsets:** encoding accepts valid UTF-8, otherwise returns
+  `ErrInvalidUTF8`; on that error AppendIDs leaves `dst` unchanged. Offsets are
+  half-open byte ranges: piece-relative for Model, input-relative for Tokenizer,
+  selected by `SequenceIDs` for pairs. They may overlap and need not partition
+  the input. Any external normalization happens before the call; offsets refer
+  to that prepared text. Vocabulary/tokenizer JSON is validated strictly, without
+  Unicode repair. Use `errors.Is` with documented exported sentinels; error
+  wording and additional wrapped causes are not stable API.
+- **Compatibility and exclusions:** the behavioral reference is HF Tokenizers
+  **0.23.2**, restricted to the documented supported configurations. pretok's
+  fallback regexp follows Go semantics, not general HF/Oniguruma semantics.
+  No Trainers, Decode, normalization, padding/truncation, arbitrary processor
+  composition or full arbitrary HF pipeline is promised. Normalization is out
+  of scope, not deferred work. JSON with unsupported configuration is rejected;
+  decoder metadata is accepted but never executed. The documented
+  Metaspace(first)/AddedTokens restriction remains in force.
+
+**Version policy:** within each v0 minor series (starting with `v0.1.x`),
+preserve the documented public API and supported configuration semantics,
+except documented correctness/security fixes.
+Fixes that change results must include regression coverage and a release note.
+Intentional incompatible API, defaults, or configuration changes require the
+next minor version (`v0.2.0`, etc.) with migration notes. Dependency updates and
+HF reference changes are reviewed changes, not automatic compatibility promises.
+Internal packages, scratch layouts, algorithms, allocation counts and timings
+are not stable contracts. Published tags are immutable; corrections use a new
+version. This policy is not a claim of v1 API stability.
 
 ## Goals
 

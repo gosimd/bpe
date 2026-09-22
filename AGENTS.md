@@ -293,6 +293,12 @@ rendered Markdown and state that Go tests were not applicable.
 
 ## Change discipline
 
+- The normative first-release contract is README's `v0.1.0 release contract`
+  section. Preserve documented API/configuration behavior within each v0 minor
+  series except documented correctness/security fixes; intentional breaking
+  changes require the next minor and migration notes.
+  Model/Tokenizer require successful construction; nil/zero receiver calls are
+  unsupported and may panic. Do not imply they return a new sentinel error.
 - Keep API and implementation documentation model-neutral. Model names belong
   in specific test/benchmark cases, assets and source provenance; describe
   pre-tokenization by its configured components and options.

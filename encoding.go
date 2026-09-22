@@ -7,6 +7,9 @@ package bpe
 // can make adjacent token offsets overlap within one multibyte UTF-8 scalar.
 // SequenceIDs contains 0 for the first input, 1 for the pair input, and
 // NoSequence for template-inserted special tokens.
+//
+// The caller owns the slices and may modify them. Later tokenizer calls do not
+// invalidate the result. Strings are immutable and may share backing storage.
 type Encoding struct {
 	IDs               []uint32
 	TypeIDs           []uint32

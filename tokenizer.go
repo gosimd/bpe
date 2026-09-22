@@ -30,6 +30,10 @@ type TokenizerOptions struct {
 // It is safe for concurrent use. OpenTokenizer and ParseTokenizer load supported
 // tokenizer.json pipelines. Normalization, padding, truncation and decoding
 // are not implemented.
+//
+// Construct it with NewTokenizer, NewTokenizerWithOptions, OpenTokenizer or
+// ParseTokenizer and check the error before use. The zero value and nil
+// receiver are not usable; method calls may panic.
 type Tokenizer struct {
 	impl *internaltokenizer.Tokenizer
 }
