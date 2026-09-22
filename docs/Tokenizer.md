@@ -314,7 +314,7 @@ release-level conformance claim. The following are deliberately not supported:
 
 Full Qwen tokenizer compatibility is not a goal: these
 assets supply large BPE merge lists and interesting pre-tokenization options.
-Dedicated tests will use NFC-normalized text prepared outside the library and
-timed regions. HF and Go must receive identical prepared text, and offsets
+The compact benchmark uses NFC-normalized text prepared outside the library and
+timed regions. HF and Go receive identical prepared text, and offsets
 refer to that text. No runtime normalization or mapping back to the original
 pre-normalization input is promised.

@@ -24,7 +24,7 @@ type Model struct {
 	Tokenizer string `json:"tokenizer"`
 	Vocab     string `json:"vocab"`
 	Merges    string `json:"merges"`
-	// Pipeline is model-only or the explicitly supported GPT-2 pipeline.
+	// Pipeline is model-only, the GPT-2 preset, or an explicit JSON pipeline.
 	Pipeline string `json:"pipeline"`
 }
 
@@ -68,7 +68,7 @@ func Load(path string) (Suite, error) {
 			return suite, fmt.Errorf("invalid or duplicate model name %q", m.Name)
 		}
 		seen[m.Name] = true
-		if m.Pipeline != "model-only" && m.Pipeline != "gpt2" {
+		if m.Pipeline != "model-only" && m.Pipeline != "gpt2" && m.Pipeline != "json" {
 			return suite, fmt.Errorf("model %s: unsupported pipeline %q", m.Name, m.Pipeline)
 		}
 		for _, path := range []string{m.Tokenizer, m.Vocab, m.Merges} {

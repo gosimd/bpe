@@ -179,11 +179,11 @@ kernel.
 Full Qwen tokenizer compatibility is not a project goal. Qwen vocabularies
 and merge lists are representative large BPE workloads with interesting
 pre-tokenization configurations, not a commitment to reproduce their complete
-pipelines. For dedicated Qwen pre-tokenization tests, we will prepare
-NFC-normalized text outside the library and benchmark timers. HF and Go will
-receive the same prepared text; offsets will refer to that text, not to the
-original pre-normalization input. Existing fixtures/results are not relabeled
-as measurements of this future prepared-text workflow.
+pipelines. The compact benchmark prepares NFC-normalized text outside the
+library and benchmark timers. HF and Go receive the same prepared text with a
+derived no-normalizer configuration; offsets refer to that text, not to the
+original pre-normalization input. Existing extended-suite fixtures/results
+retain their original scope and are not relabeled as prepared-text measurements.
 
 ## Design
 
@@ -234,6 +234,11 @@ prefix/suffix modes, and byte fallback. Short-piece merge paths are also
 tested against the heap oracle around their dispatch boundaries.
 
 ## Performance
+
+The [compact benchmark](benchmarks/COMPACT.md) generates an independent six-row
+GB/s report per machine for GPT-2 and Qwen3.8 on prepared NFC text. It records
+allocations, raw samples and reproducibility metadata; it does not claim full
+Qwen support or existing SIMD acceleration.
 
 Benchmarks will report both end-to-end tokenization and allocation-free or
 preallocated internal kernels where meaningful. Results must name the CPU,

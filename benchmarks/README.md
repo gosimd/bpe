@@ -1,5 +1,9 @@
 # Representative Go benchmarks
 
+For the six-row, per-machine GPT-2/Qwen3.8 report, see the
+[compact-v1 protocol and script](COMPACT.md). The extended catalogue below is
+unchanged; compact Qwen runs use a separately prepared NFC/no-normalizer profile.
+
 ## Named model/corpus suite
 
 `benchmarks/suite.json` defines two ordered lists. `BenchmarkBPE` measures their
@@ -70,14 +74,15 @@ timing; model-only cases retain their independent model construction.
 Full Qwen tokenization is not a project goal. These models provide large
 merge lists and interesting pre-tokenization configurations. NFC and all
 other runtime normalization are out of scope. For dedicated pre-tokenization
-comparisons we will prepare NFC-normalized Qwen text outside both libraries'
-timed regions, then compare the same prepared input and prepared-text byte
-offsets. Record source/prepared hashes, preparation settings, HF version and
-record boundaries. Do not introduce normalization into the Go pipeline or
-claim original-text offsets after external normalization. Existing model-only
-cases still use HF-prepared pieces; existing HF full-pipeline measurements
-keep their original scope and metadata. The prepared-text comparison is not
-yet implemented by this policy change.
+comparisons, the separate [compact suite](COMPACT.md) prepares NFC-normalized
+text outside both libraries' timed regions and checks the same prepared input
+and prepared-text byte offsets. It records source/prepared hashes, preparation
+settings, HF version and record boundaries. No normalization enters the Go
+pipeline; offsets do not refer to original pre-normalization text. The extended
+model-only cases below still use HF-prepared pieces; historical HF full-pipeline
+measurements keep their original scope and metadata. The benchmark-only `json`
+pipeline setting enables explicitly configured pipelines only after validation
+through the public JSON loader and the full HF correctness gate.
 
 | Suite model | Pinned tokenizer source | BPE vocab / merges | Go operations |
 | --- | --- | ---: | --- |

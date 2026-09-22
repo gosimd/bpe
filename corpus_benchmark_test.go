@@ -1,6 +1,7 @@
 package bpe_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -105,7 +106,7 @@ func runCorpusBenchmark(b *testing.B, data *corpusBenchmarkData) {
 			for range b.N {
 				pieces := 0
 				for _, record := range data.records {
-					got := pretokenizeGPT2(b, data.preTokenizer, data.addedTokens, record.text)
+					got := pretokenizePipeline(b, data.preTokenizer, data.addedTokens, record.text)
 					pieces += len(got)
 					corpusBenchmarkPretokenizedSink = got
 				}
@@ -201,38 +202,72 @@ func runCorpusBenchmark(b *testing.B, data *corpusBenchmarkData) {
 }
 
 func loadCorpusBenchmarkData(b testing.TB, repository string, spec benchsuite.Model, corpusPath, referencePath string) *corpusBenchmarkData {
-	b.Helper()
-	if err := benchsuite.ValidateModelFiles(repository, spec); err != nil {
-		b.Fatal(err)
-	}
-	options, err := benchsuite.ModelOptions(filepath.Join(repository, spec.Tokenizer), spec.Pipeline)
-	if err != nil {
-		b.Fatal(err)
-	}
-	model, err := bpe.OpenModel(filepath.Join(repository, spec.Vocab), filepath.Join(repository, spec.Merges), bpe.ModelOptions{
-		UnknownToken: options.UnknownToken, ContinuingSubwordPrefix: options.ContinuingSubwordPrefix, EndOfWordSuffix: options.EndOfWordSuffix,
-		FuseUnknown: options.FuseUnknown, ByteFallback: options.ByteFallback, IgnoreMerges: options.IgnoreMerges,
-	})
-	if err != nil {
-		b.Fatal(err)
-	}
-	data := &corpusBenchmarkData{model: model}
-	if spec.Pipeline == "gpt2" {
-		endOfText := bpe.NewAddedToken("<|endoftext|>", 50256, true)
-		endOfText.Normalized = true
-		tokenizer, err := bpe.OpenTokenizer(filepath.Join(repository, spec.Tokenizer))
-		if err != nil {
-			b.Fatal(err)
-		}
+	return loadCorpusBenchmarkShared(b, repository, spec, corpusPath, referencePath, nil)
+}
 
-		data.tokenizer = tokenizer
-		data.preTokenizer, err = pretokenize.NewByteLevel(false, true)
+// Shared immutable model/pipeline state keeps a multilingual pass representative
+// of one loaded tokenizer, not one duplicate vocabulary per language.
+func loadCorpusBenchmarkShared(b testing.TB, repository string, spec benchsuite.Model, corpusPath, referencePath string, shared *corpusBenchmarkData) *corpusBenchmarkData {
+	b.Helper()
+	data := &corpusBenchmarkData{}
+	if shared != nil {
+		data.model, data.tokenizer = shared.model, shared.tokenizer
+		data.preTokenizer, data.addedTokens = shared.preTokenizer, shared.addedTokens
+	} else {
+		if err := benchsuite.ValidateModelFiles(repository, spec); err != nil {
+			b.Fatal(err)
+		}
+		options, err := benchsuite.ModelOptions(filepath.Join(repository, spec.Tokenizer), spec.Pipeline)
 		if err != nil {
 			b.Fatal(err)
 		}
-		data.addedTokens = addedtoken.New([]addedtoken.Definition{{
-			ID: endOfText.ID, Content: endOfText.Content, Normalized: endOfText.Normalized,
-		}})
+		model, err := bpe.OpenModel(filepath.Join(repository, spec.Vocab), filepath.Join(repository, spec.Merges), bpe.ModelOptions{
+			UnknownToken: options.UnknownToken, ContinuingSubwordPrefix: options.ContinuingSubwordPrefix, EndOfWordSuffix: options.EndOfWordSuffix,
+			FuseUnknown: options.FuseUnknown, ByteFallback: options.ByteFallback, IgnoreMerges: options.IgnoreMerges,
+		})
+		if err != nil {
+			b.Fatal(err)
+		}
+		data.model = model
+		if spec.Pipeline == "gpt2" || spec.Pipeline == "json" {
+			tokenizer, err := bpe.OpenTokenizer(filepath.Join(repository, spec.Tokenizer))
+			if err != nil {
+				b.Fatal(err)
+			}
+
+			data.tokenizer = tokenizer
+			configBytes, err := os.ReadFile(filepath.Join(repository, spec.Tokenizer))
+			if err != nil {
+				b.Fatal(err)
+			}
+			var config struct {
+				PreTokenizer json.RawMessage `json:"pre_tokenizer"`
+				AddedTokens  []struct {
+					ID         uint32 `json:"id"`
+					Content    string `json:"content"`
+					SingleWord bool   `json:"single_word"`
+					LStrip     bool   `json:"lstrip"`
+					RStrip     bool   `json:"rstrip"`
+					Normalized bool   `json:"normalized"`
+				} `json:"added_tokens"`
+			}
+			if err := json.Unmarshal(configBytes, &config); err != nil {
+				b.Fatal(err)
+			}
+			if len(config.PreTokenizer) == 0 {
+				config.PreTokenizer = json.RawMessage("null")
+			}
+			data.preTokenizer, err = pretokenize.CompileJSON(config.PreTokenizer)
+			if err != nil {
+				b.Fatal(err)
+			}
+			definitions := make([]addedtoken.Definition, len(config.AddedTokens))
+			for i, token := range config.AddedTokens {
+				definitions[i] = addedtoken.Definition{ID: token.ID, Content: token.Content,
+					SingleWord: token.SingleWord, LStrip: token.LStrip, RStrip: token.RStrip, Normalized: token.Normalized}
+			}
+			data.addedTokens = addedtoken.New(definitions)
+		}
 	}
 
 	reader, err := hforacle.Open(referencePath, corpusPath)
@@ -295,7 +330,7 @@ func (data *corpusBenchmarkData) verify(b testing.TB) {
 	b.Helper()
 	if data.tokenizer != nil {
 		for recordIndex, record := range data.records {
-			gotPieces := pretokenizeGPT2(b, data.preTokenizer, data.addedTokens, record.text)
+			gotPieces := pretokenizePipeline(b, data.preTokenizer, data.addedTokens, record.text)
 			if len(gotPieces) != len(record.pieces) {
 				b.Fatalf("pre-tokenizer record %d produced %d pieces, want %d", recordIndex, len(gotPieces), len(record.pieces))
 			}
@@ -359,7 +394,7 @@ func (data *corpusBenchmarkData) verify(b testing.TB) {
 	}
 }
 
-func pretokenizeGPT2(b testing.TB, pipeline *pretokenize.Pipeline, matcher *addedtoken.Matcher, text string) []corpusPretokenizedPiece {
+func pretokenizePipeline(b testing.TB, pipeline *pretokenize.Pipeline, matcher *addedtoken.Matcher, text string) []corpusPretokenizedPiece {
 	segments := matcher.Split(text)
 	result := make([]corpusPretokenizedPiece, 0, len(segments))
 	for _, segment := range segments {

@@ -1,0 +1,240 @@
+# sample 1 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 292029250 ns/op	  32.61 MB/s	  52496792 ar-4k-ns/op	  57829667 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  66654167 ja-4k-ns/op	      1284 records/op	  53508542 ru-4k-ns/op	  61539875 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 311604916 ns/op	  16.83 MB/s	  57974250 ar-4k-ns/op	  65827458 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  71944292 ja-4k-ns/op	      1284 records/op	  57069167 ru-4k-ns/op	  58789459 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 509896334 ns/op	  10.28 MB/s	  88395250 ar-4k-ns/op	  95896250 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 119832334 ja-4k-ns/op	      1284 records/op	  94831083 ru-4k-ns/op	 110941000 zh-4k-ns/op	919926464 B/op	  613082 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 306746042 ns/op	  31.04 MB/s	  54598750 ar-4k-ns/op	  48468459 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  72263375 ja-4k-ns/op	      1284 records/op	  59356708 ru-4k-ns/op	  72057625 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 368012500 ns/op	  14.25 MB/s	  69873416 ar-4k-ns/op	  70326209 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  76899875 ja-4k-ns/op	      1284 records/op	  76863000 ru-4k-ns/op	  74049625 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 444327042 ns/op	  11.80 MB/s	  82008375 ar-4k-ns/op	  72423875 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  90475667 ja-4k-ns/op	      1284 records/op	 110330333 ru-4k-ns/op	  89088334 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 2 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 301891416 ns/op	  31.54 MB/s	  49799917 ar-4k-ns/op	  71041292 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  67563166 ja-4k-ns/op	      1284 records/op	  51862625 ru-4k-ns/op	  61624000 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 311817875 ns/op	  16.81 MB/s	  58790541 ar-4k-ns/op	  67331084 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  70118000 ja-4k-ns/op	      1284 records/op	  57183042 ru-4k-ns/op	  58395000 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 491125667 ns/op	  10.68 MB/s	 106899459 ar-4k-ns/op	  67604417 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  91848875 ja-4k-ns/op	      1284 records/op	 108024584 ru-4k-ns/op	 116747833 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 302694459 ns/op	  31.46 MB/s	  54018333 ar-4k-ns/op	  47963125 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70037375 ja-4k-ns/op	      1284 records/op	  58940041 ru-4k-ns/op	  71735042 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 371636000 ns/op	  14.11 MB/s	  70653792 ar-4k-ns/op	  70659042 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78188791 ja-4k-ns/op	      1284 records/op	  78241416 ru-4k-ns/op	  73892708 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 441759917 ns/op	  11.87 MB/s	  84437334 ar-4k-ns/op	  71773875 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  90352125 ja-4k-ns/op	      1284 records/op	 107104584 ru-4k-ns/op	  88091750 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 3 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 302827209 ns/op	  31.44 MB/s	  49437958 ar-4k-ns/op	  73857458 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  66173042 ja-4k-ns/op	      1284 records/op	  51389083 ru-4k-ns/op	  61969333 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 317139666 ns/op	  16.53 MB/s	  58756875 ar-4k-ns/op	  68735750 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72685875 ja-4k-ns/op	      1284 records/op	  56433917 ru-4k-ns/op	  60527000 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 497340458 ns/op	  10.54 MB/s	 107486667 ar-4k-ns/op	  69373042 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  94529959 ja-4k-ns/op	      1284 records/op	 108682042 ru-4k-ns/op	 117268375 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 298527958 ns/op	  31.90 MB/s	  53330583 ar-4k-ns/op	  48101584 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71560833 ja-4k-ns/op	      1284 records/op	  58098917 ru-4k-ns/op	  67435792 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 374672125 ns/op	  13.99 MB/s	  71170459 ar-4k-ns/op	  71134792 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78427583 ja-4k-ns/op	      1284 records/op	  78522500 ru-4k-ns/op	  75416500 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 477989541 ns/op	  10.97 MB/s	  75213333 ar-4k-ns/op	  89679792 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91686583 ja-4k-ns/op	      1284 records/op	 102823792 ru-4k-ns/op	 118585458 zh-4k-ns/op	417001944 B/op	  583714 allocs/op
+PASS
+# sample 4 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 304760083 ns/op	  31.24 MB/s	  52028166 ar-4k-ns/op	  70079459 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68793000 ja-4k-ns/op	      1284 records/op	  52400208 ru-4k-ns/op	  61459000 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 319147667 ns/op	  16.43 MB/s	  60273167 ar-4k-ns/op	  68276791 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  73448500 ja-4k-ns/op	      1284 records/op	  57724292 ru-4k-ns/op	  59424083 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496640250 ns/op	  10.56 MB/s	  80182083 ar-4k-ns/op	  68591917 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 120928250 ja-4k-ns/op	      1284 records/op	 109956667 ru-4k-ns/op	 116981000 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 311756084 ns/op	  30.54 MB/s	  55341125 ar-4k-ns/op	  48565791 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  73657250 ja-4k-ns/op	      1284 records/op	  60349875 ru-4k-ns/op	  73841750 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 376774500 ns/op	  13.92 MB/s	  74214000 ar-4k-ns/op	  70767166 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79005541 ja-4k-ns/op	      1284 records/op	  78795333 ru-4k-ns/op	  73992208 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 450134792 ns/op	  11.65 MB/s	 105539000 ar-4k-ns/op	  71989083 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91121917 ja-4k-ns/op	      1284 records/op	  92940666 ru-4k-ns/op	  88543625 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 5 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 307388333 ns/op	  30.98 MB/s	  50713917 ar-4k-ns/op	  72384166 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69165791 ja-4k-ns/op	      1284 records/op	  52467417 ru-4k-ns/op	  62656792 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 316776916 ns/op	  16.55 MB/s	  60168500 ar-4k-ns/op	  66972500 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72567417 ja-4k-ns/op	      1284 records/op	  57678667 ru-4k-ns/op	  59389584 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496215834 ns/op	  10.57 MB/s	 108736209 ar-4k-ns/op	  67977750 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  94077500 ja-4k-ns/op	      1284 records/op	 108150625 ru-4k-ns/op	 117273250 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 302667000 ns/op	  31.46 MB/s	  54687208 ar-4k-ns/op	  48036792 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70679083 ja-4k-ns/op	      1284 records/op	  57775916 ru-4k-ns/op	  71487292 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 375513500 ns/op	  13.96 MB/s	  72113583 ar-4k-ns/op	  71184959 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78120500 ja-4k-ns/op	      1284 records/op	  79707042 ru-4k-ns/op	  74383958 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 449337292 ns/op	  11.67 MB/s	  98735584 ar-4k-ns/op	  72263792 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91017500 ja-4k-ns/op	      1284 records/op	  97790875 ru-4k-ns/op	  89529333 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 6 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 309727500 ns/op	  30.74 MB/s	  52249541 ar-4k-ns/op	  71546667 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68096208 ja-4k-ns/op	      1284 records/op	  55447042 ru-4k-ns/op	  62387709 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 325305792 ns/op	  16.12 MB/s	  63755417 ar-4k-ns/op	  69874250 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  73516541 ja-4k-ns/op	      1284 records/op	  58140875 ru-4k-ns/op	  60018458 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 503958292 ns/op	  10.40 MB/s	 112578459 ar-4k-ns/op	  70255291 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  95400833 ja-4k-ns/op	      1284 records/op	 106932334 ru-4k-ns/op	 118791041 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 300595167 ns/op	  31.68 MB/s	  54813125 ar-4k-ns/op	  48079125 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71659833 ja-4k-ns/op	      1284 records/op	  58100208 ru-4k-ns/op	  67942541 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 375497208 ns/op	  13.96 MB/s	  71304000 ar-4k-ns/op	  71272916 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78887500 ja-4k-ns/op	      1284 records/op	  79319833 ru-4k-ns/op	  74712625 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 448515250 ns/op	  11.69 MB/s	 114503000 ar-4k-ns/op	  72184417 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91664666 ja-4k-ns/op	      1284 records/op	  81765708 ru-4k-ns/op	  88394041 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 7 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 309327334 ns/op	  30.78 MB/s	  51887250 ar-4k-ns/op	  73724542 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68027250 ja-4k-ns/op	      1284 records/op	  53078167 ru-4k-ns/op	  62609750 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 319916667 ns/op	  16.39 MB/s	  60590333 ar-4k-ns/op	  67748583 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72317875 ja-4k-ns/op	      1284 records/op	  58750250 ru-4k-ns/op	  60509333 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 500416875 ns/op	  10.48 MB/s	  98027666 ar-4k-ns/op	  67947209 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 106854417 ja-4k-ns/op	      1284 records/op	 109074667 ru-4k-ns/op	 118512000 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 307957875 ns/op	  30.92 MB/s	  54406583 ar-4k-ns/op	  48559125 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70110667 ja-4k-ns/op	      1284 records/op	  59806250 ru-4k-ns/op	  75074916 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 375214125 ns/op	  13.97 MB/s	  74219625 ar-4k-ns/op	  70525708 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78337541 ja-4k-ns/op	      1284 records/op	  78361875 ru-4k-ns/op	  73769042 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 450479000 ns/op	  11.64 MB/s	 114946500 ar-4k-ns/op	  71658666 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91007083 ja-4k-ns/op	      1284 records/op	  84818792 ru-4k-ns/op	  88047166 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 8 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 306549416 ns/op	  31.06 MB/s	  49779667 ar-4k-ns/op	  72099625 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69424875 ja-4k-ns/op	      1284 records/op	  52056209 ru-4k-ns/op	  63188875 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 317551792 ns/op	  16.51 MB/s	  60564791 ar-4k-ns/op	  67268417 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  70887083 ja-4k-ns/op	      1284 records/op	  59235125 ru-4k-ns/op	  59596125 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 500618958 ns/op	  10.47 MB/s	 108340333 ar-4k-ns/op	  76872125 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  93488583 ja-4k-ns/op	      1284 records/op	 104796125 ru-4k-ns/op	 117121250 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 317194958 ns/op	  30.02 MB/s	  53816250 ar-4k-ns/op	  48179167 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  69541750 ja-4k-ns/op	      1284 records/op	  59068875 ru-4k-ns/op	  86585583 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 372348875 ns/op	  14.08 MB/s	  70743333 ar-4k-ns/op	  71010125 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78518458 ja-4k-ns/op	      1284 records/op	  78435167 ru-4k-ns/op	  73641500 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 445536375 ns/op	  11.77 MB/s	 112622750 ar-4k-ns/op	  72415833 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91359000 ja-4k-ns/op	      1284 records/op	  81200208 ru-4k-ns/op	  87938167 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 9 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 305092167 ns/op	  31.21 MB/s	  51885959 ar-4k-ns/op	  68205750 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69149292 ja-4k-ns/op	      1284 records/op	  53630625 ru-4k-ns/op	  62219958 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 320047584 ns/op	  16.38 MB/s	  60705292 ar-4k-ns/op	  67192917 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72245750 ja-4k-ns/op	      1284 records/op	  60160833 ru-4k-ns/op	  59742458 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 494211333 ns/op	  10.61 MB/s	  79759000 ar-4k-ns/op	  67410125 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 120215000 ja-4k-ns/op	      1284 records/op	 112282708 ru-4k-ns/op	 114543708 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 305641083 ns/op	  31.15 MB/s	  56424666 ar-4k-ns/op	  48002208 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  72114667 ja-4k-ns/op	      1284 records/op	  59910583 ru-4k-ns/op	  69188583 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 376963083 ns/op	  13.91 MB/s	  71794208 ar-4k-ns/op	  71089708 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79289916 ja-4k-ns/op	      1284 records/op	  79386208 ru-4k-ns/op	  75402834 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 447424791 ns/op	  11.72 MB/s	  81843333 ar-4k-ns/op	  72399916 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91154083 ja-4k-ns/op	      1284 records/op	 111914667 ru-4k-ns/op	  90112375 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 10 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 305499166 ns/op	  31.17 MB/s	  49588875 ar-4k-ns/op	  72290375 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68894125 ja-4k-ns/op	      1284 records/op	  52050417 ru-4k-ns/op	  62674959 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 320366833 ns/op	  16.37 MB/s	  60495750 ar-4k-ns/op	  67894000 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  71719042 ja-4k-ns/op	      1284 records/op	  60034917 ru-4k-ns/op	  60222208 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496200667 ns/op	  10.57 MB/s	  95111125 ar-4k-ns/op	  67525000 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 105760917 ja-4k-ns/op	      1284 records/op	 111230875 ru-4k-ns/op	 116572333 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 301287500 ns/op	  31.60 MB/s	  54909792 ar-4k-ns/op	  48581500 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71527125 ja-4k-ns/op	      1284 records/op	  58454875 ru-4k-ns/op	  67813041 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 372169584 ns/op	  14.09 MB/s	  70652583 ar-4k-ns/op	  70673500 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78503917 ja-4k-ns/op	      1284 records/op	  78472375 ru-4k-ns/op	  73866500 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 446423541 ns/op	  11.74 MB/s	 100232542 ar-4k-ns/op	  71804084 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  90957375 ja-4k-ns/op	      1284 records/op	  95132167 ru-4k-ns/op	  88297167 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 11 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 303010000 ns/op	  31.42 MB/s	  50831250 ar-4k-ns/op	  66695833 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  67174500 ja-4k-ns/op	      1284 records/op	  54192500 ru-4k-ns/op	  64115583 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 318573708 ns/op	  16.46 MB/s	  59864125 ar-4k-ns/op	  67468584 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72562167 ja-4k-ns/op	      1284 records/op	  60167500 ru-4k-ns/op	  58511041 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 495944834 ns/op	  10.57 MB/s	  95542750 ar-4k-ns/op	  67848625 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 106372709 ja-4k-ns/op	      1284 records/op	 111491792 ru-4k-ns/op	 114688375 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 300714000 ns/op	  31.66 MB/s	  54170250 ar-4k-ns/op	  47897417 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71680041 ja-4k-ns/op	      1284 records/op	  58684041 ru-4k-ns/op	  68282000 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 374759583 ns/op	  13.99 MB/s	  71444583 ar-4k-ns/op	  71082000 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78606417 ja-4k-ns/op	      1284 records/op	  79125792 ru-4k-ns/op	  74500458 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 446321416 ns/op	  11.75 MB/s	  76371625 ar-4k-ns/op	  73130709 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91190542 ja-4k-ns/op	      1284 records/op	 116558333 ru-4k-ns/op	  89069625 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 12 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 307688500 ns/op	  30.95 MB/s	  51391250 ar-4k-ns/op	  71493458 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69011958 ja-4k-ns/op	      1284 records/op	  52874958 ru-4k-ns/op	  62916500 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 324701375 ns/op	  16.15 MB/s	  61642666 ar-4k-ns/op	  69564792 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72705083 ja-4k-ns/op	      1284 records/op	  59904917 ru-4k-ns/op	  60883667 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 506127500 ns/op	  10.36 MB/s	  98009458 ar-4k-ns/op	  69827833 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 111474417 ja-4k-ns/op	      1284 records/op	 110516833 ru-4k-ns/op	 116298459 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 317688666 ns/op	  29.97 MB/s	  54323791 ar-4k-ns/op	  48267750 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70603166 ja-4k-ns/op	      1284 records/op	  59278167 ru-4k-ns/op	  85215250 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 376744875 ns/op	  13.92 MB/s	  71257792 ar-4k-ns/op	  70931542 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79082916 ja-4k-ns/op	      1284 records/op	  79645500 ru-4k-ns/op	  75826583 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 449984667 ns/op	  11.65 MB/s	 109963750 ar-4k-ns/op	  72026166 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91682666 ja-4k-ns/op	      1284 records/op	  86970292 ru-4k-ns/op	  89338000 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 13 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 314879333 ns/op	  30.24 MB/s	  53713042 ar-4k-ns/op	  74912458 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69733625 ja-4k-ns/op	      1284 records/op	  52083000 ru-4k-ns/op	  64436375 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 326650083 ns/op	  16.05 MB/s	  60419417 ar-4k-ns/op	  68204709 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  76148583 ja-4k-ns/op	      1284 records/op	  59326959 ru-4k-ns/op	  62550208 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 504649750 ns/op	  10.39 MB/s	 108528125 ar-4k-ns/op	  69020292 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  98458250 ja-4k-ns/op	      1284 records/op	 109481625 ru-4k-ns/op	 119161208 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 305776667 ns/op	  31.14 MB/s	  55027459 ar-4k-ns/op	  48842833 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  73903250 ja-4k-ns/op	      1284 records/op	  59190792 ru-4k-ns/op	  68812000 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 377110334 ns/op	  13.90 MB/s	  71914042 ar-4k-ns/op	  71336875 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78742708 ja-4k-ns/op	      1284 records/op	  80879125 ru-4k-ns/op	  74237375 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 451246250 ns/op	  11.62 MB/s	 105079084 ar-4k-ns/op	  72822500 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91359000 ja-4k-ns/op	      1284 records/op	  92964542 ru-4k-ns/op	  89020875 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 14 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 314723166 ns/op	  30.25 MB/s	  50984167 ar-4k-ns/op	  74414167 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68535500 ja-4k-ns/op	      1284 records/op	  56149625 ru-4k-ns/op	  64639167 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 321807250 ns/op	  16.29 MB/s	  62686292 ar-4k-ns/op	  69260375 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72622708 ja-4k-ns/op	      1284 records/op	  56522125 ru-4k-ns/op	  60715458 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 500848250 ns/op	  10.47 MB/s	 111541500 ar-4k-ns/op	  69740166 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  94762208 ja-4k-ns/op	      1284 records/op	 106467750 ru-4k-ns/op	 118336125 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 305617833 ns/op	  31.16 MB/s	  54505792 ar-4k-ns/op	  48731250 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  73287709 ja-4k-ns/op	      1284 records/op	  59589416 ru-4k-ns/op	  69503417 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 379482834 ns/op	  13.82 MB/s	  72802417 ar-4k-ns/op	  71458917 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79703708 ja-4k-ns/op	      1284 records/op	  80054666 ru-4k-ns/op	  75462917 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 455943125 ns/op	  11.50 MB/s	 116405792 ar-4k-ns/op	  72468125 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  95921750 ja-4k-ns/op	      1284 records/op	  82439875 ru-4k-ns/op	  88707083 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 15 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 309500708 ns/op	  30.77 MB/s	  52509916 ar-4k-ns/op	  71198125 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69276334 ja-4k-ns/op	      1284 records/op	  53316250 ru-4k-ns/op	  63199667 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 319830000 ns/op	  16.39 MB/s	  62152833 ar-4k-ns/op	  68328375 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  72192167 ja-4k-ns/op	      1284 records/op	  57592416 ru-4k-ns/op	  59563833 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 500901333 ns/op	  10.47 MB/s	 110491958 ar-4k-ns/op	  68525583 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  99534291 ja-4k-ns/op	      1284 records/op	 107643708 ru-4k-ns/op	 114705209 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 301342458 ns/op	  31.60 MB/s	  53918292 ar-4k-ns/op	  48531958 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71709250 ja-4k-ns/op	      1284 records/op	  58493125 ru-4k-ns/op	  68689416 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 375331709 ns/op	  13.97 MB/s	  71562375 ar-4k-ns/op	  71098333 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78130792 ja-4k-ns/op	      1284 records/op	  80105667 ru-4k-ns/op	  74434292 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 445727167 ns/op	  11.76 MB/s	  98583250 ar-4k-ns/op	  71636417 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  90294542 ja-4k-ns/op	      1284 records/op	  96346750 ru-4k-ns/op	  88862791 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 16 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 309836542 ns/op	  30.73 MB/s	  54789042 ar-4k-ns/op	  72547042 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  67576625 ja-4k-ns/op	      1284 records/op	  52484083 ru-4k-ns/op	  62439417 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 318957875 ns/op	  16.44 MB/s	  59969792 ar-4k-ns/op	  69545500 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  70585125 ja-4k-ns/op	      1284 records/op	  58312500 ru-4k-ns/op	  60544000 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496696791 ns/op	  10.56 MB/s	  97846709 ar-4k-ns/op	  70208042 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 102766417 ja-4k-ns/op	      1284 records/op	 109525750 ru-4k-ns/op	 116349250 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 303569667 ns/op	  31.37 MB/s	  54432167 ar-4k-ns/op	  48389541 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  72575333 ja-4k-ns/op	      1284 records/op	  59996333 ru-4k-ns/op	  68176042 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 377529000 ns/op	  13.89 MB/s	  72140750 ar-4k-ns/op	  71029167 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  80179541 ja-4k-ns/op	      1284 records/op	  79512166 ru-4k-ns/op	  74667000 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 449160792 ns/op	  11.67 MB/s	 109638458 ar-4k-ns/op	  72241583 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  92938750 ja-4k-ns/op	      1284 records/op	  84758083 ru-4k-ns/op	  89583583 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 17 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 312790416 ns/op	  30.44 MB/s	  52985334 ar-4k-ns/op	  61886250 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68637708 ja-4k-ns/op	      1284 records/op	  65887291 ru-4k-ns/op	  63393500 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 357766041 ns/op	  14.65 MB/s	  68457125 ar-4k-ns/op	  76536750 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  79088917 ja-4k-ns/op	      1284 records/op	  65956667 ru-4k-ns/op	  67726375 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 505456000 ns/op	  10.37 MB/s	 111105916 ar-4k-ns/op	  72126541 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  95446083 ja-4k-ns/op	      1284 records/op	 106896792 ru-4k-ns/op	 119876917 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 306740542 ns/op	  31.04 MB/s	  55715542 ar-4k-ns/op	  48235583 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  71724333 ja-4k-ns/op	      1284 records/op	  59009625 ru-4k-ns/op	  72054791 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 377939584 ns/op	  13.87 MB/s	  72579583 ar-4k-ns/op	  71288750 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79162000 ja-4k-ns/op	      1284 records/op	  79896916 ru-4k-ns/op	  75012083 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 451434250 ns/op	  11.61 MB/s	  99140208 ar-4k-ns/op	  72525583 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  92191000 ja-4k-ns/op	      1284 records/op	  97376208 ru-4k-ns/op	  90200708 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 18 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 307863167 ns/op	  30.93 MB/s	  51298708 ar-4k-ns/op	  67621708 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  68569083 ja-4k-ns/op	      1284 records/op	  57186417 ru-4k-ns/op	  63186875 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 316159875 ns/op	  16.58 MB/s	  60121000 ar-4k-ns/op	  67192041 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  71741792 ja-4k-ns/op	      1284 records/op	  57521000 ru-4k-ns/op	  59583083 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496626375 ns/op	  10.56 MB/s	  96391333 ar-4k-ns/op	  67969750 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 104904875 ja-4k-ns/op	      1284 records/op	 108841958 ru-4k-ns/op	 118518125 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 305115417 ns/op	  31.21 MB/s	  53738000 ar-4k-ns/op	  48246375 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70723958 ja-4k-ns/op	      1284 records/op	  59355000 ru-4k-ns/op	  73051625 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 370175667 ns/op	  14.16 MB/s	  70593000 ar-4k-ns/op	  70774791 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  77605583 ja-4k-ns/op	      1284 records/op	  77830750 ru-4k-ns/op	  73371250 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 449028542 ns/op	  11.68 MB/s	 102265792 ar-4k-ns/op	  73322792 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91736625 ja-4k-ns/op	      1284 records/op	  92564833 ru-4k-ns/op	  89137958 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 19 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 311422958 ns/op	  30.58 MB/s	  51237834 ar-4k-ns/op	  73532083 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  69986583 ja-4k-ns/op	      1284 records/op	  53848667 ru-4k-ns/op	  62817333 zh-4k-ns/op	246326528 B/op	 1164486 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 321954333 ns/op	  16.28 MB/s	  62459000 ar-4k-ns/op	  68107833 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  71775083 ja-4k-ns/op	      1284 records/op	  59083417 ru-4k-ns/op	  60528541 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 496843042 ns/op	  10.55 MB/s	  93737167 ar-4k-ns/op	  68870625 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 108969916 ja-4k-ns/op	      1284 records/op	 109843334 ru-4k-ns/op	 115421708 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 320090542 ns/op	  29.75 MB/s	  54004875 ar-4k-ns/op	  48671625 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70392042 ja-4k-ns/op	      1284 records/op	  60059750 ru-4k-ns/op	  86961791 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 372220291 ns/op	  14.09 MB/s	  70523291 ar-4k-ns/op	  70754042 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  78790834 ja-4k-ns/op	      1284 records/op	  78726458 ru-4k-ns/op	  73424792 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 448806375 ns/op	  11.68 MB/s	 106729334 ar-4k-ns/op	  72414084 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91941375 ja-4k-ns/op	      1284 records/op	  88909209 ru-4k-ns/op	  88808958 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 20 current
+goos: darwin
+goarch: arm64
+pkg: github.com/gosimd/bpe
+cpu: Apple M5
+BenchmarkCompact/gpt2/ModelTokenize         	       1	 297564666 ns/op	  32.00 MB/s	  49437834 ar-4k-ns/op	  48067417 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	  70634834 ja-4k-ns/op	      1284 records/op	  51930667 ru-4k-ns/op	  77493584 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	 320496125 ns/op	  16.36 MB/s	  63082042 ar-4k-ns/op	  67960292 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  71553125 ja-4k-ns/op	      1284 records/op	  58059042 ru-4k-ns/op	  59841333 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	 501957667 ns/op	  10.44 MB/s	 110323625 ar-4k-ns/op	  68797250 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	  93136083 ja-4k-ns/op	      1284 records/op	 111334583 ru-4k-ns/op	 118364833 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	 322546750 ns/op	  29.52 MB/s	  54983792 ar-4k-ns/op	  49118042 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	  70776000 ja-4k-ns/op	      1284 records/op	  60019459 ru-4k-ns/op	  87649167 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	 376087125 ns/op	  13.94 MB/s	  72080334 ar-4k-ns/op	  71105459 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  79056834 ja-4k-ns/op	      1284 records/op	  79362792 ru-4k-ns/op	  74481417 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	 446750625 ns/op	  11.74 MB/s	  83010084 ar-4k-ns/op	  72969667 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	  91142125 ja-4k-ns/op	      1284 records/op	 110986334 ru-4k-ns/op	  88641750 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS

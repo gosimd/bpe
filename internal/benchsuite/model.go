@@ -102,7 +102,7 @@ func parseModelOptions(data []byte, pipeline string) (model.Options, error) {
 	if m.Dropout != nil && *m.Dropout != 0 {
 		return model.Options{}, fmt.Errorf("BPE dropout is not supported by the deterministic Go benchmark")
 	}
-	if pipeline != "model-only" && pipeline != "gpt2" {
+	if pipeline != "model-only" && pipeline != "gpt2" && pipeline != "json" {
 		return model.Options{}, fmt.Errorf("unsupported pipeline %q", pipeline)
 	}
 	if pipeline == "gpt2" {

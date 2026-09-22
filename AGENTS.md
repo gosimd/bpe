@@ -54,8 +54,8 @@ text outside the library and timing, then feed identical prepared text to HF
 and Go. Offsets refer to the prepared text; mapping them back to the original
 pre-normalization input is not a library responsibility. Record source and
 prepared hashes, preparation configuration, reference version and record
-boundaries. Do not claim that this preparation is already implemented or
-rewrite historical benchmark metadata to imply it.
+boundaries. The compact-v1 suite implements this preparation separately;
+do not rewrite historical benchmark metadata to imply it used this workflow.
 
 Complete model-specific pipelines such as Qwen, arbitrary processor composition, caches,
 and SIMD are not implemented yet. Qwen2.5 (151,643 BPE entries),
@@ -65,8 +65,10 @@ revisions, licenses and checked asset hashes. The named catalogue supports
 multiple model/corpus entries and
 includes vendored English, Russian, Arabic, Japanese and Chinese text pools
 with exact UTF-8 request ranges. Model-only cases consume HF-prepared pieces;
-full Go benchmark stages are currently enabled only for the GPT-2 catalogue
-entry. This is benchmark coverage, not a model restriction in the library.
+full Go benchmark stages in the extended catalogue are enabled only for GPT-2.
+The separate compact-v1 suite also checks and measures Qwen3.8 on externally
+NFC-prepared text with a derived no-normalizer configuration; all source assets
+remain unchanged. This is benchmark coverage, not a model restriction in the library.
 
 `internal/pretokenize` adapts the public `gosimd/pretok v0.2.1` Pipeline API.
 All pre-tokenization lives in that dependency: splitting, transformations and
@@ -245,6 +247,17 @@ the upstream or intentional contract change in the same commit.
 
 ## Benchmarks
 
+- Compact per-machine measurement uses `scripts/benchmark_compact.py` and the
+  versioned protocol in `benchmarks/COMPACT.md`. Keep six aggregate rows for
+  GPT-2/Qwen3.8 and Model.Tokenize/Tokenizer.AppendIDs/Tokenizer.Encode; retain
+  per-language raw timings. Its separate NFC-prepared corpus and Qwen JSON
+  without normalizer are tooling artifacts, not runtime normalization support.
+  The extended catalogue stays model-only for Qwen. Benchmark `json` pipelines
+  load through the public constructor and must pass the full HF gate.
+  Preserve decimal GB/s, explicit byte denominators and per-record allocations.
+  Current BPE backend is scalar. When adding SIMD, update the compact harness
+  to verify dispatch and implement same-commit scalar selection before reporting
+  scalar speedups; never treat CPU ISA flags or the heap oracle as that evidence.
 - Keep public end-to-end benchmarks separate from internal kernel benchmarks.
 - `BenchmarkBPE/<model>/<corpus>/<operation>` uses `benchmarks/suite.json` (or
   `BPE_BENCH_SUITE`) with exact-name model/corpus selectors. Load models, corpus

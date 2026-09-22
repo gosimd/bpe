@@ -70,6 +70,21 @@ func TestInvalidCatalogue(t *testing.T) {
 	}
 }
 
+func TestExplicitJSONPipelineCatalogue(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "suite.json")
+	data := []byte(`{"schema":1,"models":[{"name":"prepared","tokenizer":"t.json","vocab":"v.json","merges":"m.txt","pipeline":"json"}],"corpora":[{"name":"text","path":"c.jsonl"}]}`)
+	if err := os.WriteFile(path, data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	suite, err := Load(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if suite.Models[0].Pipeline != "json" {
+		t.Fatalf("pipeline changed: %+v", suite.Models[0])
+	}
+}
+
 func TestVendoredPools(t *testing.T) {
 	for _, pool := range []string{"en-wikitext2", "ru-wikipedia", "ar-wikipedia", "ja-wikipedia", "zh-wikipedia"} {
 		t.Run(pool, func(t *testing.T) {
