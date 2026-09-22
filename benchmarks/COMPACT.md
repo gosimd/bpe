@@ -1,6 +1,7 @@
 # Compact benchmark protocol v1
 
-One independent, immutable report per machine. Six rows: GPT-2 and
+One independent result per CPU/architecture profile. Raw measurements remain
+unchanged when updating presentation. Six rows: GPT-2 and
 Qwen3.8-Flash-Next × Model.Tokenize, Tokenizer.AppendIDs, Tokenizer.Encode.
 Qwen2.5 and BLOOM remain in the extended suite; no assets or tests are retired.
 
@@ -16,7 +17,8 @@ python3 scripts/benchmark_compact.py --machine apple-m5 \
   --environment 'MacBook Pro M5; describe power, affinity, thermal and background conditions'
 ```
 
-Use a stable machine ID such as `apple-m5`, `xeon-avx512`, or `core-i3-avx2`.
+Use a CPU/ISA label such as `apple-m5`, `xeon-skylake-avx512`, or `core-i3-avx2`,
+not an SSH alias or hostname.
 The ID describes the machine, **not the selected BPE backend**. The current BPE
 implementation is scalar; there is no SIMD/scalar selector. Both the report and
 metadata explicitly say so. When SIMD is introduced, add verified backend
@@ -49,20 +51,30 @@ benchmarks/results/compact-v1/<machine>/<UTC timestamp>-<commit>/
     report.md
     run.json
     samples.txt
-    validation.txt
-    source.patch
 ```
 
-Retained baseline: [Apple M5, 2026-09-22](results/compact-v1/apple-m5/20260922T100228Z-58905369/report.md)
-(battery power; 20 samples per row). Treat execution conditions as part of the
-baseline, not as a claim of peak machine throughput.
+Only completed results are published. Local diagnostics, incomplete runs,
+patches, full command/environment traces and machine-specific instructions stay
+under ignored `benchmarks/runs/compact-v1/<machine>/<run>/`. They are not part
+of the committed report. A comparison also retains `baseline-samples.txt`.
 
-Commit the result directory. Do not edit timings manually. `run.json` records
-source hashes (including uncommitted new harness files), toolchains, resolved
-dependencies, commands, CPU/OS/capabilities, power observations, input hashes,
-record lengths and computed summaries. `source.patch` captures measured source
-changes against the named commit. A source change during sampling rejects the
-run; incomplete runs have `complete:false` and cannot serve as baselines.
+Retained per-machine baselines (20 samples per row):
+
+- [Apple M5, 2026-09-22](results/compact-v1/apple-m5/20260922T100228Z-58905369/report.md)
+  — battery power.
+- [Xeon Skylake / AVX-512, 2026-09-22](results/compact-v1/xeon-skylake-avx512/20260922T103351Z-d36f9207/report.md)
+  — KVM guest, pinned to vCPU 1; BPE is scalar.
+
+Treat execution conditions as part of each baseline, not as a claim of peak
+machine throughput or a cross-machine speedup ranking.
+
+The published `run.json` contains measurement evidence: source hashes, recorded
+commit and dirty-source flag, toolchains, resolved dependencies, measurement
+flags, CPU/OS/capabilities, execution conditions, input hashes, record lengths
+and computed summaries. It excludes local paths, shell commands, cache settings
+and diagnostic dumps. Full execution metadata and `source.patch` are retained
+only in the ignored local run directory. A source change during sampling
+rejects the run; incomplete runs cannot serve as baselines.
 
 ## Inputs and correctness gate
 
@@ -94,12 +106,12 @@ names; the existing extended catalogue and historical reports are unchanged.
 
 ## Units and comparisons
 
-The public table uses decimal GB/s (10^9 B/s): bytes divided by nanoseconds.
+The public table uses decimal MB/s (10^6 B/s): 1000 × bytes / nanoseconds.
 Raw output and JSON retain ns/op and ns/input-byte. Model bytes are the UTF-8
 bytes of HF-transformed BPE pieces, excluding added tokens; Tokenizer bytes are
 the prepared input text. These denominators are different: do not subtract or
 sum stage rates. Aggregate each sample as one complete multilingual pass, never
-average language GB/s. B/request and allocs/request divide full-pass Go
+average language MB/s. B/request and allocs/request divide full-pass Go
 allocation counters by source-record count, also for Model.
 
 The table reports the median rate with a distribution-free, at-least-95%
@@ -133,8 +145,9 @@ in thermal conditions, power or background load. First runs leave both ratio
 columns empty. No HF/tiktoken/sugarme speedup is inferred from this report;
 external-library comparisons remain a separate suite.
 
-Change protocol version when altering workloads, timed work, byte denominators,
-or output contracts. A compiler/dependency change needs a new controlled baseline,
+Change protocol version when altering workloads, timed work or byte denominators.
+Display-unit and artifact-retention changes do not change measured samples.
+A compiler/dependency change needs a new controlled baseline,
 not attribution to a BPE SIMD kernel.
 
 ## Harness tests

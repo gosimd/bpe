@@ -1,0 +1,240 @@
+# sample 1 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1581769142 ns/op	   6.02 MB/s	 409249865 ar-4k-ns/op	 305642900 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 349002326 ja-4k-ns/op	      1284 records/op	 260655755 ru-4k-ns/op	 257213456 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1439899678 ns/op	   3.64 MB/s	 267480353 ar-4k-ns/op	 343878901 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 306400610 ja-4k-ns/op	      1284 records/op	 275410180 ru-4k-ns/op	 246724882 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2558462215 ns/op	   2.05 MB/s	 402101827 ar-4k-ns/op	 387660723 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 651343318 ja-4k-ns/op	      1284 records/op	 569671465 ru-4k-ns/op	 547681044 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2153170385 ns/op	   4.42 MB/s	 382186242 ar-4k-ns/op	 409728625 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 462308742 ja-4k-ns/op	      1284 records/op	 398585870 ru-4k-ns/op	 500353756 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1922218449 ns/op	   2.73 MB/s	 346780418 ar-4k-ns/op	 357090482 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 396830804 ja-4k-ns/op	      1284 records/op	 373515067 ru-4k-ns/op	 447997078 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2763052820 ns/op	   1.90 MB/s	 517029263 ar-4k-ns/op	 479088710 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 776906637 ja-4k-ns/op	      1284 records/op	 428425531 ru-4k-ns/op	 561598640 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 2 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1517780454 ns/op	   6.27 MB/s	 419418160 ar-4k-ns/op	 312650315 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 281392948 ja-4k-ns/op	      1284 records/op	 242812756 ru-4k-ns/op	 261502011 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1470947092 ns/op	   3.56 MB/s	 321134074 ar-4k-ns/op	 307640954 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 302144674 ja-4k-ns/op	      1284 records/op	 267521880 ru-4k-ns/op	 272500261 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2932879757 ns/op	   1.79 MB/s	 568852343 ar-4k-ns/op	 462974342 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 702148138 ja-4k-ns/op	      1284 records/op	 689039837 ru-4k-ns/op	 509860532 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1927243318 ns/op	   4.94 MB/s	 328040682 ar-4k-ns/op	 347521937 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 417762652 ja-4k-ns/op	      1284 records/op	 347066177 ru-4k-ns/op	 486847799 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2029448705 ns/op	   2.58 MB/s	 379849304 ar-4k-ns/op	 338750442 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 403074190 ja-4k-ns/op	      1284 records/op	 474646693 ru-4k-ns/op	 433121623 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2594049225 ns/op	   2.02 MB/s	 455490347 ar-4k-ns/op	 432684165 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 727747766 ja-4k-ns/op	      1284 records/op	 432305921 ru-4k-ns/op	 545817872 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 3 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1528072089 ns/op	   6.23 MB/s	 278945671 ar-4k-ns/op	 280283428 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 285282625 ja-4k-ns/op	      1284 records/op	 381159997 ru-4k-ns/op	 302395496 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1382205184 ns/op	   3.79 MB/s	 259546950 ar-4k-ns/op	 324061445 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 277354104 ja-4k-ns/op	      1284 records/op	 265997913 ru-4k-ns/op	 255238965 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2668952635 ns/op	   1.96 MB/s	 397040810 ar-4k-ns/op	 410148921 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 640646108 ja-4k-ns/op	      1284 records/op	 662559650 ru-4k-ns/op	 558553338 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2378547569 ns/op	   4.00 MB/s	 402283291 ar-4k-ns/op	 397537955 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 562156089 ja-4k-ns/op	      1284 records/op	 458573968 ru-4k-ns/op	 557991725 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2070702702 ns/op	   2.53 MB/s	 387259432 ar-4k-ns/op	 355000887 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 459015612 ja-4k-ns/op	      1284 records/op	 380878130 ru-4k-ns/op	 488543483 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2901291032 ns/op	   1.81 MB/s	 503340566 ar-4k-ns/op	 491983155 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 795403078 ja-4k-ns/op	      1284 records/op	 543332360 ru-4k-ns/op	 567227861 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 4 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1540233852 ns/op	   6.18 MB/s	 261823254 ar-4k-ns/op	 309341753 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 303455293 ja-4k-ns/op	      1284 records/op	 420565548 ru-4k-ns/op	 245043614 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1489983213 ns/op	   3.52 MB/s	 278050082 ar-4k-ns/op	 332947665 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 346503170 ja-4k-ns/op	      1284 records/op	 276634522 ru-4k-ns/op	 255828035 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2767083492 ns/op	   1.89 MB/s	 559981724 ar-4k-ns/op	 444894768 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 660016706 ja-4k-ns/op	      1284 records/op	 599188011 ru-4k-ns/op	 502997863 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1913648790 ns/op	   4.98 MB/s	 336826241 ar-4k-ns/op	 338857613 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 439120669 ja-4k-ns/op	      1284 records/op	 369931230 ru-4k-ns/op	 428907789 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2008834110 ns/op	   2.61 MB/s	 361297699 ar-4k-ns/op	 391296914 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 411358780 ja-4k-ns/op	      1284 records/op	 383452719 ru-4k-ns/op	 461422141 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2796933104 ns/op	   1.87 MB/s	 678462750 ar-4k-ns/op	 460490039 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 565920169 ja-4k-ns/op	      1284 records/op	 531160538 ru-4k-ns/op	 560896105 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 5 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1618330985 ns/op	   5.88 MB/s	 329529550 ar-4k-ns/op	 320662680 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 299466195 ja-4k-ns/op	      1284 records/op	 406248070 ru-4k-ns/op	 262419528 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1423079850 ns/op	   3.68 MB/s	 273448595 ar-4k-ns/op	 334312417 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 294504196 ja-4k-ns/op	      1284 records/op	 268730364 ru-4k-ns/op	 252079085 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2728600625 ns/op	   1.92 MB/s	 396244735 ar-4k-ns/op	 375802449 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 709592202 ja-4k-ns/op	      1284 records/op	 696224405 ru-4k-ns/op	 550733222 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1956629459 ns/op	   4.87 MB/s	 341779338 ar-4k-ns/op	 312500447 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 476207092 ja-4k-ns/op	      1284 records/op	 346600638 ru-4k-ns/op	 479537380 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2099088159 ns/op	   2.50 MB/s	 443096824 ar-4k-ns/op	 351307497 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 439412386 ja-4k-ns/op	      1284 records/op	 422952438 ru-4k-ns/op	 442313090 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2764694473 ns/op	   1.90 MB/s	 629948443 ar-4k-ns/op	 435752047 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 569795824 ja-4k-ns/op	      1284 records/op	 480661282 ru-4k-ns/op	 648531950 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 6 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1586631927 ns/op	   6.00 MB/s	 353391646 ar-4k-ns/op	 332324399 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 294217642 ja-4k-ns/op	      1284 records/op	 317478329 ru-4k-ns/op	 289199592 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1579735125 ns/op	   3.32 MB/s	 311415027 ar-4k-ns/op	 377662609 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 322920383 ja-4k-ns/op	      1284 records/op	 275181872 ru-4k-ns/op	 292549616 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2493017344 ns/op	   2.10 MB/s	 485335800 ar-4k-ns/op	 363865504 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 649313384 ja-4k-ns/op	      1284 records/op	 532760930 ru-4k-ns/op	 461737825 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1847182132 ns/op	   5.15 MB/s	 317662448 ar-4k-ns/op	 354308422 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 416872688 ja-4k-ns/op	      1284 records/op	 335141679 ru-4k-ns/op	 423193749 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2077427615 ns/op	   2.52 MB/s	 381779790 ar-4k-ns/op	 423076742 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 443894899 ja-4k-ns/op	      1284 records/op	 412643085 ru-4k-ns/op	 416026924 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2536397238 ns/op	   2.07 MB/s	 496262283 ar-4k-ns/op	 406209450 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 648065810 ja-4k-ns/op	      1284 records/op	 448478924 ru-4k-ns/op	 537375990 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 7 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1556014938 ns/op	   6.12 MB/s	 284272025 ar-4k-ns/op	 290253802 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 303662539 ja-4k-ns/op	      1284 records/op	 412112260 ru-4k-ns/op	 265709313 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1402065349 ns/op	   3.74 MB/s	 278594843 ar-4k-ns/op	 332585352 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 283483096 ja-4k-ns/op	      1284 records/op	 248918661 ru-4k-ns/op	 258478936 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2665256099 ns/op	   1.97 MB/s	 412390288 ar-4k-ns/op	 390387265 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 666888342 ja-4k-ns/op	      1284 records/op	 601853330 ru-4k-ns/op	 593732955 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2016353859 ns/op	   4.72 MB/s	 362757870 ar-4k-ns/op	 347773593 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 440964415 ja-4k-ns/op	      1284 records/op	 397743756 ru-4k-ns/op	 467110755 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2029445936 ns/op	   2.58 MB/s	 358084253 ar-4k-ns/op	 380280640 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 439778650 ja-4k-ns/op	      1284 records/op	 399517016 ru-4k-ns/op	 451779445 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2694352036 ns/op	   1.95 MB/s	 453172372 ar-4k-ns/op	 448341102 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 743070514 ja-4k-ns/op	      1284 records/op	 435437186 ru-4k-ns/op	 614326714 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 8 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1566972720 ns/op	   6.08 MB/s	 337246718 ar-4k-ns/op	 269013152 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 334666909 ja-4k-ns/op	      1284 records/op	 328939354 ru-4k-ns/op	 297102044 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1385131365 ns/op	   3.79 MB/s	 266693412 ar-4k-ns/op	 316541145 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 306634996 ja-4k-ns/op	      1284 records/op	 248789330 ru-4k-ns/op	 246468113 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2646346058 ns/op	   1.98 MB/s	 457340167 ar-4k-ns/op	 367862558 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 656560241 ja-4k-ns/op	      1284 records/op	 568826728 ru-4k-ns/op	 595753037 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1875628901 ns/op	   5.08 MB/s	 319774407 ar-4k-ns/op	 335609082 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 419823204 ja-4k-ns/op	      1284 records/op	 365097608 ru-4k-ns/op	 435320557 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1996266211 ns/op	   2.63 MB/s	 386838374 ar-4k-ns/op	 359960105 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 408896686 ja-4k-ns/op	      1284 records/op	 373685174 ru-4k-ns/op	 466881382 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2663398685 ns/op	   1.97 MB/s	 442731192 ar-4k-ns/op	 450173673 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 714245418 ja-4k-ns/op	      1284 records/op	 517223280 ru-4k-ns/op	 539021548 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 9 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1608035000 ns/op	   5.92 MB/s	 411972686 ar-4k-ns/op	 354703940 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 295845406 ja-4k-ns/op	      1284 records/op	 278621052 ru-4k-ns/op	 266887267 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1378732416 ns/op	   3.80 MB/s	 260131124 ar-4k-ns/op	 320878978 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 286093046 ja-4k-ns/op	      1284 records/op	 260509451 ru-4k-ns/op	 251114574 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2751430647 ns/op	   1.91 MB/s	 461722192 ar-4k-ns/op	 431058049 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 592664783 ja-4k-ns/op	      1284 records/op	 586844527 ru-4k-ns/op	 679136395 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1800305555 ns/op	   5.29 MB/s	 327800836 ar-4k-ns/op	 305829921 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 415036793 ja-4k-ns/op	      1284 records/op	 353255857 ru-4k-ns/op	 398377992 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1923162876 ns/op	   2.73 MB/s	 365360184 ar-4k-ns/op	 369707306 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 389896230 ja-4k-ns/op	      1284 records/op	 372533950 ru-4k-ns/op	 425660786 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2612172201 ns/op	   2.01 MB/s	 538497223 ar-4k-ns/op	 410880716 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 647449682 ja-4k-ns/op	      1284 records/op	 447243838 ru-4k-ns/op	 568096785 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 10 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1594683968 ns/op	   5.97 MB/s	 425472176 ar-4k-ns/op	 300514810 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 308564042 ja-4k-ns/op	      1284 records/op	 285739351 ru-4k-ns/op	 274389552 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1450402379 ns/op	   3.61 MB/s	 275076151 ar-4k-ns/op	 350631012 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 297715208 ja-4k-ns/op	      1284 records/op	 255115734 ru-4k-ns/op	 271859085 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2624202712 ns/op	   2.00 MB/s	 399822614 ar-4k-ns/op	 389154635 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 638701039 ja-4k-ns/op	      1284 records/op	 574424958 ru-4k-ns/op	 622094469 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1891235579 ns/op	   5.03 MB/s	 322053874 ar-4k-ns/op	 308936938 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 413980627 ja-4k-ns/op	      1284 records/op	 369495722 ru-4k-ns/op	 476764143 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2141049221 ns/op	   2.45 MB/s	 422833930 ar-4k-ns/op	 376557051 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 430502303 ja-4k-ns/op	      1284 records/op	 497988898 ru-4k-ns/op	 413152427 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2731758632 ns/op	   1.92 MB/s	 640880197 ar-4k-ns/op	 441861708 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 572042379 ja-4k-ns/op	      1284 records/op	 476634947 ru-4k-ns/op	 600335188 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 11 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1507045143 ns/op	   6.32 MB/s	 261297937 ar-4k-ns/op	 274628349 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 285378558 ja-4k-ns/op	      1284 records/op	 432369889 ru-4k-ns/op	 253365898 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1415280503 ns/op	   3.70 MB/s	 273589315 ar-4k-ns/op	 341067251 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 289126586 ja-4k-ns/op	      1284 records/op	 246254379 ru-4k-ns/op	 265237652 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2581518604 ns/op	   2.03 MB/s	 382763378 ar-4k-ns/op	 404222784 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 607432789 ja-4k-ns/op	      1284 records/op	 625637250 ru-4k-ns/op	 561457932 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1980203246 ns/op	   4.81 MB/s	 352579026 ar-4k-ns/op	 348150505 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 446797999 ja-4k-ns/op	      1284 records/op	 345279812 ru-4k-ns/op	 487391837 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1969335829 ns/op	   2.66 MB/s	 373299269 ar-4k-ns/op	 340510457 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 406090761 ja-4k-ns/op	      1284 records/op	 414047836 ru-4k-ns/op	 435382118 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2698573171 ns/op	   1.94 MB/s	 479646204 ar-4k-ns/op	 481979939 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 674932821 ja-4k-ns/op	      1284 records/op	 486823921 ru-4k-ns/op	 575186950 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 12 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1509478414 ns/op	   6.31 MB/s	 316404199 ar-4k-ns/op	 278534502 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 286873259 ja-4k-ns/op	      1284 records/op	 361592487 ru-4k-ns/op	 266069269 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1708042745 ns/op	   3.07 MB/s	 345838245 ar-4k-ns/op	 365696712 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 389218397 ja-4k-ns/op	      1284 records/op	 264446613 ru-4k-ns/op	 342837736 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2824163756 ns/op	   1.86 MB/s	 426310223 ar-4k-ns/op	 447949071 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 651239152 ja-4k-ns/op	      1284 records/op	 662616876 ru-4k-ns/op	 636043712 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2004169056 ns/op	   4.75 MB/s	 395061286 ar-4k-ns/op	 334475952 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 432695757 ja-4k-ns/op	      1284 records/op	 393299889 ru-4k-ns/op	 448631797 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1960941108 ns/op	   2.67 MB/s	 362969572 ar-4k-ns/op	 355799316 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 386349293 ja-4k-ns/op	      1284 records/op	 385789194 ru-4k-ns/op	 470027901 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2764202623 ns/op	   1.90 MB/s	 502601184 ar-4k-ns/op	 467682271 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 727481564 ja-4k-ns/op	      1284 records/op	 482524492 ru-4k-ns/op	 583908073 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 13 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1632424368 ns/op	   5.83 MB/s	 388591717 ar-4k-ns/op	 312012004 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 289447479 ja-4k-ns/op	      1284 records/op	 373934164 ru-4k-ns/op	 268433079 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1462894007 ns/op	   3.58 MB/s	 265636471 ar-4k-ns/op	 357503363 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 299843786 ja-4k-ns/op	      1284 records/op	 294374976 ru-4k-ns/op	 245530685 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2553053619 ns/op	   2.05 MB/s	 456406279 ar-4k-ns/op	 389632500 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 629491462 ja-4k-ns/op	      1284 records/op	 573727631 ru-4k-ns/op	 503791405 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2074800634 ns/op	   4.59 MB/s	 356396571 ar-4k-ns/op	 414150267 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 419758098 ja-4k-ns/op	      1284 records/op	 399127586 ru-4k-ns/op	 485363663 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2034955643 ns/op	   2.58 MB/s	 378876820 ar-4k-ns/op	 345317141 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 417521602 ja-4k-ns/op	      1284 records/op	 399022737 ru-4k-ns/op	 494211476 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2786993493 ns/op	   1.88 MB/s	 465856058 ar-4k-ns/op	 481317813 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 753041842 ja-4k-ns/op	      1284 records/op	 517326003 ru-4k-ns/op	 569447695 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 14 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1681016602 ns/op	   5.66 MB/s	 284339383 ar-4k-ns/op	 372627970 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 307930833 ja-4k-ns/op	      1284 records/op	 447901109 ru-4k-ns/op	 268212827 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1473518991 ns/op	   3.56 MB/s	 277525226 ar-4k-ns/op	 321159907 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 311825340 ja-4k-ns/op	      1284 records/op	 265557336 ru-4k-ns/op	 297445934 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2808159375 ns/op	   1.87 MB/s	 519687653 ar-4k-ns/op	 409654824 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 709385125 ja-4k-ns/op	      1284 records/op	 662489153 ru-4k-ns/op	 506938417 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2110530560 ns/op	   4.51 MB/s	 361664303 ar-4k-ns/op	 416041763 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 444021974 ja-4k-ns/op	      1284 records/op	 416828753 ru-4k-ns/op	 471969779 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2035407428 ns/op	   2.58 MB/s	 439001122 ar-4k-ns/op	 357287964 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 410688267 ja-4k-ns/op	      1284 records/op	 389395666 ru-4k-ns/op	 439029229 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2643175569 ns/op	   1.98 MB/s	 604947149 ar-4k-ns/op	 403513882 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 643416121 ja-4k-ns/op	      1284 records/op	 442412251 ru-4k-ns/op	 548882820 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 15 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1495801204 ns/op	   6.37 MB/s	 239557519 ar-4k-ns/op	 421169728 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 298408716 ja-4k-ns/op	      1284 records/op	 256560092 ru-4k-ns/op	 280100478 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1421167428 ns/op	   3.69 MB/s	 280281880 ar-4k-ns/op	 329810162 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 292058034 ja-4k-ns/op	      1284 records/op	 266709946 ru-4k-ns/op	 252301909 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2620418887 ns/op	   2.00 MB/s	 481483260 ar-4k-ns/op	 374605036 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 676657046 ja-4k-ns/op	      1284 records/op	 601153418 ru-4k-ns/op	 486516435 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2279180735 ns/op	   4.18 MB/s	 429601683 ar-4k-ns/op	 367575706 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 517473993 ja-4k-ns/op	      1284 records/op	 405894707 ru-4k-ns/op	 558628913 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2149879033 ns/op	   2.44 MB/s	 443035605 ar-4k-ns/op	 368979500 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 463690183 ja-4k-ns/op	      1284 records/op	 435185643 ru-4k-ns/op	 438983172 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2714183878 ns/op	   1.93 MB/s	 663503323 ar-4k-ns/op	 428269243 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 609214619 ja-4k-ns/op	      1284 records/op	 458752998 ru-4k-ns/op	 554439592 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 16 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1516641102 ns/op	   6.28 MB/s	 319385036 ar-4k-ns/op	 284198543 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 287603461 ja-4k-ns/op	      1284 records/op	 353081490 ru-4k-ns/op	 272369490 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1423695465 ns/op	   3.68 MB/s	 261259802 ar-4k-ns/op	 314206610 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 316836238 ja-4k-ns/op	      1284 records/op	 259990847 ru-4k-ns/op	 271397702 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2587309407 ns/op	   2.03 MB/s	 477486598 ar-4k-ns/op	 390746612 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 640587120 ja-4k-ns/op	      1284 records/op	 586836012 ru-4k-ns/op	 491648891 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1848192412 ns/op	   5.15 MB/s	 313672413 ar-4k-ns/op	 287792684 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 423710792 ja-4k-ns/op	      1284 records/op	 345098598 ru-4k-ns/op	 477913148 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1922038573 ns/op	   2.73 MB/s	 354475570 ar-4k-ns/op	 345398941 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 398649547 ja-4k-ns/op	      1284 records/op	 383224810 ru-4k-ns/op	 440285683 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	3062702341 ns/op	   1.71 MB/s	 813110394 ar-4k-ns/op	 433144067 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 645258422 ja-4k-ns/op	      1284 records/op	 514019271 ru-4k-ns/op	 657165760 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 17 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1777625948 ns/op	   5.36 MB/s	 298295043 ar-4k-ns/op	 355966933 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 336130741 ja-4k-ns/op	      1284 records/op	 459581483 ru-4k-ns/op	 327647328 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1511861303 ns/op	   3.47 MB/s	 268680212 ar-4k-ns/op	 372564665 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 312365299 ja-4k-ns/op	      1284 records/op	 275303952 ru-4k-ns/op	 282941873 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2583348226 ns/op	   2.03 MB/s	 448149515 ar-4k-ns/op	 409566130 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 661875540 ja-4k-ns/op	      1284 records/op	 586371871 ru-4k-ns/op	 477381126 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1859462464 ns/op	   5.12 MB/s	 344130501 ar-4k-ns/op	 295833373 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 411970499 ja-4k-ns/op	      1284 records/op	 354935201 ru-4k-ns/op	 452588161 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2000713262 ns/op	   2.62 MB/s	 373523850 ar-4k-ns/op	 344045609 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 421948564 ja-4k-ns/op	      1284 records/op	 438937728 ru-4k-ns/op	 422252037 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2699684013 ns/op	   1.94 MB/s	 743437903 ar-4k-ns/op	 423115608 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 543378711 ja-4k-ns/op	      1284 records/op	 449942365 ru-4k-ns/op	 539805121 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 18 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1524776695 ns/op	   6.24 MB/s	 395801432 ar-4k-ns/op	 290400154 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 271720961 ja-4k-ns/op	      1284 records/op	 298358534 ru-4k-ns/op	 268490567 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1460599716 ns/op	   3.59 MB/s	 262737059 ar-4k-ns/op	 356459547 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 284062672 ja-4k-ns/op	      1284 records/op	 264806216 ru-4k-ns/op	 292529571 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2599024938 ns/op	   2.02 MB/s	 544729197 ar-4k-ns/op	 376259881 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 665989380 ja-4k-ns/op	      1284 records/op	 555278991 ru-4k-ns/op	 456763488 zh-4k-ns/op	919925904 B/op	  613074 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2113483069 ns/op	   4.51 MB/s	 366768561 ar-4k-ns/op	 334839267 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 530965216 ja-4k-ns/op	      1284 records/op	 368165956 ru-4k-ns/op	 512739402 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	2076627770 ns/op	   2.52 MB/s	 384800523 ar-4k-ns/op	 399334003 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 443990826 ja-4k-ns/op	      1284 records/op	 389592166 ru-4k-ns/op	 458905028 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2790135136 ns/op	   1.88 MB/s	 551347633 ar-4k-ns/op	 463441966 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 679291568 ja-4k-ns/op	      1284 records/op	 516385151 ru-4k-ns/op	 579664662 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 19 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1668622472 ns/op	   5.71 MB/s	 298710201 ar-4k-ns/op	 385485800 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 311065474 ja-4k-ns/op	      1284 records/op	 366709860 ru-4k-ns/op	 306646814 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1412481064 ns/op	   3.71 MB/s	 300191885 ar-4k-ns/op	 297378074 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 294716705 ja-4k-ns/op	      1284 records/op	 242741641 ru-4k-ns/op	 277447984 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2587984541 ns/op	   2.03 MB/s	 469656012 ar-4k-ns/op	 379695901 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 520813200 ja-4k-ns/op	      1284 records/op	 617089547 ru-4k-ns/op	 600725413 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	2170635212 ns/op	   4.39 MB/s	 423164783 ar-4k-ns/op	 337281156 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 496213684 ja-4k-ns/op	      1284 records/op	 405131373 ru-4k-ns/op	 508839686 zh-4k-ns/op	177851328 B/op	 1110870 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1908851115 ns/op	   2.75 MB/s	 352086301 ar-4k-ns/op	 337674192 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 413526714 ja-4k-ns/op	      1284 records/op	 357495042 ru-4k-ns/op	 448063474 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2674488410 ns/op	   1.96 MB/s	 542095127 ar-4k-ns/op	 408811748 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 640467856 ja-4k-ns/op	      1284 records/op	 453041098 ru-4k-ns/op	 630068852 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS
+# sample 20 current
+goos: linux
+goarch: amd64
+pkg: github.com/gosimd/bpe
+cpu: Intel Xeon Processor (Skylake, IBRS, no TSX)
+BenchmarkCompact/gpt2/ModelTokenize         	       1	1573093566 ns/op	   6.05 MB/s	 328166225 ar-4k-ns/op	 355921341 en-4k-ns/op	33890347988 id-sum/op	   9521822 input-bytes/op	 289463102 ja-4k-ns/op	      1284 records/op	 348750905 ru-4k-ns/op	 250786972 zh-4k-ns/op	246326664 B/op	 1164488 allocs/op
+BenchmarkCompact/gpt2/TokenizerAppendIDs    	       1	1361625305 ns/op	   3.85 MB/s	 255960715 ar-4k-ns/op	 312811255 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 289040545 ja-4k-ns/op	      1284 records/op	 276524073 ru-4k-ns/op	 227284507 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/gpt2/TokenizerEncode       	       1	2759264600 ns/op	   1.90 MB/s	 412597885 ar-4k-ns/op	 417886170 en-4k-ns/op	33890347988 id-sum/op	   5242876 input-bytes/op	 711533902 ja-4k-ns/op	      1284 records/op	 599183546 ru-4k-ns/op	 618058881 zh-4k-ns/op	919926184 B/op	  613078 allocs/op
+BenchmarkCompact/qwen3-8/ModelTokenize      	       1	1827690117 ns/op	   5.21 MB/s	 309249485 ar-4k-ns/op	 314852218 en-4k-ns/op	80999935409 id-sum/op	   9521822 input-bytes/op	 413134491 ja-4k-ns/op	      1284 records/op	 352396931 ru-4k-ns/op	 438053383 zh-4k-ns/op	177851192 B/op	 1110868 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerAppendIDs 	       1	1874491847 ns/op	   2.80 MB/s	 376101329 ar-4k-ns/op	 325427930 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 409832314 ja-4k-ns/op	      1284 records/op	 359562837 ru-4k-ns/op	 403563264 zh-4k-ns/op	       0 B/op	       0 allocs/op
+BenchmarkCompact/qwen3-8/TokenizerEncode    	       1	2742515955 ns/op	   1.91 MB/s	 680814777 ar-4k-ns/op	 472444564 en-4k-ns/op	80999935409 id-sum/op	   5242876 input-bytes/op	 534469275 ja-4k-ns/op	      1284 records/op	 480683690 ru-4k-ns/op	 574100330 zh-4k-ns/op	417001664 B/op	  583710 allocs/op
+PASS

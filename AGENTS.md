@@ -254,7 +254,12 @@ the upstream or intentional contract change in the same commit.
   without normalizer are tooling artifacts, not runtime normalization support.
   The extended catalogue stays model-only for Qwen. Benchmark `json` pipelines
   load through the public constructor and must pass the full HF gate.
-  Preserve decimal GB/s, explicit byte denominators and per-record allocations.
+  Preserve decimal MB/s, explicit byte denominators and per-record allocations.
+  Name compact runs by CPU/architecture/ISA, never by SSH aliases. Publish only
+  report.md, run.json with measurement metadata, and samples.txt (plus raw
+  baseline samples for comparisons). Keep full execution metadata, local paths,
+  commands, patches, validation logs, checksum manifests and machine-specific
+  setup instructions under ignored benchmarks/runs/, not published results.
   Current BPE backend is scalar. When adding SIMD, update the compact harness
   to verify dispatch and implement same-commit scalar selection before reporting
   scalar speedups; never treat CPU ISA flags or the heap oracle as that evidence.

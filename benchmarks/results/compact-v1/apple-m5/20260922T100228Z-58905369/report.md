@@ -10,16 +10,16 @@ Five NFC-prepared language pools (en/ru/ar/ja/zh), independently encoded ~4 KiB 
 Normalization, loading, compilation, allocation of dst, and HF correctness checks are outside timing.
 No BPE cache. Special-token insertion off; AddedToken matching on. AppendIDs reuses sufficient dst capacity.
 
-| Model | API | GB/s ↑ (95% median CI) | B/request ↓ | allocs/request ↓ | × previous | × scalar |
+| Model | API | MB/s ↑ (95% median CI) | B/request ↓ | allocs/request ↓ | × previous | × scalar |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| GPT-2 | Model.Tokenize | 0.031 [0.0307, 0.0312] | 191843 | 906.92 | — | — |
-| GPT-2 | Tokenizer.AppendIDs | 0.0164 [0.0163, 0.0165] | 0 | 0.00 | — | — |
-| GPT-2 | Tokenizer.Encode | 0.0105 [0.0104, 0.0106] | 716453 | 477.48 | — | — |
-| Qwen3.8 / prepared NFC | Model.Tokenize | 0.0312 [0.0309, 0.0315] | 138513 | 865.16 | — | — |
-| Qwen3.8 / prepared NFC | Tokenizer.AppendIDs | 0.014 [0.0139, 0.0141] | 0 | 0.00 | — | — |
-| Qwen3.8 / prepared NFC | Tokenizer.Encode | 0.0117 [0.0116, 0.0117] | 324768 | 454.60 | — | — |
+| GPT-2 | Model.Tokenize | 31 [30.7, 31.2] | 191843 | 906.92 | — | — |
+| GPT-2 | Tokenizer.AppendIDs | 16.4 [16.3, 16.5] | 0 | 0.00 | — | — |
+| GPT-2 | Tokenizer.Encode | 10.5 [10.4, 10.6] | 716453 | 477.48 | — | — |
+| Qwen3.8 / prepared NFC | Model.Tokenize | 31.2 [30.9, 31.5] | 138513 | 865.16 | — | — |
+| Qwen3.8 / prepared NFC | Tokenizer.AppendIDs | 14 [13.9, 14.1] | 0 | 0.00 | — | — |
+| Qwen3.8 / prepared NFC | Tokenizer.Encode | 11.7 [11.6, 11.7] | 324768 | 454.60 | — | — |
 
-1 GB = 10⁹ bytes; GB/s = input bytes / nanoseconds. Model counts transformed-piece UTF-8 bytes; Tokenizer counts prepared source bytes.
+1 MB = 10⁶ bytes; MB/s = 1000 × input bytes / nanoseconds. Model counts transformed-piece UTF-8 bytes; Tokenizer counts prepared source bytes.
 One timed op is a complete five-language pass; allocations are divided by source-record count, including for Model.
 Timed paths consume every output ID in a checksum. Language timing boundaries add five clock intervals per pass.
 CI: distribution-free order-statistic interval for the median. Ratios, when present, use an independent-sample bootstrap (4,000 resamples, seed 1729).
@@ -27,18 +27,13 @@ Scalar comparison is unavailable: both current production merge paths are scalar
 
 ## Execution conditions
 
-MacBook Pro M5; macOS 26.6.2; power observations recorded; no affinity pinning; background load and thermal conditions uncontrolled; no concurrent agent test or build jobs during sampling
+MacBook Pro M5; macOS 26.6.2; battery power; no affinity pinning; background load and thermal conditions uncontrolled.
 
-Affinity: not pinned
+Affinity: not pinned. Power source: Now drawing from 'Battery Power'.
 
-Power at start:
-```text
-Now drawing from 'Battery Power'
- -InternalBattery-0 (id=34930787)	21%; discharging; 2:08 remaining present: true
-```
+Raw samples: [samples.txt](samples.txt). Measurement metadata: [run.json](run.json).
+HF 0.23.2 is a correctness oracle here, not a timed competitor.
 
-Source snapshot: `source.patch` applies to the recorded commit; hashes in `run.json` include dirty/new benchmark files.
-Raw samples: `samples.txt`; full metadata, source/prepared hashes, exact record lengths and summary: `run.json`.
-Full-corpus oracle output is ignored and regenerated locally. HF 0.23.2 is a correctness oracle here, not a timed competitor.
+Measured source includes uncommitted changes; its file hashes are recorded in run.json.
 
 First baseline: no previous version was supplied; no speedup is claimed.

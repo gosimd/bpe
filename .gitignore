@@ -40,3 +40,16 @@ tools/hf-reference/target/
 
 # Full-corpus Hugging Face oracle files are generated locally.
 testdata/generated/
+
+# Local benchmark diagnostics, execution notes, patches and incomplete runs.
+/benchmarks/runs/
+
+# Compact published reports contain only results, metadata and raw samples.
+/benchmarks/results/compact-v1/**/validation.txt
+/benchmarks/results/compact-v1/**/source.patch
+/benchmarks/results/compact-v1/**/SHA256SUMS
+/benchmarks/results/compact-v1/**/*.log
+/benchmarks/results/compact-v1/**/*.sh
+/benchmarks/results/compact-v1/**/remote-setup.md
+/benchmarks/results/compact-v1/**/cpu-*.txt
+/benchmarks/results/compact-v1/**/load-*.txt

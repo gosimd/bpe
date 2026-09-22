@@ -2,23 +2,10 @@
   "protocol": "compact-v1",
   "complete": true,
   "created_utc": "2026-09-22T10:02:28.545636+00:00",
+  "finished_utc": "2026-09-22T10:08:08.827843+00:00",
   "commit": "58905369b51afe76fa51c571bab32220dda0c4b1",
   "machine": "apple-m5",
-  "host": {
-    "system": "Darwin",
-    "release": "25.6.0",
-    "architecture": "arm64",
-    "logical_cpus": 10,
-    "affinity": "not pinned",
-    "cpu": "Apple M5",
-    "memory": "34359738368",
-    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83",
-    "isa": "hw.optional.arm.FEAT_CRC32: 1\nhw.optional.arm.FEAT_FlagM: 1\nhw.optional.arm.FEAT_FlagM2: 1\nhw.optional.arm.FEAT_FHM: 1\nhw.optional.arm.FEAT_DotProd: 1\nhw.optional.arm.FEAT_SHA3: 1\nhw.optional.arm.FEAT_RDM: 1\nhw.optional.arm.FEAT_LSE: 1\nhw.optional.arm.FEAT_SHA256: 1\nhw.optional.arm.FEAT_SHA512: 1\nhw.optional.arm.FEAT_SHA1: 1\nhw.optional.arm.FEAT_AES: 1\nhw.optional.arm.FEAT_PMULL: 1\nhw.optional.arm.FEAT_SPECRES: 0\nhw.optional.arm.FEAT_SPECRES2: 0\nhw.optional.arm.FEAT_SB: 1\nhw.optional.arm.FEAT_FRINTTS: 1\nhw.optional.arm.FEAT_PACIMP: 1\nhw.optional.arm.FEAT_LRCPC: 1\nhw.optional.arm.FEAT_LRCPC2: 1\nhw.optional.arm.FEAT_FCMA: 1\nhw.optional.arm.FEAT_JSCVT: 1\nhw.optional.arm.FEAT_PAuth: 1\nhw.optional.arm.FEAT_PAuth2: 1\nhw.optional.arm.FEAT_FPAC: 1\nhw.optional.arm.FEAT_FPACCOMBINE: 1\nhw.optional.arm.FEAT_DPB: 1\nhw.optional.arm.FEAT_DPB2: 1\nhw.optional.arm.FEAT_BF16: 1\nhw.optional.arm.FEAT_EBF16: 1\nhw.optional.arm.FEAT_I8MM: 1\nhw.optional.arm.FEAT_WFxT: 1\nhw.optional.arm.FEAT_RPRES: 1\nhw.optional.arm.FEAT_CSSC: 1\nhw.optional.arm.FEAT_HBC: 1\nhw.optional.arm.FEAT_ECV: 1\nhw.optional.arm.FEAT_AFP: 1\nhw.optional.arm.FEAT_LSE2: 1\nhw.optional.arm.FEAT_CSV2: 1\nhw.optional.arm.FEAT_CSV3: 1\nhw.optional.arm.FEAT_DIT: 1\nhw.optional.arm.AdvSIMD: 1\nhw.optional.arm.AdvSIMD_HPFPCvt: 1\nhw.optional.arm.FEAT_FP16: 1\nhw.optional.arm.FEAT_SSBS: 0\nhw.optional.arm.FEAT_BTI: 1\nhw.optional.arm.FEAT_SME: 1\nhw.optional.arm.FEAT_SME2: 1\nhw.optional.arm.FEAT_SME2p1: 1\nhw.optional.arm.FEAT_MTE: 1\nhw.optional.arm.FEAT_MTE2: 1\nhw.optional.arm.FEAT_MTE3: 0\nhw.optional.arm.FEAT_MTE4: 1\nhw.optional.arm.FEAT_MTE_ASYNC: 0\nhw.optional.arm.FEAT_MTE_STORE_ONLY: 1\nhw.optional.arm.SME_F32F32: 1\nhw.optional.arm.SME_BI32I32: 1\nhw.optional.arm.SME_B16F32: 1\nhw.optional.arm.SME_F16F32: 1\nhw.optional.arm.SME_I8I32: 1\nhw.optional.arm.SME_I16I32: 1\nhw.optional.arm.FEAT_SME_F64F64: 1\nhw.optional.arm.FEAT_SME_I16I64: 1\nhw.optional.arm.FEAT_SME_F16F16: 1\nhw.optional.arm.FEAT_SME_B16B16: 1\nhw.optional.arm.FEAT_SVE_B16B16: 1\nhw.optional.arm.FP_SyncExceptions: 1\nhw.optional.arm.FEAT_MTE_CANONICAL_TAGS: 1\nhw.optional.arm.FEAT_MTE_NO_ADDRESS_TAGS: 1\nhw.optional.arm.caps: -4612108402691149825\nhw.optional.arm.sme_max_svl_b: 64\nhw.optional.floatingpoint: 1\nhw.optional.neon: 1\nhw.optional.neon_hpfp: 1\nhw.optional.neon_fp16: 1\nhw.optional.armv8_crc32: 1\nhw.optional.armv8_gpi: 1\nhw.optional.armv8_1_atomics: 1\nhw.optional.armv8_2_fhm: 1\nhw.optional.armv8_2_sha512: 1\nhw.optional.armv8_2_sha3: 1\nhw.optional.armv8_3_compnum: 1\nhw.optional.watchpoint: 4\nhw.optional.breakpoint: 6\nhw.optional.ucnormal_mem: 1\nhw.optional.arm64: 1",
-    "power": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=34930787)\t21%; discharging; 2:08 remaining present: true",
-    "power_settings": "Battery Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10"
-  },
-  "environment": "MacBook Pro M5; macOS 26.6.2; power observations recorded; no affinity pinning; background load and thermal conditions uncontrolled; no concurrent agent test or build jobs during sampling",
-  "samples": 20,
+  "source_modified": true,
   "go_version": "go version go1.27.0 darwin/arm64",
   "go_settings": {
     "CGO_ENABLED": "1",
@@ -2804,579 +2791,12 @@
     "tools/workload-instrument/main.go": "102f243836090e41b93c94a48bf8c49a091756b60d396775285b98bba32043ae",
     "tools/workload-instrument/main_test.go": "8c091e9b1660d518b94100bed2409d91d8746d71db0223ad6ba5ae85fb63e241"
   },
-  "commands": [
-    {
-      "argv": [
-        "rustc",
-        "--version"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "cargo",
-        "build",
-        "--locked",
-        "--release",
-        "--manifest-path",
-        "tools/hf-reference/Cargo.toml",
-        "--bin",
-        "hf-reference",
-        "--example",
-        "prepare_nfc"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "go",
-        "run",
-        "./tools/benchmark-suite",
-        "-models",
-        "gpt2,qwen3-8",
-        "-prepare-only"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/examples/prepare_nfc",
-        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/en-4k.jsonl",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/en-4k.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/examples/prepare_nfc",
-        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ru-4k.jsonl",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/ru-4k.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/examples/prepare_nfc",
-        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ar-4k.jsonl",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/ar-4k.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/examples/prepare_nfc",
-        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/ja-4k.jsonl",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/ja-4k.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/examples/prepare_nfc",
-        "/Users/ax2/gosimd/bpe/testdata/generated/corpora/zh-4k.jsonl",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/zh-4k.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/gpt2-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/en-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/gpt2/en-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/gpt2-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ru-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/gpt2/ru-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/gpt2-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ar-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/gpt2/ar-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/gpt2-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ja-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/gpt2/ja-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/gpt2-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/zh-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/gpt2/zh-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/qwen3-8-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/en-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/qwen3-8/en-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/qwen3-8-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ru-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/qwen3-8/ru-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/qwen3-8-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ar-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/qwen3-8/ar-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/qwen3-8-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/ja-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/qwen3-8/ja-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "tools/hf-reference/target/release/hf-reference",
-        "generate",
-        "--tokenizer",
-        "testdata/generated/compact-v1/qwen3-8-tokenizer.json",
-        "--corpus",
-        "testdata/generated/compact-v1/zh-4k.jsonl",
-        "--output",
-        "testdata/generated/suite/qwen3-8/zh-4k-compact.jsonl"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "git",
-        "diff",
-        "HEAD",
-        "--",
-        "Makefile",
-        "added_token.go",
-        "append_ids_test.go",
-        "benchmarks/suite.json",
-        "compact_benchmark_test.go",
-        "corpus_benchmark_loader_test.go",
-        "corpus_benchmark_test.go",
-        "doc.go",
-        "encoding.go",
-        "errors.go",
-        "example_test.go",
-        "go.mod",
-        "go.sum",
-        "hf_reference_test.go",
-        "internal/addedtoken/matcher.go",
-        "internal/addedtoken/matcher_test.go",
-        "internal/benchsuite/model.go",
-        "internal/benchsuite/model_test.go",
-        "internal/benchsuite/suite.go",
-        "internal/benchsuite/suite_test.go",
-        "internal/hforacle/oracle.go",
-        "internal/hforacle/oracle_test.go",
-        "internal/jsoncheck/validate.go",
-        "internal/jsoncheck/validate_test.go",
-        "internal/model/encode.go",
-        "internal/model/encode_test.go",
-        "internal/model/load.go",
-        "internal/model/load_test.go",
-        "internal/model/merge.go",
-        "internal/model/merge_minimum_test.go",
-        "internal/model/merge_test.go",
-        "internal/model/model.go",
-        "internal/model/workload_generated_test.go",
-        "internal/model/workload_suite_test.go",
-        "internal/model/workload_test.go",
-        "internal/postprocess/bytelevel.go",
-        "internal/postprocess/bytelevel_test.go",
-        "internal/postprocess/postprocess.go",
-        "internal/postprocess/template.go",
-        "internal/postprocess/template_test.go",
-        "internal/pretokenize/hf_reference_test.go",
-        "internal/pretokenize/pipeline.go",
-        "internal/pretokenize/pipeline_test.go",
-        "internal/tokenizer/added.go",
-        "internal/tokenizer/json.go",
-        "internal/tokenizer/load.go",
-        "internal/tokenizer/load_postprocess.go",
-        "internal/tokenizer/tokenizer.go",
-        "internal/tokenizer/tokenizer_test.go",
-        "model.go",
-        "model_json_test.go",
-        "model_test.go",
-        "post_processor.go",
-        "scripts/benchmark_compact.py",
-        "scripts/benchmark_model_suite.py",
-        "scripts/generate_hf_added_token_fixtures.py",
-        "scripts/generate_hf_post_processor_fixtures.py",
-        "scripts/test_benchmark_compact.py",
-        "token.go",
-        "tokenizer.go",
-        "tokenizer_bytelevel_test.go",
-        "tokenizer_json.go",
-        "tokenizer_json_test.go",
-        "tokenizer_test.go",
-        "tools/benchmark-suite/main.go",
-        "tools/hf-reference/Cargo.lock",
-        "tools/hf-reference/Cargo.toml",
-        "tools/hf-reference/examples/bytelevel_prefix.rs",
-        "tools/hf-reference/examples/prepare_nfc.rs",
-        "tools/hf-reference/examples/tokenizer_json.rs",
-        "tools/hf-reference/rust-toolchain.toml",
-        "tools/hf-reference/src/benchmark.rs",
-        "tools/hf-reference/src/main.rs",
-        "tools/workload-instrument/main.go",
-        "tools/workload-instrument/main_test.go"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "go",
-        "test",
-        "-mod=readonly",
-        "-c",
-        "-o",
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "."
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^TestHFSuite$",
-        "-test.count=1"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    },
-    {
-      "argv": [
-        "/Users/ax2/gosimd/bpe/testdata/generated/compact-v1/compact.test",
-        "-test.run=^$",
-        "-test.bench=^BenchmarkCompact$",
-        "-test.benchtime=1x",
-        "-test.count=1",
-        "-test.cpu=1",
-        "-test.benchmem"
-      ],
-      "cwd": "/Users/ax2/gosimd/bpe"
-    }
-  ],
-  "process_environment": {
-    "GOWORK": "off",
-    "GOMAXPROCS": "1",
-    "GOGC": "",
-    "GOMEMLIMIT": "",
-    "GODEBUG": "",
-    "GOFLAGS": "",
-    "GOEXPERIMENT": "",
-    "GOCACHE": "/private/tmp/bpe-gocache",
-    "CARGO_HOME": "/private/tmp/bpe-cargo",
-    "RUSTUP_TOOLCHAIN": "1.98.1",
-    "RAYON_NUM_THREADS": "1",
-    "TOKENIZERS_PARALLELISM": "false",
-    "PATH": "/Users/ax2/.cargo/bin:/Users/ax2/.rustup/toolchains/1.98.1-aarch64-apple-darwin/bin:/Users/ax2/gosimd/.tools/go1.27rc3/bin:/Users/ax2/gosimd/.gopath/bin:/opt/homebrew/opt/ruby/bin:/Users/ax2/.opencode/bin:/Users/ax2/.antigravity/antigravity/bin:/Users/ax2/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/usr/local/go/bin:/opt/homebrew/bin:/Users/ax2/.codex/tmp/arg0/codex-arg0g5rKAu:/Users/ax2/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/ax2/gosimd/.tools/go1.27rc3/bin:/Users/ax2/gosimd/.gopath/bin:/opt/homebrew/opt/ruby/bin:/Users/ax2/.opencode/bin:/Users/ax2/.antigravity/antigravity/bin:/Users/ax2/.local/bin:/Users/ax2/.lmstudio/bin:/Users/ax2/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources:/Users/ax2/.lmstudio/bin"
-  },
-  "source_patch_sha256": "5846d624019054f158b62aa1ebb14bd6e8412f24d50da42eb9d115b5a565e6b4",
-  "binary_sha256": "3366ed1b4eb97b740ae1598b9fff5eacfedb30c721ade912c726d8723a99125a",
-  "finished_utc": "2026-09-22T10:08:08.827843+00:00",
   "summary": {
     "gpt2/ModelTokenize": {
-      "gb_s": 0.03096140673534358,
-      "gb_s_ci95": [
-        0.030742578556957327,
-        0.031243665201390564
+      "mb_s": 30.961406735343584,
+      "mb_s_ci95": [
+        30.742578556957326,
+        31.243665201390563
       ],
       "ns_per_byte": 32.298274059313435,
       "bytes_per_record": 191843.09034267912,
@@ -3385,10 +2805,10 @@
       "input_bytes": 9521822
     },
     "gpt2/TokenizerAppendIDs": {
-      "gb_s": 0.016390475387971032,
-      "gb_s_ci95": [
-        0.01629197601980689,
-        0.016510302042320076
+      "mb_s": 16.390475387971033,
+      "mb_s_ci95": [
+        16.29197601980689,
+        16.510302042320077
       ],
       "ns_per_byte": 61.01104308017203,
       "bytes_per_record": 0.0,
@@ -3397,10 +2817,10 @@
       "input_bytes": 5242876
     },
     "gpt2/TokenizerEncode": {
-      "gb_s": 0.010509320907190967,
-      "gb_s_ci95": [
-        0.010444856896667343,
-        0.01055698260085361
+      "mb_s": 10.509320907190967,
+      "mb_s_ci95": [
+        10.444856896667345,
+        10.55698260085361
       ],
       "ns_per_byte": 95.15362684526585,
       "bytes_per_record": 716453.4143302181,
@@ -3409,10 +2829,10 @@
       "input_bytes": 5242876
     },
     "qwen3-8/ModelTokenize": {
-      "gb_s": 0.0311547913683111,
-      "gb_s_ci95": [
-        0.030919235301256707,
-        0.031459729669901244
+      "mb_s": 31.154791368311102,
+      "mb_s_ci95": [
+        30.919235301256705,
+        31.459729669901243
       ],
       "ns_per_byte": 32.097791578124436,
       "bytes_per_record": 138513.4953271028,
@@ -3421,10 +2841,10 @@
       "input_bytes": 9521822
     },
     "qwen3-8/TokenizerAppendIDs": {
-      "gb_s": 0.01396556760479698,
-      "gb_s_ci95": [
-        0.013915156147775394,
-        0.014080547443576941
+      "mb_s": 13.965567604796979,
+      "mb_s_ci95": [
+        13.915156147775393,
+        14.080547443576942
       ],
       "ns_per_byte": 71.60468004583744,
       "bytes_per_record": 0.0,
@@ -3433,10 +2853,10 @@
       "input_bytes": 5242876
     },
     "qwen3-8/TokenizerEncode": {
-      "gb_s": 0.011678930949841862,
-      "gb_s_ci95": [
-        0.011647346735197487,
-        0.011744174575238181
+      "mb_s": 11.678930949841863,
+      "mb_s_ci95": [
+        11.647346735197488,
+        11.744174575238182
       ],
       "ns_per_byte": 85.62427539770157,
       "bytes_per_record": 324767.65109034267,
@@ -3446,5 +2866,39 @@
     }
   },
   "comparisons": {},
-  "power_end": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=34930787)\t19%; discharging; 1:13 remaining present: true"
+  "environment": "MacBook Pro M5; macOS 26.6.2; battery power; no affinity pinning; background load and thermal conditions uncontrolled.",
+  "samples": 20,
+  "host": {
+    "cpu": "Apple M5",
+    "system": "Darwin",
+    "release": "25.6.0",
+    "architecture": "arm64",
+    "logical_cpus": 10,
+    "affinity": "not pinned",
+    "memory": "34359738368",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83",
+    "isa": "hw.optional.arm.FEAT_CRC32: 1\nhw.optional.arm.FEAT_FlagM: 1\nhw.optional.arm.FEAT_FlagM2: 1\nhw.optional.arm.FEAT_FHM: 1\nhw.optional.arm.FEAT_DotProd: 1\nhw.optional.arm.FEAT_SHA3: 1\nhw.optional.arm.FEAT_RDM: 1\nhw.optional.arm.FEAT_LSE: 1\nhw.optional.arm.FEAT_SHA256: 1\nhw.optional.arm.FEAT_SHA512: 1\nhw.optional.arm.FEAT_SHA1: 1\nhw.optional.arm.FEAT_AES: 1\nhw.optional.arm.FEAT_PMULL: 1\nhw.optional.arm.FEAT_SPECRES: 0\nhw.optional.arm.FEAT_SPECRES2: 0\nhw.optional.arm.FEAT_SB: 1\nhw.optional.arm.FEAT_FRINTTS: 1\nhw.optional.arm.FEAT_PACIMP: 1\nhw.optional.arm.FEAT_LRCPC: 1\nhw.optional.arm.FEAT_LRCPC2: 1\nhw.optional.arm.FEAT_FCMA: 1\nhw.optional.arm.FEAT_JSCVT: 1\nhw.optional.arm.FEAT_PAuth: 1\nhw.optional.arm.FEAT_PAuth2: 1\nhw.optional.arm.FEAT_FPAC: 1\nhw.optional.arm.FEAT_FPACCOMBINE: 1\nhw.optional.arm.FEAT_DPB: 1\nhw.optional.arm.FEAT_DPB2: 1\nhw.optional.arm.FEAT_BF16: 1\nhw.optional.arm.FEAT_EBF16: 1\nhw.optional.arm.FEAT_I8MM: 1\nhw.optional.arm.FEAT_WFxT: 1\nhw.optional.arm.FEAT_RPRES: 1\nhw.optional.arm.FEAT_CSSC: 1\nhw.optional.arm.FEAT_HBC: 1\nhw.optional.arm.FEAT_ECV: 1\nhw.optional.arm.FEAT_AFP: 1\nhw.optional.arm.FEAT_LSE2: 1\nhw.optional.arm.FEAT_CSV2: 1\nhw.optional.arm.FEAT_CSV3: 1\nhw.optional.arm.FEAT_DIT: 1\nhw.optional.arm.AdvSIMD: 1\nhw.optional.arm.AdvSIMD_HPFPCvt: 1\nhw.optional.arm.FEAT_FP16: 1\nhw.optional.arm.FEAT_SSBS: 0\nhw.optional.arm.FEAT_BTI: 1\nhw.optional.arm.FEAT_SME: 1\nhw.optional.arm.FEAT_SME2: 1\nhw.optional.arm.FEAT_SME2p1: 1\nhw.optional.arm.FEAT_MTE: 1\nhw.optional.arm.FEAT_MTE2: 1\nhw.optional.arm.FEAT_MTE3: 0\nhw.optional.arm.FEAT_MTE4: 1\nhw.optional.arm.FEAT_MTE_ASYNC: 0\nhw.optional.arm.FEAT_MTE_STORE_ONLY: 1\nhw.optional.arm.SME_F32F32: 1\nhw.optional.arm.SME_BI32I32: 1\nhw.optional.arm.SME_B16F32: 1\nhw.optional.arm.SME_F16F32: 1\nhw.optional.arm.SME_I8I32: 1\nhw.optional.arm.SME_I16I32: 1\nhw.optional.arm.FEAT_SME_F64F64: 1\nhw.optional.arm.FEAT_SME_I16I64: 1\nhw.optional.arm.FEAT_SME_F16F16: 1\nhw.optional.arm.FEAT_SME_B16B16: 1\nhw.optional.arm.FEAT_SVE_B16B16: 1\nhw.optional.arm.FP_SyncExceptions: 1\nhw.optional.arm.FEAT_MTE_CANONICAL_TAGS: 1\nhw.optional.arm.FEAT_MTE_NO_ADDRESS_TAGS: 1\nhw.optional.arm.caps: -4612108402691149825\nhw.optional.arm.sme_max_svl_b: 64\nhw.optional.floatingpoint: 1\nhw.optional.neon: 1\nhw.optional.neon_hpfp: 1\nhw.optional.neon_fp16: 1\nhw.optional.armv8_crc32: 1\nhw.optional.armv8_gpi: 1\nhw.optional.armv8_1_atomics: 1\nhw.optional.armv8_2_fhm: 1\nhw.optional.armv8_2_sha512: 1\nhw.optional.armv8_2_sha3: 1\nhw.optional.armv8_3_compnum: 1\nhw.optional.watchpoint: 4\nhw.optional.breakpoint: 6\nhw.optional.ucnormal_mem: 1\nhw.optional.arm64: 1",
+    "power": "Now drawing from 'Battery Power'"
+  },
+  "process_environment": {
+    "GOWORK": "off",
+    "GOMAXPROCS": "1",
+    "GOGC": "",
+    "GOMEMLIMIT": "",
+    "GODEBUG": "",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": "",
+    "RUSTUP_TOOLCHAIN": "1.98.1",
+    "RAYON_NUM_THREADS": "1",
+    "TOKENIZERS_PARALLELISM": "false"
+  },
+  "measurement_flags": [
+    "-test.run=^$",
+    "-test.bench=^BenchmarkCompact$",
+    "-test.benchtime=1x",
+    "-test.count=1",
+    "-test.cpu=1",
+    "-test.benchmem"
+  ],
+  "throughput_unit": "MB/s (10^6 bytes/s)"
 }

@@ -236,7 +236,7 @@ tested against the heap oracle around their dispatch boundaries.
 ## Performance
 
 The [compact benchmark](benchmarks/COMPACT.md) generates an independent six-row
-GB/s report per machine for GPT-2 and Qwen3.8 on prepared NFC text. It records
+MB/s report per machine for GPT-2 and Qwen3.8 on prepared NFC text. It records
 allocations, raw samples and reproducibility metadata; it does not claim full
 Qwen support or existing SIMD acceleration.
 
